@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="description" content="Mid City Wrld — Custom apparel & specialty print studio. DTF, vinyl, sublimation, HTV. Ogden, UT.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Mid City Wrld">
+<title>Mid City Wrld — Wear The World</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cobalt: #1a5aff;
+  --cobalt-dark: #0d3db5;
+  --cobalt-glow: rgba(26,90,255,0.18);
+  --cobalt-border: rgba(26,90,255,0.35);
+  --black: #080808;
+  --surface: #111;
+  --surface2: #181818;
+  --border: #222;
+  --border2: #2e2e2e;
+  --white: #f0ede8;
+  --muted: #666;
+  --muted2: #444;
+  --accent: #c8ff00;
+  --red: #ff3a3a;
+  --success: #00c97a;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--black);
+  color:var(--white);
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:400;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--black);}
+::-webkit-scrollbar-thumb{background:var(--cobalt);border-radius:2px;}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(8,8,8,0.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:0 20px;
+  height:56px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:26px;letter-spacing:3px;
+  color:var(--white);
+  cursor:pointer;
+}
+.nav-logo span{color:var(--cobalt);}
+.nav-right{display:flex;align-items:center;gap:16px;}
+.cart-btn{
+  display:flex;align-items:center;gap:7px;
+  background:var(--cobalt);
+  border:none;color:var(--white);
+  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1px;
+  padding:8px 14px;border-radius:5px;cursor:pointer;
+  transition:background 0.15s;
+}
+.cart-btn:hover{background:var(--cobalt-dark);}
+.cart-count{
+  background:var(--accent);color:var(--black);
+  font-size:10px;font-weight:700;
+  width:18px;height:18px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+}
+.nav-menu{display:flex;gap:20px;align-items:center;}
+.nav-link{
+  color:var(--muted);font-size:13px;letter-spacing:1.5px;text-transform:uppercase;
+  background:none;border:none;cursor:pointer;transition:color 0.15s;
+  font-family:'DM Mono',monospace;
+}
+.nav-link:hover,.nav-link.active{color:var(--white);}
+
+/* ─── HERO ─── */
+.hero{
+  margin-top:56px;
+  min-height:88vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+  padding:60px 20px 40px;
+  position:relative;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 0%, rgba(26,90,255,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 80% 80%, rgba(26,90,255,0.06) 0%, transparent 60%);
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(26,90,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,90,255,0.04) 1px, transparent 1px);
+  background-size:40px 40px;
+}
+.hero-content{position:relative;z-index:1;}
+.hero-eyebrow{
+  font-family:'DM Mono',monospace;
+  font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--cobalt);margin-bottom:16px;
+  animation:fadeUp 0.6s ease both;
+}
+.hero-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(72px,14vw,160px);
+  line-height:0.88;letter-spacing:6px;
+  color:var(--white);
+  animation:fadeUp 0.6s 0.1s ease both;
+}
+.hero-title .line2{color:var(--cobalt);}
+.hero-sub{
+  font-size:17px;letter-spacing:1px;color:var(--muted);
+  margin:20px 0 36px;font-weight:400;
+  animation:fadeUp 0.6s 0.2s ease both;
+}
+.hero-ctas{
+  display:flex;gap:12px;justify-content:center;flex-wrap:wrap;
+  animation:fadeUp 0.6s 0.3s ease both;
+}
+.btn-primary{
+  background:var(--cobalt);color:var(--white);border:none;
+  font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;
+  padding:14px 32px;border-radius:6px;cursor:pointer;
+  transition:background 0.15s,transform 0.1s;
+}
+.btn-primary:hover{background:var(--cobalt-dark);transform:translateY(-1px);}
+.btn-outline{
+  background:transparent;color:var(--white);
+  border:1px solid var(--border2);
+  font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;
+  padding:14px 32px;border-radius:6px;cursor:pointer;
+  transition:border-color 0.15s,transform 0.1s;
+}
+.btn-outline:hover{border-color:var(--cobalt);transform:translateY(-1px);}
+
+/* ─── STATS BAR ─── */
+.stats-bar{
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:20px;
+  display:flex;justify-content:center;gap:0;
+  background:var(--surface);
+}
+.stat{
+  flex:1;max-width:180px;
+  text-align:center;
+  padding:0 20px;
+  border-right:1px solid var(--border);
+}
+.stat:last-child{border-right:none;}
+.stat-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:32px;letter-spacing:2px;color:var(--cobalt);
+}
+.stat-label{
+  font-family:'DM Mono',monospace;
+  font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);
+  margin-top:2px;
+}
+
+/* ─── SECTION ─── */
+.section{padding:64px 20px;}
+.section-max{max-width:1000px;margin:0 auto;}
+.section-header{margin-bottom:36px;}
+.section-eyebrow{
+  font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:3px;text-transform:uppercase;color:var(--cobalt);
+  margin-bottom:8px;
+}
+.section-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(36px,6vw,56px);letter-spacing:3px;
+  line-height:0.95;
+}
+
+/* ─── PRODUCT GRID ─── */
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:16px;
+}
+.product-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;overflow:hidden;
+  cursor:pointer;transition:border-color 0.2s,transform 0.15s;
+}
+.product-card:hover{
+  border-color:var(--cobalt-border);
+  transform:translateY(-3px);
+}
+.product-visual{
+  height:200px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--surface2);
+  position:relative;overflow:hidden;
+}
+.product-visual svg{filter:drop-shadow(0 4px 20px rgba(26,90,255,0.2));}
+.product-badge{
+  position:absolute;top:10px;left:10px;
+  background:var(--cobalt);color:var(--white);
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;
+  padding:4px 8px;border-radius:3px;text-transform:uppercase;
+}
+.product-badge.hot{background:#ff3a3a;}
+.product-info{padding:16px;}
+.product-name{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:22px;letter-spacing:2px;margin-bottom:4px;
+}
+.product-desc{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:12px;}
+.product-price{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:20px;letter-spacing:1px;color:var(--cobalt);
+}
+.product-price span{font-size:13px;color:var(--muted);font-family:'DM Mono',monospace;}
+.product-add{
+  width:100%;margin-top:12px;
+  background:transparent;border:1px solid var(--border2);
+  color:var(--white);font-family:'Bebas Neue',sans-serif;
+  font-size:15px;letter-spacing:2px;
+  padding:10px;border-radius:5px;cursor:pointer;
+  transition:all 0.15s;
+}
+.product-add:hover{background:var(--cobalt);border-color:var(--cobalt);}
+
+/* ─── ORDER FORM MODAL ─── */
+.modal-overlay{
+  display:none;position:fixed;inset:0;z-index:200;
+  background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);
+  align-items:center;justify-content:center;padding:20px;
+}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:12px;
+  width:100%;max-width:560px;
+  max-height:90vh;overflow-y:auto;
+  animation:modalIn 0.25s ease;
+}
+@keyframes modalIn{from{opacity:0;transform:scale(0.96)translateY(10px);}to{opacity:1;transform:none;}}
+.modal-header{
+  padding:20px 22px 16px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;background:var(--surface);z-index:1;
+}
+.modal-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;}
+.modal-close{
+  background:none;border:none;color:var(--muted);
+  font-size:22px;cursor:pointer;width:32px;height:32px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:4px;transition:color 0.15s,background 0.15s;
+}
+.modal-close:hover{color:var(--white);background:var(--border);}
+.modal-body{padding:22px;}
+
+/* ─── FORM FIELDS ─── */
+.field{margin-bottom:18px;}
+.field label{
+  display:block;
+  font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:2px;text-transform:uppercase;color:var(--muted);
+  margin-bottom:7px;
+}
+.field input,.field select,.field textarea{
+  width:100%;
+  background:var(--surface2);
+  border:1px solid var(--border2);
+  color:var(--white);
+  font-family:'Barlow Condensed',sans-serif;font-size:15px;
+  padding:11px 14px;border-radius:6px;
+  outline:none;transition:border-color 0.15s;
+  appearance:none;-webkit-appearance:none;
+}
+.field input:focus,.field select:focus,.field textarea:focus{
+  border-color:var(--cobalt);
+}
+.field textarea{min-height:90px;resize:vertical;}
+.field select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23666' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;
+  padding-right:36px;
+}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+
+/* ─── COLOR SWATCHES ─── */
+.swatches-label{
+  font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:2px;text-transform:uppercase;color:var(--muted);
+  margin-bottom:8px;
+}
+.swatches-grid{
+  display:flex;flex-wrap:wrap;gap:7px;
+  max-height:160px;overflow-y:auto;
+  padding-right:4px;
+  margin-bottom:18px;
+}
+.swatch{
+  width:28px;height:28px;border-radius:50%;
+  cursor:pointer;border:2px solid transparent;
+  transition:transform 0.1s,border-color 0.1s;
+  position:relative;
+  flex-shrink:0;
+}
+.swatch:hover{transform:scale(1.15);}
+.swatch.selected{border-color:var(--white);transform:scale(1.15);}
+.swatch-tooltip{
+  position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);
+  background:var(--black);border:1px solid var(--border2);
+  color:var(--white);font-family:'DM Mono',monospace;font-size:9px;
+  padding:4px 8px;border-radius:3px;white-space:nowrap;
+  pointer-events:none;opacity:0;transition:opacity 0.1s;
+  z-index:10;
+}
+.swatch:hover .swatch-tooltip{opacity:1;}
+.selected-color-name{
+  font-size:13px;color:var(--cobalt);margin-bottom:12px;
+  font-family:'DM Mono',monospace;
+}
+
+/* ─── PRINT LOCATIONS ─── */
+.locations{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+.loc-btn{
+  background:var(--surface2);border:1px solid var(--border2);
+  color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:1px;padding:7px 12px;border-radius:4px;
+  cursor:pointer;transition:all 0.15s;
+}
+.loc-btn.active{
+  background:var(--cobalt-glow);border-color:var(--cobalt);color:var(--cobalt);
+}
+
+/* ─── PRICE SUMMARY ─── */
+.price-summary{
+  background:var(--surface2);border:1px solid var(--border2);
+  border-radius:8px;padding:16px;margin-bottom:18px;
+}
+.price-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:5px 0;font-size:14px;color:var(--muted);
+}
+.price-row.total{
+  border-top:1px solid var(--border2);margin-top:8px;padding-top:12px;
+  font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;
+  color:var(--white);
+}
+.price-row.total span:last-child{color:var(--cobalt);}
+
+/* ─── CART DRAWER ─── */
+.cart-drawer{
+  position:fixed;top:0;right:-100%;bottom:0;z-index:300;
+  width:100%;max-width:420px;
+  background:var(--surface);
+  border-left:1px solid var(--border2);
+  transition:right 0.3s cubic-bezier(0.4,0,0.2,1);
+  display:flex;flex-direction:column;
+}
+.cart-drawer.open{right:0;}
+.cart-drawer-header{
+  padding:20px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.cart-drawer-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;}
+.cart-items{flex:1;overflow-y:auto;padding:16px;}
+.cart-item{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:8px;padding:14px;margin-bottom:10px;
+  display:flex;gap:12px;align-items:flex-start;
+}
+.cart-item-visual{
+  width:52px;height:52px;border-radius:6px;
+  background:var(--border);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.cart-item-info{flex:1;}
+.cart-item-name{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:1px;}
+.cart-item-detail{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-top:3px;line-height:1.6;}
+.cart-item-price{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--cobalt);}
+.cart-remove{
+  background:none;border:none;color:var(--muted2);cursor:pointer;
+  font-size:18px;line-height:1;padding:2px;transition:color 0.15s;
+}
+.cart-remove:hover{color:var(--red);}
+.cart-footer{padding:16px;border-top:1px solid var(--border);}
+.cart-total-row{
+  display:flex;justify-content:space-between;
+  font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;
+  margin-bottom:12px;
+}
+.cart-total-row span:last-child{color:var(--cobalt);}
+.cart-empty{
+  text-align:center;padding:60px 20px;
+  color:var(--muted);font-family:'DM Mono',monospace;font-size:12px;
+  letter-spacing:2px;
+}
+.cart-empty svg{margin-bottom:16px;opacity:0.3;}
+
+/* ─── CHECKOUT ─── */
+.checkout-section{padding:80px 20px;}
+.checkout-grid{
+  max-width:800px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 320px;gap:24px;
+}
+.checkout-form{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:24px;}
+.checkout-summary{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:24px;height:fit-content;
+  position:sticky;top:76px;
+}
+.checkout-title{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;margin-bottom:20px;}
+.payment-methods{display:flex;gap:8px;margin-bottom:20px;}
+.pay-method{
+  flex:1;padding:10px;border-radius:6px;
+  border:1px solid var(--border2);background:var(--surface2);
+  cursor:pointer;text-align:center;
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;
+  color:var(--muted);transition:all 0.15s;
+}
+.pay-method.active{border-color:var(--cobalt);color:var(--cobalt);background:var(--cobalt-glow);}
+.submit-btn{
+  width:100%;background:var(--cobalt);color:var(--white);
+  border:none;font-family:'Bebas Neue',sans-serif;
+  font-size:20px;letter-spacing:2px;padding:16px;
+  border-radius:7px;cursor:pointer;
+  transition:background 0.15s;margin-top:8px;
+}
+.submit-btn:hover{background:var(--cobalt-dark);}
+.submit-btn:disabled{opacity:0.5;cursor:not-allowed;}
+
+/* ─── SUCCESS ─── */
+.success-screen{
+  display:none;text-align:center;padding:80px 20px;
+}
+.success-screen.show{display:block;}
+.success-icon{
+  width:80px;height:80px;border-radius:50%;
+  background:var(--success);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 24px;
+  font-size:36px;
+}
+.success-title{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:3px;margin-bottom:12px;}
+.success-msg{color:var(--muted);font-size:15px;line-height:1.6;max-width:400px;margin:0 auto 28px;}
+
+/* ─── SERVICES ─── */
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:12px;
+}
+.service-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:8px;padding:18px;
+  transition:border-color 0.2s;
+}
+.service-card:hover{border-color:var(--cobalt-border);}
+.service-icon{font-size:28px;margin-bottom:10px;}
+.service-name{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1.5px;margin-bottom:4px;}
+.service-desc{font-size:13px;color:var(--muted);line-height:1.5;}
+.service-price{
+  margin-top:10px;font-family:'DM Mono',monospace;
+  font-size:11px;color:var(--cobalt);letter-spacing:1px;
+}
+
+/* ─── FOOTER ─── */
+footer{
+  background:var(--surface);border-top:1px solid var(--border);
+  padding:40px 20px 28px;text-align:center;
+}
+.footer-logo{
+  font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:4px;
+  margin-bottom:6px;
+}
+.footer-logo span{color:var(--cobalt);}
+.footer-tag{color:var(--muted);font-size:13px;letter-spacing:2px;margin-bottom:20px;}
+.footer-links{
+  display:flex;justify-content:center;gap:24px;flex-wrap:wrap;
+  margin-bottom:20px;
+}
+.footer-link{
+  color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:2px;text-decoration:none;text-transform:uppercase;
+  transition:color 0.15s;
+}
+.footer-link:hover{color:var(--cobalt);}
+.footer-copy{color:var(--muted2);font-size:12px;font-family:'DM Mono',monospace;}
+
+/* ─── TOAST ─── */
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);
+  background:var(--surface);border:1px solid var(--cobalt-border);
+  color:var(--white);font-family:'DM Mono',monospace;font-size:12px;letter-spacing:1px;
+  padding:12px 20px;border-radius:7px;
+  z-index:999;transition:transform 0.3s ease;white-space:nowrap;
+}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+/* ─── DIVIDER ─── */
+.divider{height:1px;background:var(--border);margin:0;}
+
+/* ─── PAGE SECTIONS ─── */
+.page{display:none;}
+.page.active{display:block;}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(16px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:700px){
+  .checkout-grid{grid-template-columns:1fr;}
+  .checkout-summary{position:static;}
+  .stat{padding:0 10px;}
+  .stat-num{font-size:24px;}
+  .nav-menu{display:none;}
+  .field-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">MID CITY <span>WRLD</span></div>
+  <div class="nav-menu">
+    <button class="nav-link" onclick="showPage('home')">Home</button>
+    <button class="nav-link" onclick="showPage('shop')">Shop</button>
+    <button class="nav-link" onclick="showPage('services')">Services</button>
+    <button class="nav-link" onclick="showPage('contact')">Contact</button>
+  </div>
+  <div class="nav-right">
+    <button class="cart-btn" onclick="toggleCart()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      CART <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ─── HOME PAGE ─── -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Ogden, Utah · Est. 2018</div>
+      <div class="hero-title">
+        WEAR<br><span class="line2">THE WORLD</span>
+      </div>
+      <div class="hero-sub">Custom apparel & specialty print studio · DTF · Vinyl · Sublimation · HTV</div>
+      <div class="hero-ctas">
+        <button class="btn-primary" onclick="showPage('shop')">Shop Now</button>
+        <button class="btn-outline" onclick="openOrderForm('custom')">Custom Quote</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-num">DTF</div><div class="stat-label">Transfers</div></div>
+    <div class="stat"><div class="stat-num">HTV</div><div class="stat-label">Specialty</div></div>
+    <div class="stat"><div class="stat-num">3–5</div><div class="stat-label">Day Turnaround</div></div>
+    <div class="stat"><div class="stat-num">2018</div><div class="stat-label">Established</div></div>
+  </div>
+
+  <!-- Services Preview -->
+  <section class="section">
+    <div class="section-max">
+      <div class="section-header">
+        <div class="section-eyebrow">What We Do</div>
+        <div class="section-title">PRINT. PRESS.<br>DELIVER.</div>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">👕</div>
+          <div class="service-name">DTF Apparel</div>
+          <div class="service-desc">Full-color transfers on any fabric. Tees, hoodies, hats — if it takes heat, we print it.</div>
+          <div class="service-price">FROM $25 / PIECE</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">✨</div>
+          <div class="service-name">Specialty HTV</div>
+          <div class="service-desc">Flock, chrome, glitter, puff, glow-in-dark, reflective, metallic, foil and more.</div>
+          <div class="service-price">FROM $40 / PIECE</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🏷️</div>
+          <div class="service-name">Vinyl & Stickers</div>
+          <div class="service-desc">Decals, sticker sheets, die-cuts. Indoor/outdoor. Any shape, any size.</div>
+          <div class="service-price">FROM $5 / SHEET</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🎽</div>
+          <div class="service-name">Team Orders</div>
+          <div class="service-desc">Bulk pricing for sports teams, schools, events, and businesses. The more you order, the better the price.</div>
+          <div class="service-price">ASK FOR QUOTE</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🌈</div>
+          <div class="service-name">Sublimation</div>
+          <div class="service-desc">All-over prints, drinkware, phone cases, mousepads — dye-sub quality that lasts.</div>
+          <div class="service-price">FROM $20 / PIECE</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🎂</div>
+          <div class="service-name">Event & Decor</div>
+          <div class="service-desc">Birthday cutouts, custom lanyards, patches, and party decor. We make your event pop.</div>
+          <div class="service-price">ASK FOR QUOTE</div>
+        </div>
+      </div>
+      <div style="margin-top:28px;text-align:center;">
+        <button class="btn-primary" onclick="showPage('shop')">Browse All Products</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ─── SHOP PAGE ─── -->
+<div class="page" id="page-shop">
+  <section class="section" style="padding-top:80px;">
+    <div class="section-max">
+      <div class="section-header">
+        <div class="section-eyebrow">Mid City Wrld</div>
+        <div class="section-title">THE SHOP</div>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ─── SERVICES PAGE ─── -->
+<div class="page" id="page-services">
+  <section class="section" style="padding-top:80px;">
+    <div class="section-max">
+      <div class="section-header">
+        <div class="section-eyebrow">Mid City Wrld</div>
+        <div class="section-title">SERVICES &<br>PRICING</div>
+      </div>
+
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:24px;">
+        <div style="padding:16px 20px;background:var(--surface2);border-bottom:1px solid var(--border);font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;">GILDAN 5000 TEES</div>
+        <div style="padding:20px;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;">
+            <div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:14px;">
+              <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;margin-bottom:6px;">1–4 PIECES</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--cobalt);">$25–30</div>
+            </div>
+            <div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:14px;">
+              <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;margin-bottom:6px;">6–11 PIECES</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--cobalt);">$22–24</div>
+            </div>
+            <div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:14px;">
+              <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;margin-bottom:6px;">12–23 PIECES</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--cobalt);">$20–22</div>
+            </div>
+            <div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:14px;">
+              <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;margin-bottom:6px;">24+ PIECES</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--cobalt);">$18–20</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:24px;">
+        <div style="padding:16px 20px;background:var(--surface2);border-bottom:1px solid var(--border);font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;">AMERICAN APPAREL 1301</div>
+        <div style="padding:20px;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;">
+            <div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:14px;">
+              <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;margin-bottom:6px;">1–4 PIECES</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--cobalt);">$38–42</div>
+            </div>
+            <div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:14px;">
+              <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;margin-bottom:6px;">6–11 PIECES</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--cobalt);">$34–37</div>
+            </div>
+            <div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:14px;">
+              <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;margin-bottom:6px;">12–23 PIECES</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--cobalt);">$30–33</div>
+            </div>
+            <div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:14px;">
+              <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;margin-bottom:6px;">24+ PIECES</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--cobalt);">$28–30</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--surface2);border:1px solid var(--cobalt-border);border-radius:10px;padding:22px;margin-bottom:24px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;margin-bottom:14px;color:var(--cobalt);">POLICIES</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;">
+          <div style="font-size:14px;color:var(--muted);"><span style="color:var(--white);font-weight:600;">Minimum Order</span><br>$15</div>
+          <div style="font-size:14px;color:var(--muted);"><span style="color:var(--white);font-weight:600;">Deposit</span><br>50% upfront</div>
+          <div style="font-size:14px;color:var(--muted);"><span style="color:var(--white);font-weight:600;">Turnaround</span><br>3–5 business days</div>
+          <div style="font-size:14px;color:var(--muted);"><span style="color:var(--white);font-weight:600;">Rush Orders</span><br>+20–30%</div>
+          <div style="font-size:14px;color:var(--muted);"><span style="color:var(--white);font-weight:600;">Design Fee</span><br>$10–25</div>
+          <div style="font-size:14px;color:var(--muted);"><span style="color:var(--white);font-weight:600;">Payment</span><br>Venmo, Cash, Cash App</div>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:32px;">
+        <button class="btn-primary" onclick="openOrderForm('custom')">Get A Custom Quote</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ─── CONTACT PAGE ─── -->
+<div class="page" id="page-contact">
+  <section class="section" style="padding-top:80px;">
+    <div class="section-max" style="max-width:600px;">
+      <div class="section-header">
+        <div class="section-eyebrow">Mid City Wrld</div>
+        <div class="section-title">GET IN<br>TOUCH</div>
+      </div>
+      <div style="display:grid;gap:14px;margin-bottom:36px;">
+        <a href="mailto:midcitywrld@gmail.com" style="text-decoration:none;">
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px;display:flex;align-items:center;gap:14px;transition:border-color 0.15s;" onmouseover="this.style.borderColor='var(--cobalt-border)'" onmouseout="this.style.borderColor='var(--border)'">
+            <span style="font-size:24px;">✉️</span>
+            <div>
+              <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;margin-bottom:3px;">EMAIL</div>
+              <div style="font-size:15px;">midcitywrld@gmail.com</div>
+            </div>
+          </div>
+        </a>
+        <a href="tel:8014100490" style="text-decoration:none;">
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px;display:flex;align-items:center;gap:14px;transition:border-color 0.15s;" onmouseover="this.style.borderColor='var(--cobalt-border)'" onmouseout="this.style.borderColor='var(--border)'">
+            <span style="font-size:24px;">📱</span>
+            <div>
+              <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;margin-bottom:3px;">PHONE / TEXT</div>
+              <div style="font-size:15px;">(801) 410-0490</div>
+            </div>
+          </div>
+        </a>
+        <a href="https://instagram.com/midcity.wrld" target="_blank" style="text-decoration:none;">
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px;display:flex;align-items:center;gap:14px;transition:border-color 0.15s;" onmouseover="this.style.borderColor='var(--cobalt-border)'" onmouseout="this.style.borderColor='var(--border)'">
+            <span style="font-size:24px;">📸</span>
+            <div>
+              <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;margin-bottom:3px;">INSTAGRAM</div>
+              <div style="font-size:15px;">@midcity.wrld</div>
+            </div>
+          </div>
+        </a>
+        <a href="https://facebook.com/MIDCITYWRLD" target="_blank" style="text-decoration:none;">
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px;display:flex;align-items:center;gap:14px;transition:border-color 0.15s;" onmouseover="this.style.borderColor='var(--cobalt-border)'" onmouseout="this.style.borderColor='var(--border)'">
+            <span style="font-size:24px;">👥</span>
+            <div>
+              <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;margin-bottom:3px;">FACEBOOK</div>
+              <div style="font-size:15px;">@MIDCITYWRLD</div>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div style="background:var(--surface2);border:1px solid var(--cobalt-border);border-radius:10px;padding:20px;text-align:center;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;margin-bottom:6px;">BASED IN OGDEN, UTAH</div>
+        <div style="color:var(--muted);font-size:13px;line-height:1.6;">We serve Weber County and surrounding areas.<br>Local pickup available · Shipping available nationwide.</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ─── ORDER FORM MODAL ─── -->
+<div class="modal-overlay" id="orderModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">PLACE YOUR ORDER</div>
+      <button class="modal-close" onclick="closeOrderForm()">✕</button>
+    </div>
+    <div class="modal-body">
+      <!-- Step 1: Product -->
+      <div id="formStep1">
+        <div class="field">
+          <label>Your Name</label>
+          <input type="text" id="custName" placeholder="First Last">
+        </div>
+        <div class="field">
+          <label>Phone / Text</label>
+          <input type="tel" id="custPhone" placeholder="(801) 555-0000">
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input type="email" id="custEmail" placeholder="you@email.com">
+        </div>
+        <div class="field">
+          <label>Product Type</label>
+          <select id="productType" onchange="updatePricing()">
+            <option value="">Select a product...</option>
+            <option value="gildan-tee">Gildan 5000 Tee</option>
+            <option value="aa-tee">American Apparel 1301 Tee</option>
+            <option value="hoodie">Hoodie (Gildan or Similar)</option>
+            <option value="dtf-transfer">DTF Transfer Only (No Blank)</option>
+            <option value="vinyl-decal">Vinyl Decal / Sticker</option>
+            <option value="sticker-sheet">Sticker Sheet 8.5×11</option>
+            <option value="sublimation">Sublimation Item</option>
+            <option value="specialty-htv">Specialty HTV Tee</option>
+            <option value="custom">Custom / Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Quantity</label>
+          <input type="number" id="quantity" min="1" value="1" onchange="updatePricing()">
+        </div>
+
+        <!-- Garment color swatches -->
+        <div id="swatchSection" style="display:none;">
+          <div class="swatches-label">Garment Color</div>
+          <div class="swatches-grid" id="swatchGrid"></div>
+          <div class="selected-color-name" id="selectedColorName">No color selected</div>
+        </div>
+
+        <!-- Print locations -->
+        <div id="locSection" style="display:none;">
+          <div class="swatches-label">Print Location(s)</div>
+          <div class="locations">
+            <button class="loc-btn" onclick="toggleLoc(this)" data-loc="Front">Front</button>
+            <button class="loc-btn" onclick="toggleLoc(this)" data-loc="Back">Back</button>
+            <button class="loc-btn" onclick="toggleLoc(this)" data-loc="Left Sleeve">Left Sleeve</button>
+            <button class="loc-btn" onclick="toggleLoc(this)" data-loc="Right Sleeve">Right Sleeve</button>
+            <button class="loc-btn" onclick="toggleLoc(this)" data-loc="Left Chest">Left Chest</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Sizes Needed</label>
+          <input type="text" id="sizes" placeholder="e.g. 2 S, 5 M, 8 L, 3 XL">
+        </div>
+
+        <div class="field">
+          <label>Design Details / Notes</label>
+          <textarea id="designNotes" placeholder="Describe your design, colors, text, or upload instructions. You can also text your design to (801) 410-0490."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Rush Order?</label>
+          <select id="rushOrder" onchange="updatePricing()">
+            <option value="no">No — Standard (3–5 days)</option>
+            <option value="yes">Yes — Rush (+20–30%)</option>
+          </select>
+        </div>
+
+        <!-- Price estimate -->
+        <div class="price-summary" id="priceSummary" style="display:none;">
+          <div class="price-row"><span>Base Price</span><span id="basePrice">—</span></div>
+          <div class="price-row" id="rushRow" style="display:none;"><span>Rush Fee</span><span id="rushPrice">—</span></div>
+          <div class="price-row" id="depositRow"><span>50% Deposit Due</span><span id="depositPrice">—</span></div>
+          <div class="price-row total"><span>Est. Total</span><span id="totalPrice">—</span></div>
+        </div>
+
+        <div class="field">
+          <label>Pickup or Shipping?</label>
+          <select id="fulfillment">
+            <option value="pickup">Local Pickup — Ogden, UT (Free)</option>
+            <option value="shipping">Ship to Me</option>
+          </select>
+        </div>
+
+        <button class="btn-primary" style="width:100%;font-size:18px;padding:14px;" onclick="submitOrder()">
+          SUBMIT ORDER REQUEST
+        </button>
+        <div style="margin-top:10px;text-align:center;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;">
+          50% deposit required to begin. We'll confirm via text/email within 24hrs.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── SUCCESS MODAL ─── -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal" style="max-width:420px;">
+    <div class="modal-body" style="text-align:center;padding:40px 30px;">
+      <div style="width:70px;height:70px;border-radius:50%;background:var(--success);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:32px;">✓</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:3px;margin-bottom:10px;">ORDER SENT!</div>
+      <div style="color:var(--muted);font-size:14px;line-height:1.7;margin-bottom:24px;">
+        We got your request! We'll hit you back via text or email within 24 hours to confirm your order and send payment info for the 50% deposit.<br><br>
+        <strong style="color:var(--white);">Questions? Text us at (801) 410-0490</strong>
+      </div>
+      <button class="btn-primary" style="width:100%;" onclick="closeSuccess()">BACK TO SHOP</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CART DRAWER ─── -->
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-drawer-header">
+    <div class="cart-drawer-title">YOUR CART</div>
+    <button class="modal-close" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty" id="cartEmpty">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:block;margin:0 auto;"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      CART IS EMPTY
+    </div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none;">
+    <div class="cart-total-row">
+      <span>TOTAL</span><span id="cartTotal">$0.00</span>
+    </div>
+    <button class="submit-btn" onclick="goCheckout()">CHECKOUT</button>
+    <div style="margin-top:8px;text-align:center;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;">
+      Or <span style="color:var(--cobalt);cursor:pointer;" onclick="openOrderForm('custom');toggleCart();">get a custom quote</span>
+    </div>
+  </div>
+</div>
+
+<!-- ─── TOAST ─── -->
+<div class="toast" id="toast">Added to cart</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-logo">MID CITY <span>WRLD</span></div>
+  <div class="footer-tag">WEAR THE WORLD</div>
+  <div class="footer-links">
+    <a class="footer-link" href="mailto:midcitywrld@gmail.com">Email Us</a>
+    <a class="footer-link" href="https://instagram.com/midcity.wrld" target="_blank">Instagram</a>
+    <a class="footer-link" href="https://facebook.com/MIDCITYWRLD" target="_blank">Facebook</a>
+    <button class="footer-link" style="background:none;border:none;cursor:pointer;" onclick="openOrderForm('custom')">Custom Quote</button>
+  </div>
+  <div class="footer-copy">© 2026 Mid City Wrld · Ogden, Utah · midcitywrld@gmail.com</div>
+</footer>
+
+<script>
+// ─── DATA ───────────────────────────────────────────
+const GILDAN_COLORS = [
+  {name:'White',hex:'#FFFFFF'},{name:'Black',hex:'#1a1a1a'},{name:'Navy',hex:'#1B2A4A'},
+  {name:'Royal',hex:'#2255B0'},{name:'Carolina Blue',hex:'#5B9BD5'},{name:'Light Blue',hex:'#A8CCE8'},
+  {name:'Sapphire',hex:'#2C5B9C'},{name:'Forest Green',hex:'#2D5C3A'},{name:'Irish Green',hex:'#2E8B57'},
+  {name:'Lime',hex:'#8BC34A'},{name:'Red',hex:'#C0392B'},{name:'Cardinal',hex:'#7B1818'},
+  {name:'Maroon',hex:'#5C1A1A'},{name:'Orange',hex:'#E8651A'},{name:'Gold',hex:'#E8B31A'},
+  {name:'Yellow Haze',hex:'#F5E67A'},{name:'Purple',hex:'#5B2D8E'},{name:'Heather Purple',hex:'#8E6BB0'},
+  {name:'Charcoal',hex:'#4A4A4A'},{name:'Sport Grey',hex:'#9E9E9E'},{name:'Ice Grey',hex:'#DCDCDC'},
+  {name:'Azalea',hex:'#E8608A'},{name:'Coral Silk',hex:'#F0956B'},{name:'Sand',hex:'#D4B896'}
+];
+const AA_COLORS = [
+  {name:'White',hex:'#FFFFFF'},{name:'Black',hex:'#1a1a1a'},{name:'Asphalt',hex:'#3A3A3A'},
+  {name:'Heather Grey',hex:'#B0B0B0'},{name:'Slate',hex:'#6A7B8A'},{name:'Army',hex:'#5A6340'},
+  {name:'Forest',hex:'#2D5C3A'},{name:'Grass',hex:'#5A9E3A'},{name:'Aqua',hex:'#3AC5C0'},
+  {name:'Teal',hex:'#1A8A82'},{name:'Baby Blue',hex:'#A0C8E8'},{name:'Blue Jean',hex:'#3A6A9E'},
+  {name:'Navy',hex:'#1B2A4A'},{name:'Red',hex:'#C0392B'},{name:'Cranberry',hex:'#8B1A2A'},
+  {name:'Pink',hex:'#E8A0B4'},{name:'Fuchsia',hex:'#C0286A'},{name:'Purple',hex:'#5B2D8E'},
+  {name:'Yellow',hex:'#F5D020'},{name:'Gold',hex:'#E8B31A'}
+];
+
+const PRODUCTS = [
+  {id:1,name:'Gildan Tee — DTF',desc:'Full-color DTF print on Gildan 5000. 24 colors available.',price:25,badge:'POPULAR',type:'gildan-tee',colors:GILDAN_COLORS},
+  {id:2,name:'AA 1301 Tee — DTF',desc:'Premium heavyweight DTF print on American Apparel 1301.',price:38,badge:'PREMIUM',type:'aa-tee',colors:AA_COLORS},
+  {id:3,name:'Specialty HTV Tee',desc:'Chrome, glitter, flock, puff, glow-in-dark and more.',price:40,badge:'HOT',type:'specialty-htv',colors:GILDAN_COLORS},
+  {id:4,name:'Hoodie — DTF',desc:'Full-color DTF on a quality pullover hoodie.',price:45,badge:null,type:'hoodie',colors:GILDAN_COLORS},
+  {id:5,name:'DTF Transfer Only',desc:'Transfers only — you apply to your own blanks.',price:4,badge:null,type:'dtf-transfer',colors:null},
+  {id:6,name:'Sticker Sheet 8.5×11',desc:'Full sheet of custom die-cut stickers. Waterproof.',price:8,badge:null,type:'sticker-sheet',colors:null},
+  {id:7,name:'Vinyl Decal',desc:'Cut vinyl decals for cars, windows, walls, and more.',price:5,badge:null,type:'vinyl-decal',colors:null},
+  {id:8,name:'Custom Quote',desc:'Team orders, events, sublimation, lanyards, decor, patches.',price:null,badge:'BULK',type:'custom',colors:null},
+];
+
+// ─── STATE ───────────────────────────────────────────
+let cart = [];
+let selectedColor = null;
+let selectedLocs = [];
+let currentProduct = null;
+
+// ─── PAGES ───────────────────────────────────────────
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ─── RENDER PRODUCTS ─────────────────────────────────
+function renderProducts() {
+  const grid = document.getElementById('productGrid');
+  grid.innerHTML = PRODUCTS.map(p => `
+    <div class="product-card" onclick="openOrderForm('${p.type}')">
+      <div class="product-visual">
+        ${p.badge ? `<div class="product-badge ${p.badge==='HOT'?'hot':''}">${p.badge}</div>` : ''}
+        ${getProductSVG(p.type)}
+      </div>
+      <div class="product-info">
+        <div class="product-name">${p.name}</div>
+        <div class="product-desc">${p.desc}</div>
+        <div class="product-price">
+          ${p.price ? (p.type==='dtf-transfer' ? `$${p.price} <span>/ transfer</span>` : `$${p.price} <span>/ piece</span>`) : '<span>REQUEST QUOTE</span>'}
+        </div>
+        <button class="product-add" onclick="event.stopPropagation();openOrderForm('${p.type}')">
+          ${p.price ? 'ORDER NOW' : 'GET QUOTE'}
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function getProductSVG(type) {
+  if(type==='gildan-tee'||type==='aa-tee'||type==='specialty-htv'||type==='hoodie') {
+    const isHoodie = type==='hoodie';
+    return `<svg width="120" height="130" viewBox="0 0 120 130">
+      <path d="M30 20 L10 45 L25 50 L22 110 L98 110 L95 50 L110 45 L90 20 L75 30 Q60 38 45 30 Z" fill="#1a1a1a" stroke="#1a5aff" stroke-width="1.5" opacity="0.9"/>
+      ${isHoodie?'<path d="M45 20 Q60 10 75 20 L72 28 Q60 20 48 28 Z" fill="#222" stroke="#1a5aff" stroke-width="1"/>':''}
+      <rect x="48" y="55" width="24" height="20" rx="2" fill="#1a5aff" opacity="0.7"/>
+    </svg>`;
+  }
+  if(type==='sticker-sheet'||type==='vinyl-decal') {
+    return `<svg width="100" height="120" viewBox="0 0 100 120">
+      <rect x="10" y="10" width="80" height="100" rx="6" fill="#1a1a1a" stroke="#1a5aff" stroke-width="1.5"/>
+      <circle cx="35" cy="40" r="14" fill="#1a5aff" opacity="0.6"/>
+      <rect x="18" y="62" width="64" height="8" rx="3" fill="#1a5aff" opacity="0.4"/>
+      <rect x="18" y="76" width="44" height="8" rx="3" fill="#1a5aff" opacity="0.3"/>
+      <rect x="18" y="90" width="54" height="8" rx="3" fill="#1a5aff" opacity="0.2"/>
+    </svg>`;
+  }
+  if(type==='dtf-transfer') {
+    return `<svg width="110" height="110" viewBox="0 0 110 110">
+      <rect x="10" y="20" width="90" height="70" rx="4" fill="#1a1a1a" stroke="#1a5aff" stroke-width="1.5"/>
+      <rect x="20" y="30" width="70" height="50" rx="2" fill="#1a5aff" opacity="0.15"/>
+      <text x="55" y="60" font-family="sans-serif" font-size="28" font-weight="900" fill="#1a5aff" text-anchor="middle" opacity="0.8">DTF</text>
+    </svg>`;
+  }
+  return `<svg width="100" height="100" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="38" fill="#1a1a1a" stroke="#1a5aff" stroke-width="1.5" opacity="0.8"/>
+    <text x="50" y="56" font-family="sans-serif" font-size="18" font-weight="900" fill="#1a5aff" text-anchor="middle">MCW</text>
+  </svg>`;
+}
+
+// ─── ORDER FORM ───────────────────────────────────────
+function openOrderForm(type) {
+  currentProduct = PRODUCTS.find(p=>p.type===type) || PRODUCTS[PRODUCTS.length-1];
+  document.getElementById('modalTitle').textContent = currentProduct.name === 'Custom Quote' ? 'CUSTOM QUOTE' : 'ORDER: ' + currentProduct.name.toUpperCase();
+  document.getElementById('productType').value = type || '';
+  selectedColor = null;
+  selectedLocs = [];
+  updateFormFields();
+  updatePricing();
+  document.getElementById('orderModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeOrderForm() {
+  document.getElementById('orderModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeSuccess() {
+  document.getElementById('successModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function updateFormFields() {
+  const type = document.getElementById('productType').value;
+  const hasGarment = ['gildan-tee','aa-tee','hoodie','specialty-htv'].includes(type);
+  const hasPrint = ['gildan-tee','aa-tee','hoodie','specialty-htv','dtf-transfer'].includes(type);
+
+  document.getElementById('swatchSection').style.display = hasGarment ? 'block' : 'none';
+  document.getElementById('locSection').style.display = hasPrint ? 'block' : 'none';
+
+  if(hasGarment) {
+    const colors = (type==='aa-tee') ? AA_COLORS : GILDAN_COLORS;
+    renderSwatches(colors);
+  }
+}
+
+function renderSwatches(colors) {
+  const grid = document.getElementById('swatchGrid');
+  grid.innerHTML = colors.map((c,i) => `
+    <div class="swatch ${selectedColor===c.name?'selected':''}"
+      style="background:${c.hex};${c.hex==='#FFFFFF'?'border:2px solid #444':''}"
+      onclick="selectColor('${c.name}','${c.hex}',this)"
+      title="${c.name}">
+      <div class="swatch-tooltip">${c.name}</div>
+    </div>
+  `).join('');
+}
+
+function selectColor(name, hex, el) {
+  selectedColor = name;
+  document.querySelectorAll('.swatch').forEach(s => s.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('selectedColorName').textContent = '● ' + name;
+}
+
+function toggleLoc(btn) {
+  const loc = btn.dataset.loc;
+  btn.classList.toggle('active');
+  if(btn.classList.contains('active')) {
+    if(!selectedLocs.includes(loc)) selectedLocs.push(loc);
+  } else {
+    selectedLocs = selectedLocs.filter(l=>l!==loc);
+  }
+  updatePricing();
+}
+
+function updatePricing() {
+  updateFormFields();
+  const type = document.getElementById('productType').value;
+  const qty = parseInt(document.getElementById('quantity').value)||1;
+  const rush = document.getElementById('rushOrder').value === 'yes';
+  const locs = selectedLocs.length;
+
+  let unitPrice = 0;
+  if(type==='gildan-tee') {
+    if(qty>=24) unitPrice=19; else if(qty>=12) unitPrice=21; else if(qty>=6) unitPrice=23; else unitPrice=27;
+    if(locs>1) unitPrice += (locs-1)*4;
+  } else if(type==='aa-tee') {
+    if(qty>=24) unitPrice=29; else if(qty>=12) unitPrice=31; else if(qty>=6) unitPrice=35; else unitPrice=40;
+    if(locs>1) unitPrice += (locs-1)*5;
+  } else if(type==='hoodie') {
+    if(qty>=12) unitPrice=38; else if(qty>=6) unitPrice=42; else unitPrice=47;
+  } else if(type==='specialty-htv') {
+    unitPrice=45;
+  } else if(type==='dtf-transfer') {
+    if(qty>=50) unitPrice=3.5; else if(qty>=24) unitPrice=4; else unitPrice=5;
+  } else if(type==='sticker-sheet') {
+    if(qty>=20) unitPrice=4.5; else if(qty>=10) unitPrice=6; else unitPrice=9;
+  } else if(type==='vinyl-decal') {
+    unitPrice=6;
+  }
+
+  if(!unitPrice) { document.getElementById('priceSummary').style.display='none'; return; }
+
+  let base = unitPrice * qty;
+  let rushFee = rush ? Math.round(base * 0.25) : 0;
+  let total = base + rushFee;
+  let deposit = Math.round(total * 0.5);
+
+  document.getElementById('priceSummary').style.display = 'block';
+  document.getElementById('basePrice').textContent = '$' + base.toFixed(2);
+  document.getElementById('rushRow').style.display = rush ? 'flex' : 'none';
+  if(rush) document.getElementById('rushPrice').textContent = '+$' + rushFee.toFixed(2);
+  document.getElementById('totalPrice').textContent = '$' + total.toFixed(2);
+  document.getElementById('depositPrice').textContent = '$' + deposit.toFixed(2);
+}
+
+function submitOrder() {
+  const name = document.getElementById('custName').value.trim();
+  const phone = document.getElementById('custPhone').value.trim();
+  const product = document.getElementById('productType').value;
+
+  if(!name||!phone||!product) {
+    showToast('Please fill in name, phone, and product type');
+    return;
+  }
+
+  closeOrderForm();
+  document.getElementById('successModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+// ─── CART ─────────────────────────────────────────────
+function toggleCart() {
+  document.getElementById('cartDrawer').classList.toggle('open');
+}
+
+function addToCart(product) {
+  cart.push({...product, id: Date.now()});
+  updateCartUI();
+  showToast('Added to cart!');
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(i => i.id !== id);
+  updateCartUI();
+}
+
+function updateCartUI() {
+  const count = cart.length;
+  document.getElementById('cartCount').textContent = count;
+  const items = document.getElementById('cartItems');
+  const empty = document.getElementById('cartEmpty');
+  const footer = document.getElementById('cartFooter');
+
+  if(count === 0) {
+    empty.style.display = 'block';
+    footer.style.display = 'none';
+    items.innerHTML = '';
+    items.appendChild(empty);
+  } else {
+    empty.style.display = 'none';
+    footer.style.display = 'block';
+    items.innerHTML = cart.map(item => `
+      <div class="cart-item">
+        <div class="cart-item-visual">${getProductSVG(item.type||'custom')}</div>
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-detail">${item.detail||'Custom order'}</div>
+          <div class="cart-item-price">$${item.price||'—'}</div>
+        </div>
+        <button class="cart-remove" onclick="removeFromCart(${item.id})">✕</button>
+      </div>
+    `).join('');
+    const total = cart.reduce((sum,i) => sum+(parseFloat(i.price)||0), 0);
+    document.getElementById('cartTotal').textContent = '$' + total.toFixed(2);
+  }
+}
+
+function goCheckout() {
+  toggleCart();
+  openOrderForm('custom');
+}
+
+// ─── TOAST ────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ─── PWA INSTALL ──────────────────────────────────────
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+});
+
+// ─── INIT ─────────────────────────────────────────────
+renderProducts();
+updateCartUI();
+
+// Close modal on overlay click
+document.getElementById('orderModal').addEventListener('click', function(e) {
+  if(e.target === this) closeOrderForm();
+});
+document.getElementById('successModal').addEventListener('click', function(e) {
+  if(e.target === this) closeSuccess();
+});
+</script>
+
+<!-- PWA Manifest inline -->
+<script>
+const manifestData = {
+  name: "Mid City Wrld",
+  short_name: "MCW",
+  description: "Custom apparel & specialty print studio — Ogden, UT",
+  start_url: "/",
+  display: "standalone",
+  background_color: "#080808",
+  theme_color: "#1a5aff",
+  icons: [
+    {src:"/icons/icon-192.png",sizes:"192x192",type:"image/png"},
+    {src:"/icons/icon-512.png",sizes:"512x512",type:"image/png"}
+  ]
+};
+const blob = new Blob([JSON.stringify(manifestData)], {type:'application/json'});
+const link = document.createElement('link');
+link.rel = 'manifest';
+link.href = URL.createObjectURL(blob);
+document.head.appendChild(link);
+</script>
+</body>
+</html>
