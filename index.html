@@ -665,6 +665,8 @@ footer{
 .upload-filename{margin-top:8px;font-family:'DM Mono',monospace;font-size:11px;color:var(--cobalt);}
 
 </style>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>emailjs.init('32vz0uBs4LB9hzJLd');</script>
 </head>
 <body>
 
@@ -1111,7 +1113,7 @@ footer{
         </div>
         <div class="field">
           <label>Phone / Text</label>
-          <input type="tel" id="custPhone" placeholder="(801) 555-0000">
+          <input type="tel" id="custPhone" placeholder="Your phone number">
         </div>
         <div class="field">
           <label>Email</label>
@@ -1257,7 +1259,7 @@ footer{
 <div class="sms-banner" id="smsBanner">
   <div class="sms-text">📱 Get <span>order updates</span> via text — Ogden's print crew</div>
   <div class="sms-input-wrap">
-    <input class="sms-input" id="smsPhone" type="tel" placeholder="(801) 555-0000">
+    <input class="sms-input" id="smsPhone" type="tel" placeholder="Your phone #">
     <button class="sms-btn" onclick="submitSms()">TEXT ME</button>
   </div>
   <div class="sms-thanks" id="smsThanks">✓ You're in — we'll text you updates!</div>
@@ -1682,15 +1684,45 @@ function submitOrder() {
   const name = document.getElementById('custName').value.trim();
   const phone = document.getElementById('custPhone').value.trim();
   const product = document.getElementById('productType').value;
+  const qty = document.getElementById('quantity').value || '1';
+  const rush = document.getElementById('rushOrder').value === 'yes' ? 'YES +25%' : 'No';
+  const notes = document.getElementById('designNotes').value.trim();
+  const color = selectedColor || 'N/A';
+  const locs = selectedLocs.length ? selectedLocs.join(', ') : 'N/A';
+  const totalEl = document.getElementById('totalPrice');
+  const total = totalEl ? totalEl.textContent : 'TBD';
+  const depositEl = document.getElementById('depositPrice');
+  const deposit = depositEl ? depositEl.textContent : 'TBD';
 
-  if(!name||!phone||!product) {
+  if(!name || !phone || !product) {
     showToast('Please fill in name, phone, and product type');
     return;
   }
 
-  closeOrderForm();
-  document.getElementById('successModal').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  const btn = document.querySelector('#orderModal .btn-primary');
+  if(btn) { btn.textContent = 'SENDING...'; btn.disabled = true; }
+
+  emailjs.send('service_c2s99tf', 'template_l2q9jdb', {
+    Name: name,
+    Phone: phone,
+    Product: product,
+    Quantity: qty,
+    Color: color,
+    Locations: locs,
+    Rush: rush,
+    Est_Total: total,
+    Deposit_Due: deposit,
+    Notes: notes || 'None'
+  })
+  .then(() => {
+    closeOrderForm();
+    document.getElementById('successModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  })
+  .catch(() => {
+    showToast('Something went wrong. Please text (801) 410-0490 directly.');
+    if(btn) { btn.textContent = 'SUBMIT ORDER'; btn.disabled = false; }
+  });
 }
 
 // ─── CART ─────────────────────────────────────────────
