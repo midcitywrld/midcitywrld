@@ -1712,7 +1712,12 @@ function submitOrder() {
     Rush: rush,
     Est_Total: total,
     Deposit_Due: deposit,
-    Notes: notes || 'None'
+    Notes: notes || 'None',
+    name: name,
+    email: 'midcitywrld@gmail.com',
+    title: 'New MCW Order from ' + name,
+    time: new Date().toLocaleString(),
+    message: 'New order from ' + name + ' | Phone: ' + phone + ' | Product: ' + product + ' | Qty: ' + qty + ' | Color: ' + color + ' | Locations: ' + locs + ' | Rush: ' + rush + ' | Total: ' + total + ' | Deposit: ' + deposit + ' | Notes: ' + (notes || 'None')
   })
   .then(() => {
     closeOrderForm();
