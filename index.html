@@ -943,7 +943,7 @@ function updateModalPrice(){
 
 function submitOrder(){
   const name=document.getElementById('orderName').value.trim();const contact=document.getElementById('orderContact').value.trim();const notes=document.getElementById('orderNotes').value.trim();
-  if(!name||!contact||!notes){alert('Please fill in your name, phone number, and design details.');return}
+  if(!name||!contact){alert('Please fill in your name and phone number.');return}
   const product=document.getElementById('orderProduct').value;
   const pLabels={'dtf-tee':'DTF T-Shirt','vinyl':'Specialty Vinyl/HTV','gang':'DTF Gang Sheet','team':'Team/Bulk Order'};
   const gNames={gildan:'Gildan 5000',aa:'AA 1301',bc:'Bella+Canvas 3001',customer:'Customer Supplied'};
