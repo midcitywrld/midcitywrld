@@ -8,18 +8,10 @@
   <meta property="og:description" content="Premium custom apparel & specialty prints. Ogden, UT. Shop online or DM us." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://midcitywrld.com" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Mid City Wrld" />
-  <meta name="twitter:description" content="Custom apparel & specialty print studio. Ogden, UT." />
   <title>Mid City Wrld — Custom Print Studio</title>
-
-  <!-- EmailJS -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-
   <style>
-    /* ── Reset & Base ── */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
     :root {
       --black:   #0a0a0a;
       --dark:    #111111;
@@ -32,863 +24,209 @@
       --muted:   #888888;
       --danger:  #cc3333;
     }
-
     html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--black);
-      color: var(--white);
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-
+    body { background: var(--black); color: var(--white); font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; }
     a { color: inherit; text-decoration: none; }
     button { cursor: pointer; border: none; background: none; font-family: inherit; }
     img { display: block; max-width: 100%; }
-
-    /* ── Scrollbar ── */
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--dark); }
     ::-webkit-scrollbar-thumb { background: var(--cobalt); border-radius: 3px; }
 
     /* ── NAV ── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(10,10,10,0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 60px;
-    }
-
-    .nav-logo {
-      font-size: 1.1rem;
-      font-weight: 900;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-    .nav-logo span { color: var(--cobalt); }
-
-    .nav-links {
-      display: flex;
-      gap: 1.8rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--muted);
-      transition: color 0.2s;
-    }
-    .nav-links a:hover,
-    .nav-links a.active { color: var(--white); }
-
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.96); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .nav-logo { display: flex; align-items: center; gap: 0.7rem; }
+    .nav-logo img { height: 36px; width: 36px; object-fit: contain; }
+    .nav-logo-text { font-size: 1.05rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
+    .nav-logo-text span { color: var(--cobalt); }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a { font-size: 0.78rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--white); }
     .nav-right { display: flex; align-items: center; gap: 0.8rem; }
-
-    .cart-btn {
-      position: relative;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 0.4rem 0.9rem;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--white);
-      transition: border-color 0.2s;
-    }
+    .cart-btn { position: relative; background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 0.4rem 0.9rem; font-size: 0.78rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--white); transition: border-color 0.2s; }
     .cart-btn:hover { border-color: var(--cobalt); }
-
-    .cart-count {
-      position: absolute;
-      top: -6px; right: -6px;
-      background: var(--cobalt);
-      color: #fff;
-      font-size: 0.6rem;
-      font-weight: 700;
-      width: 16px; height: 16px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      display: none;
-    }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 4px;
-      padding: 4px;
-    }
-    .hamburger span {
-      display: block;
-      width: 22px; height: 2px;
-      background: var(--white);
-      border-radius: 2px;
-      transition: 0.3s;
-    }
+    .cart-count { position: absolute; top: -6px; right: -6px; background: var(--cobalt); color: #fff; font-size: 0.6rem; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: none; align-items: center; justify-content: center; }
+    .hamburger { display: none; flex-direction: column; gap: 4px; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; }
 
     /* ── PAGES ── */
     .page { display: none; }
     .page.active { display: block; }
 
     /* ── HERO ── */
-    .hero {
-      min-height: 88vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 4rem 1.5rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 70% 50% at 50% 60%, rgba(0,71,171,0.12) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-eyebrow {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--cobalt);
-      margin-bottom: 1.2rem;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.8rem, 8vw, 6rem);
-      font-weight: 900;
-      line-height: 1;
-      letter-spacing: -1px;
-      margin-bottom: 1rem;
-    }
+    .hero { min-height: 88vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 4rem 1.5rem; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 50% at 50% 60%, rgba(0,71,171,0.12) 0%, transparent 70%); pointer-events: none; }
+    .hero-logo { width: 120px; height: 120px; object-fit: contain; margin-bottom: 1.5rem; filter: drop-shadow(0 0 24px rgba(0,71,171,0.5)); }
+    .hero-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--cobalt); margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(2.6rem, 7vw, 5.5rem); font-weight: 900; line-height: 1; letter-spacing: -1px; margin-bottom: 1rem; }
     .hero h1 span { color: var(--cobalt); }
-
-    .hero-sub {
-      font-size: clamp(0.9rem, 2vw, 1.05rem);
-      color: var(--muted);
-      max-width: 480px;
-      margin: 0 auto 2.5rem;
-    }
-
-    .hero-btns {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .btn-primary {
-      background: var(--cobalt);
-      color: #fff;
-      padding: 0.75rem 2rem;
-      border-radius: 6px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      transition: background 0.2s, transform 0.15s;
-    }
+    .hero-sub { font-size: clamp(0.9rem, 2vw, 1.05rem); color: var(--muted); max-width: 480px; margin: 0 auto 2.5rem; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .btn-primary { background: var(--cobalt); color: #fff; padding: 0.75rem 2rem; border-radius: 6px; font-size: 0.82rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; transition: background 0.2s, transform 0.15s; display: inline-block; }
     .btn-primary:hover { background: var(--cobalt2); transform: translateY(-1px); }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--white);
-      padding: 0.75rem 2rem;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      transition: border-color 0.2s, transform 0.15s;
-    }
+    .btn-outline { background: transparent; color: var(--white); padding: 0.75rem 2rem; border-radius: 6px; border: 1px solid var(--border); font-size: 0.82rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; transition: border-color 0.2s, transform 0.15s; display: inline-block; }
     .btn-outline:hover { border-color: var(--cobalt); transform: translateY(-1px); }
 
     /* ── TRUST BAR ── */
-    .trust-bar {
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 0.9rem 1.5rem;
-      display: flex;
-      justify-content: center;
-      gap: 2.5rem;
-      flex-wrap: wrap;
-    }
-    .trust-item {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
+    .trust-bar { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 0.9rem 1.5rem; display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap; }
+    .trust-item { font-size: 0.72rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
     .trust-item span { color: var(--cobalt); margin-right: 0.4rem; }
 
-    /* ── FEATURED PRODUCTS ── */
-    .featured {
-      padding: 5rem 1.5rem;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--cobalt);
-      margin-bottom: 0.6rem;
-    }
-
-    .section-title {
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      font-weight: 900;
-      letter-spacing: -0.5px;
-      margin-bottom: 2.5rem;
-    }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 1.2rem;
-    }
-
-    .product-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-      transition: border-color 0.25s, transform 0.2s;
-      cursor: pointer;
-    }
-    .product-card:hover {
-      border-color: var(--cobalt);
-      transform: translateY(-3px);
-    }
-
-    .product-thumb {
-      aspect-ratio: 4/3;
-      background: var(--dark);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .product-info {
-      padding: 1rem 1.1rem 1.2rem;
-    }
-
-    .product-name {
-      font-size: 0.95rem;
-      font-weight: 700;
-      margin-bottom: 0.25rem;
-    }
-
-    .product-desc {
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-bottom: 0.8rem;
-      line-height: 1.5;
-    }
-
-    .product-price {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--cobalt);
-    }
-
-    .product-order-btn {
-      display: block;
-      width: 100%;
-      margin-top: 0.8rem;
-      background: var(--cobalt);
-      color: #fff;
-      padding: 0.55rem;
-      border-radius: 5px;
-      font-size: 0.74rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      text-align: center;
-      transition: background 0.2s;
-    }
+    /* ── PRODUCT CARDS ── */
+    .featured { padding: 5rem 1.5rem; max-width: 1100px; margin: 0 auto; }
+    .shop-page { padding: 4rem 1.5rem; max-width: 1100px; margin: 0 auto; }
+    .section-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--cobalt); margin-bottom: 0.6rem; }
+    .section-title { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 900; letter-spacing: -0.5px; margin-bottom: 2.5rem; }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.2rem; }
+    .product-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; transition: border-color 0.25s, transform 0.2s; cursor: pointer; }
+    .product-card:hover { border-color: var(--cobalt); transform: translateY(-3px); }
+    .product-thumb { aspect-ratio: 4/3; background: var(--dark); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .product-info { padding: 1rem 1.1rem 1.2rem; }
+    .product-name { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .product-desc { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.8rem; line-height: 1.5; }
+    .product-price { font-size: 0.8rem; font-weight: 600; color: var(--cobalt); }
+    .product-order-btn { display: block; width: 100%; margin-top: 0.8rem; background: var(--cobalt); color: #fff; padding: 0.55rem; border-radius: 5px; font-size: 0.74rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; text-align: center; transition: background 0.2s; }
     .product-order-btn:hover { background: var(--cobalt2); }
 
-    /* ── SHOP PAGE ── */
-    .shop-page {
-      padding: 4rem 1.5rem;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    /* ── SERVICES / PRICING PAGE ── */
-    .services-page {
-      padding: 4rem 1.5rem;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .pricing-block {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.8rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .pricing-block h3 {
-      font-size: 1.05rem;
-      font-weight: 800;
-      margin-bottom: 1rem;
-      padding-bottom: 0.6rem;
-      border-bottom: 1px solid var(--border);
-    }
+    /* ── SERVICES PAGE ── */
+    .services-page { padding: 4rem 1.5rem; max-width: 900px; margin: 0 auto; }
+    .pricing-block { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.8rem; margin-bottom: 1.5rem; }
+    .pricing-block h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); }
     .pricing-block h3 span { color: var(--cobalt); }
-
-    .pricing-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.83rem;
-    }
-    .pricing-table th {
-      text-align: left;
-      padding: 0.5rem 0.6rem;
-      color: var(--muted);
-      font-weight: 600;
-      font-size: 0.72rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      border-bottom: 1px solid var(--border);
-    }
-    .pricing-table td {
-      padding: 0.6rem 0.6rem;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-    }
+    .pricing-table { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
+    .pricing-table th { text-align: left; padding: 0.5rem 0.6rem; color: var(--muted); font-weight: 600; font-size: 0.72rem; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+    .pricing-table td { padding: 0.6rem 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.04); }
     .pricing-table tr:last-child td { border-bottom: none; }
     .pricing-table .price-col { color: var(--cobalt); font-weight: 700; }
-
-    .addons-list {
-      list-style: none;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 0.5rem;
-      margin-top: 0.5rem;
-    }
-    .addons-list li {
-      font-size: 0.82rem;
-      color: var(--muted);
-      padding: 0.4rem 0;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
+    .addons-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.5rem; margin-top: 0.5rem; }
+    .addons-list li { font-size: 0.82rem; color: var(--muted); padding: 0.4rem 0; display: flex; align-items: center; gap: 0.5rem; }
     .addons-list li::before { content: '→'; color: var(--cobalt); font-size: 0.7rem; }
+    .policy-note { margin-top: 1.2rem; font-size: 0.78rem; color: var(--muted); line-height: 1.6; padding: 0.8rem 1rem; background: rgba(0,71,171,0.06); border-left: 3px solid var(--cobalt); border-radius: 0 4px 4px 0; }
 
-    .policy-note {
-      margin-top: 1.2rem;
-      font-size: 0.78rem;
-      color: var(--muted);
-      line-height: 1.6;
-      padding: 0.8rem 1rem;
-      background: rgba(0,71,171,0.06);
-      border-left: 3px solid var(--cobalt);
-      border-radius: 0 4px 4px 0;
-    }
-
-    /* ── QUOTE CALCULATOR ── */
-    .calc-section {
-      padding: 4rem 1.5rem;
-      background: var(--dark);
-      border-top: 1px solid var(--border);
-    }
-    .calc-inner {
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .calc-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 2rem;
-    }
-
-    .calc-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
+    /* ── CALCULATOR ── */
+    .calc-section { padding: 4rem 1.5rem; background: var(--dark); border-top: 1px solid var(--border); }
+    .calc-inner { max-width: 600px; margin: 0 auto; }
+    .calc-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 2rem; }
+    .calc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
     .calc-row.full { grid-template-columns: 1fr; }
-
     .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
-    .form-group label {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .form-group select,
-    .form-group input {
-      background: var(--dark);
-      border: 1px solid var(--border);
-      border-radius: 5px;
-      color: var(--white);
-      padding: 0.6rem 0.8rem;
-      font-size: 0.88rem;
-      font-family: inherit;
-      transition: border-color 0.2s;
-    }
-    .form-group select:focus,
-    .form-group input:focus {
-      outline: none;
-      border-color: var(--cobalt);
-    }
+    .form-group label { font-size: 0.72rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+    .form-group select, .form-group input { background: var(--dark); border: 1px solid var(--border); border-radius: 5px; color: var(--white); padding: 0.6rem 0.8rem; font-size: 0.88rem; font-family: inherit; transition: border-color 0.2s; }
+    .form-group select:focus, .form-group input:focus { outline: none; border-color: var(--cobalt); }
     .form-group select option { background: #1a1a1a; }
-
-    .calc-result {
-      margin-top: 1.2rem;
-      padding: 1.2rem;
-      background: rgba(0,71,171,0.1);
-      border: 1px solid rgba(0,71,171,0.3);
-      border-radius: 7px;
-      text-align: center;
-    }
-    .calc-result .est-label {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 0.3rem;
-    }
-    .calc-result .est-price {
-      font-size: 2rem;
-      font-weight: 900;
-      color: var(--cobalt);
-    }
-    .calc-result .est-note {
-      font-size: 0.72rem;
-      color: var(--muted);
-      margin-top: 0.3rem;
-    }
-    .calc-result .order-from-calc {
-      margin-top: 1rem;
-      display: inline-block;
-      background: var(--cobalt);
-      color: #fff;
-      padding: 0.6rem 1.6rem;
-      border-radius: 5px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      cursor: pointer;
-      border: none;
-      transition: background 0.2s;
-    }
+    .calc-result { margin-top: 1.2rem; padding: 1.2rem; background: rgba(0,71,171,0.1); border: 1px solid rgba(0,71,171,0.3); border-radius: 7px; text-align: center; }
+    .calc-result .est-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
+    .calc-result .est-price { font-size: 2rem; font-weight: 900; color: var(--cobalt); }
+    .calc-result .est-note { font-size: 0.72rem; color: var(--muted); margin-top: 0.3rem; }
+    .calc-result .order-from-calc { margin-top: 1rem; display: inline-block; background: var(--cobalt); color: #fff; padding: 0.6rem 1.6rem; border-radius: 5px; font-size: 0.78rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; border: none; transition: background 0.2s; }
     .calc-result .order-from-calc:hover { background: var(--cobalt2); }
 
     /* ── CONTACT PAGE ── */
-    .contact-page {
-      padding: 4rem 1.5rem;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-bottom: 2.5rem;
-    }
-    .contact-item {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.2rem 1.4rem;
-    }
-    .contact-item .ci-label {
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--cobalt);
-      margin-bottom: 0.3rem;
-    }
-    .contact-item .ci-val {
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-    .contact-item .ci-note {
-      font-size: 0.75rem;
-      color: var(--muted);
-      margin-top: 0.2rem;
-    }
+    .contact-page { padding: 4rem 1.5rem; max-width: 700px; margin: 0 auto; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2.5rem; }
+    .contact-item { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem 1.4rem; }
+    .contact-item .ci-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--cobalt); margin-bottom: 0.3rem; }
+    .contact-item .ci-val { font-size: 0.9rem; font-weight: 600; }
+    .contact-item .ci-note { font-size: 0.75rem; color: var(--muted); margin-top: 0.2rem; }
 
-    /* ── ORDER MODAL ── */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      z-index: 500;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 1.5rem;
-      overflow-y: auto;
-    }
+    /* ── MODAL ── */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 500; align-items: flex-start; justify-content: center; padding: 1.5rem; overflow-y: auto; }
     .modal-overlay.open { display: flex; }
-
-    .modal {
-      background: var(--dark);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      width: 100%;
-      max-width: 560px;
-      margin: auto;
-      overflow: hidden;
-    }
-
-    .modal-header {
-      background: var(--card);
-      border-bottom: 1px solid var(--border);
-      padding: 1.2rem 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .modal-header h2 {
-      font-size: 0.95rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-    .modal-close {
-      font-size: 1.4rem;
-      color: var(--muted);
-      line-height: 1;
-      transition: color 0.2s;
-    }
+    .modal { background: var(--dark); border: 1px solid var(--border); border-radius: 12px; width: 100%; max-width: 580px; margin: auto; overflow: hidden; }
+    .modal-header { background: var(--card); border-bottom: 1px solid var(--border); padding: 1.2rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+    .modal-header h2 { font-size: 0.95rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+    .modal-close { font-size: 1.4rem; color: var(--muted); line-height: 1; transition: color 0.2s; }
     .modal-close:hover { color: var(--white); }
-
     .modal-body { padding: 1.5rem; }
-
-    .modal-product-badge {
-      display: inline-block;
-      background: rgba(0,71,171,0.15);
-      border: 1px solid rgba(0,71,171,0.4);
-      color: var(--cobalt);
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      padding: 0.3rem 0.8rem;
-      border-radius: 4px;
-      margin-bottom: 1.2rem;
-    }
-
-    .modal-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.9rem;
-      margin-bottom: 0.9rem;
-    }
+    .modal-product-badge { display: inline-block; background: rgba(0,71,171,0.15); border: 1px solid rgba(0,71,171,0.4); color: var(--cobalt); font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 4px; margin-bottom: 1.2rem; }
+    .modal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin-bottom: 0.9rem; }
     .modal-row.full { grid-template-columns: 1fr; }
-
     .modal .form-group label { color: var(--muted); }
-    .modal .form-group select,
-    .modal .form-group input,
-    .modal .form-group textarea {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 5px;
-      color: var(--white);
-      padding: 0.6rem 0.8rem;
-      font-size: 0.88rem;
-      font-family: inherit;
-      width: 100%;
-      transition: border-color 0.2s;
-    }
-    .modal .form-group select:focus,
-    .modal .form-group input:focus,
-    .modal .form-group textarea:focus {
-      outline: none;
-      border-color: var(--cobalt);
-    }
+    .modal .form-group select, .modal .form-group input, .modal .form-group textarea { background: var(--card); border: 1px solid var(--border); border-radius: 5px; color: var(--white); padding: 0.6rem 0.8rem; font-size: 0.88rem; font-family: inherit; width: 100%; transition: border-color 0.2s; }
+    .modal .form-group select:focus, .modal .form-group input:focus, .modal .form-group textarea:focus { outline: none; border-color: var(--cobalt); }
     .modal .form-group textarea { resize: vertical; min-height: 80px; }
     .modal .form-group select option { background: #1a1a1a; }
 
-    /* Color swatch picker */
-    .swatch-grid {
-      display: grid;
-      grid-template-columns: repeat(8, 1fr);
-      gap: 5px;
-      margin-top: 0.4rem;
-    }
-    .swatch {
-      width: 100%;
-      aspect-ratio: 1;
-      border-radius: 3px;
-      border: 2px solid transparent;
-      cursor: pointer;
-      transition: border-color 0.15s, transform 0.1s;
-      position: relative;
-    }
-    .swatch:hover { transform: scale(1.15); border-color: #fff; }
-    .swatch.selected { border-color: var(--cobalt); }
-    .swatch[title]:hover::after {
-      content: attr(title);
-      position: absolute;
-      bottom: calc(100% + 6px);
-      left: 50%;
-      transform: translateX(-50%);
-      background: #000;
-      color: #fff;
-      font-size: 0.65rem;
-      padding: 3px 6px;
-      border-radius: 3px;
-      white-space: nowrap;
-      z-index: 10;
-      pointer-events: none;
-    }
+    /* ── COLOR SWATCHES ── */
+    .swatch-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 5px; margin-top: 0.4rem; }
+    .swatch { width: 100%; aspect-ratio: 1; border-radius: 3px; border: 2px solid transparent; cursor: pointer; transition: border-color 0.15s, transform 0.1s; position: relative; }
+    .swatch:hover { transform: scale(1.15); }
+    .swatch.selected { border-color: var(--cobalt) !important; box-shadow: 0 0 0 1px var(--cobalt); }
+    .swatch-name { font-size: 0.72rem; color: var(--muted); margin-top: 0.3rem; min-height: 1rem; }
 
-    /* Print location toggles */
-    .location-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.5rem;
-      margin-top: 0.4rem;
-    }
-    .loc-toggle {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 5px;
-      padding: 0.5rem 0.7rem;
-      font-size: 0.77rem;
-      font-weight: 600;
-      color: var(--muted);
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.15s;
-      user-select: none;
-    }
-    .loc-toggle.active {
-      border-color: var(--cobalt);
-      color: var(--white);
-      background: rgba(0,71,171,0.12);
-    }
+    /* ── LOCATION TOGGLES ── */
+    .location-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; margin-top: 0.4rem; }
+    .loc-toggle { background: var(--card); border: 1px solid var(--border); border-radius: 5px; padding: 0.5rem 0.7rem; font-size: 0.77rem; font-weight: 600; color: var(--muted); text-align: center; cursor: pointer; transition: all 0.15s; user-select: none; }
+    .loc-toggle.active { border-color: var(--cobalt); color: var(--white); background: rgba(0,71,171,0.12); }
 
-    /* Live price */
-    .live-price-row {
-      background: rgba(0,71,171,0.08);
-      border: 1px solid rgba(0,71,171,0.2);
-      border-radius: 6px;
-      padding: 0.8rem 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 1rem 0;
-    }
+    /* ── IMAGE UPLOAD ── */
+    .upload-zone { border: 2px dashed var(--border); border-radius: 8px; padding: 1.2rem; text-align: center; cursor: pointer; transition: border-color 0.2s, background 0.2s; position: relative; margin-top: 0.4rem; }
+    .upload-zone:hover { border-color: var(--cobalt); background: rgba(0,71,171,0.04); }
+    .upload-zone.has-file { border-color: var(--cobalt); border-style: solid; background: rgba(0,71,171,0.06); }
+    .upload-zone input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .upload-icon { font-size: 1.8rem; margin-bottom: 0.3rem; }
+    .upload-text { font-size: 0.78rem; color: var(--muted); }
+    .upload-text strong { color: var(--cobalt); }
+    .upload-preview { margin-top: 0.8rem; display: none; }
+    .upload-preview img { max-height: 140px; max-width: 100%; border-radius: 6px; margin: 0 auto; border: 1px solid var(--border); }
+    .upload-preview-name { font-size: 0.72rem; color: var(--muted); margin-top: 0.3rem; }
+    .upload-clear { font-size: 0.72rem; color: var(--danger); cursor: pointer; margin-top: 0.2rem; display: inline-block; }
+    .upload-clear:hover { text-decoration: underline; }
+
+    /* ── LIVE PRICE ── */
+    .live-price-row { background: rgba(0,71,171,0.08); border: 1px solid rgba(0,71,171,0.2); border-radius: 6px; padding: 0.8rem 1rem; display: flex; align-items: center; justify-content: space-between; margin: 1rem 0; }
     .live-price-label { font-size: 0.78rem; color: var(--muted); }
     .live-price-val { font-size: 1.4rem; font-weight: 900; color: var(--cobalt); }
-
-    .submit-btn {
-      display: block;
-      width: 100%;
-      background: var(--cobalt);
-      color: #fff;
-      padding: 0.85rem;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      text-align: center;
-      transition: background 0.2s;
-      cursor: pointer;
-      border: none;
-    }
-    .submit-btn:hover { background: var(--cobalt2); }
+    .submit-btn { display: block; width: 100%; background: var(--cobalt); color: #fff; padding: 0.85rem; border-radius: 6px; font-size: 0.85rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; text-align: center; transition: background 0.2s; cursor: pointer; border: none; }
+    .submit-btn:hover:not(:disabled) { background: var(--cobalt2); }
     .submit-btn:disabled { background: var(--border); color: var(--muted); cursor: not-allowed; }
-
-    .form-success {
-      display: none;
-      text-align: center;
-      padding: 2rem 1rem;
-    }
+    .form-success { display: none; text-align: center; padding: 2rem 1rem; }
     .form-success .check { font-size: 2.5rem; margin-bottom: 0.8rem; }
     .form-success h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.4rem; }
     .form-success p { font-size: 0.85rem; color: var(--muted); }
 
     /* ── CART DRAWER ── */
-    .cart-drawer {
-      position: fixed;
-      top: 0; right: 0;
-      width: 340px;
-      height: 100vh;
-      background: var(--dark);
-      border-left: 1px solid var(--border);
-      z-index: 600;
-      transform: translateX(100%);
-      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
-      display: flex;
-      flex-direction: column;
-    }
+    .cart-drawer { position: fixed; top: 0; right: 0; width: 340px; height: 100vh; background: var(--dark); border-left: 1px solid var(--border); z-index: 600; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; }
     .cart-drawer.open { transform: translateX(0); }
-
-    .cart-drawer-header {
-      padding: 1.2rem 1.4rem;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .cart-drawer-header h3 {
-      font-size: 0.9rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .cart-items {
-      flex: 1;
-      overflow-y: auto;
-      padding: 1rem;
-    }
-
-    .cart-item {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      padding: 0.9rem;
-      margin-bottom: 0.7rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 0.8rem;
-    }
+    .cart-drawer-header { padding: 1.2rem 1.4rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .cart-drawer-header h3 { font-size: 0.9rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+    .cart-items { flex: 1; overflow-y: auto; padding: 1rem; }
+    .cart-item { background: var(--card); border: 1px solid var(--border); border-radius: 7px; padding: 0.9rem; margin-bottom: 0.7rem; display: flex; justify-content: space-between; align-items: flex-start; gap: 0.8rem; }
     .cart-item-info { flex: 1; }
     .cart-item-name { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.2rem; }
     .cart-item-detail { font-size: 0.75rem; color: var(--muted); }
     .cart-item-price { font-size: 0.9rem; font-weight: 800; color: var(--cobalt); white-space: nowrap; }
     .cart-item-remove { font-size: 1.1rem; color: var(--muted); cursor: pointer; transition: color 0.2s; padding: 0 0.2rem; }
     .cart-item-remove:hover { color: var(--danger); }
-
-    .cart-empty {
-      text-align: center;
-      padding: 3rem 1rem;
-      color: var(--muted);
-      font-size: 0.85rem;
-    }
-
-    .cart-footer {
-      padding: 1.2rem 1.4rem;
-      border-top: 1px solid var(--border);
-    }
-    .cart-total {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.9rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
+    .cart-empty { text-align: center; padding: 3rem 1rem; color: var(--muted); font-size: 0.85rem; }
+    .cart-footer { padding: 1.2rem 1.4rem; border-top: 1px solid var(--border); }
+    .cart-total { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 700; margin-bottom: 1rem; }
     .cart-total span:last-child { color: var(--cobalt); }
-
-    .cart-checkout-btn {
-      display: block;
-      width: 100%;
-      background: var(--cobalt);
-      color: #fff;
-      padding: 0.8rem;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      text-align: center;
-      border: none;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
+    .cart-checkout-btn { display: block; width: 100%; background: var(--cobalt); color: #fff; padding: 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; text-align: center; border: none; cursor: pointer; transition: background 0.2s; }
     .cart-checkout-btn:hover { background: var(--cobalt2); }
-
-    .cart-overlay-bg {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.5);
-      z-index: 599;
-    }
+    .cart-overlay-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 599; }
     .cart-overlay-bg.open { display: block; }
 
     /* ── FOOTER ── */
-    footer {
-      background: var(--dark);
-      border-top: 1px solid var(--border);
-      padding: 3rem 1.5rem 2rem;
-      text-align: center;
-    }
-    .footer-logo {
-      font-size: 1.1rem;
-      font-weight: 900;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-bottom: 0.8rem;
-    }
-    .footer-logo span { color: var(--cobalt); }
-    .footer-tagline {
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-    }
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-    }
-    .footer-links a {
-      font-size: 0.75rem;
-      color: var(--muted);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
+    footer { background: var(--dark); border-top: 1px solid var(--border); padding: 3rem 1.5rem 2rem; text-align: center; }
+    .footer-logo { display: flex; align-items: center; justify-content: center; gap: 0.6rem; margin-bottom: 0.6rem; }
+    .footer-logo img { height: 32px; width: 32px; object-fit: contain; }
+    .footer-logo-text { font-size: 1.05rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; }
+    .footer-logo-text span { color: var(--cobalt); }
+    .footer-tagline { font-size: 0.78rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .footer-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.75rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; }
     .footer-links a:hover { color: var(--cobalt); }
     .footer-copy { font-size: 0.7rem; color: #444; }
+
+    /* ── GANG SHEET INFO BOX ── */
+    .gang-info { background: rgba(0,71,171,0.07); border: 1px solid rgba(0,71,171,0.25); border-radius: 6px; padding: 0.8rem 1rem; margin-top: 0.8rem; font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
+    .gang-info strong { color: var(--white); }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 640px) {
       .nav-links { display: none; }
-      .nav-links.open {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 60px; left: 0; right: 0;
-        background: rgba(10,10,10,0.98);
-        border-bottom: 1px solid var(--border);
-        padding: 1rem 1.5rem;
-        gap: 1rem;
-      }
+      .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: rgba(10,10,10,0.98); border-bottom: 1px solid var(--border); padding: 1rem 1.5rem; gap: 1rem; }
       .hamburger { display: flex; }
       .contact-grid { grid-template-columns: 1fr; }
       .modal-row { grid-template-columns: 1fr; }
@@ -899,34 +237,30 @@
     }
   </style>
 </head>
-
 <body>
 
 <!-- NAV -->
 <nav id="mainNav">
-  <div class="nav-logo">MID<span>CITY</span></div>
+  <div class="nav-logo">
+    <img src="https://i.imgur.com/placeholder.png" id="navLogoImg" alt="MCW Logo" onerror="this.style.display='none'" />
+    <div class="nav-logo-text">MID<span>CITY</span></div>
+  </div>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#" onclick="showPage('home')" class="active" id="nav-home">Home</a></li>
-    <li><a href="#" onclick="showPage('shop')" id="nav-shop">Shop</a></li>
-    <li><a href="#" onclick="showPage('services')" id="nav-services">Pricing</a></li>
-    <li><a href="#" onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+    <li><a href="#" onclick="showPage('home');return false;" class="active" id="nav-home">Home</a></li>
+    <li><a href="#" onclick="showPage('shop');return false;" id="nav-shop">Shop</a></li>
+    <li><a href="#" onclick="showPage('services');return false;" id="nav-services">Pricing</a></li>
+    <li><a href="#" onclick="showPage('contact');return false;" id="nav-contact">Contact</a></li>
   </ul>
   <div class="nav-right">
-    <button class="cart-btn" onclick="toggleCart()">
-      🛒 Cart
-      <span class="cart-count" id="cartCount">0</span>
-    </button>
-    <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="cart-btn" onclick="toggleCart()">🛒 Cart<span class="cart-count" id="cartCount">0</span></button>
+    <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
-<!-- ━━━━━━━━━━ HOME PAGE ━━━━━━━━━━ -->
+<!-- ━━━━━━━━━━ HOME ━━━━━━━━━━ -->
 <div class="page active" id="page-home">
-
-  <!-- Hero -->
   <section class="hero">
+    <img class="hero-logo" id="heroLogo" src="" alt="Mid City Wrld" onerror="this.style.display='none'" />
     <div class="hero-eyebrow">Ogden, Utah · Est. 2018</div>
     <h1>MID<span>CITY</span><br>WRLD</h1>
     <p class="hero-sub">Premium DTF printing, specialty vinyl & heat transfers. Built for teams, brands, and anyone who wants it done right.</p>
@@ -935,25 +269,20 @@
       <button class="btn-outline" onclick="showPage('services')">See Pricing</button>
     </div>
   </section>
-
-  <!-- Trust Bar -->
   <div class="trust-bar">
-    <div class="trust-item"><span>✦</span>Same-Day Quotes</div>
-    <div class="trust-item"><span>✦</span>No Minimum on Transfers</div>
-    <div class="trust-item"><span>✦</span>Flock · Chrome · Glow</div>
-    <div class="trust-item"><span>✦</span>Team Pricing Available</div>
+    <div class="trust-item"><span>✦</span>No Minimums on Transfers</div>
+    <div class="trust-item"><span>✦</span>No Minimums on Printed Shirts</div>
+    <div class="trust-item"><span>✦</span>Flock · Chrome · Brick · Glow</div>
+    <div class="trust-item"><span>✦</span>Team Pricing 12+ pcs</div>
   </div>
-
-  <!-- Featured Products -->
   <section class="featured">
     <div class="section-label">What We Do</div>
     <div class="section-title">Our Products</div>
     <div class="product-grid" id="featuredGrid"></div>
   </section>
-
 </div>
 
-<!-- ━━━━━━━━━━ SHOP PAGE ━━━━━━━━━━ -->
+<!-- ━━━━━━━━━━ SHOP ━━━━━━━━━━ -->
 <div class="page" id="page-shop">
   <div class="shop-page">
     <div class="section-label">Browse & Order</div>
@@ -962,7 +291,7 @@
   </div>
 </div>
 
-<!-- ━━━━━━━━━━ SERVICES / PRICING PAGE ━━━━━━━━━━ -->
+<!-- ━━━━━━━━━━ SERVICES / PRICING ━━━━━━━━━━ -->
 <div class="page" id="page-services">
   <div class="services-page">
     <div class="section-label">Transparent Pricing</div>
@@ -971,44 +300,38 @@
     <!-- DTF T-Shirts -->
     <div class="pricing-block">
       <h3>DTF Custom <span>T-Shirts</span></h3>
-      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;">Gildan 5000 Heavy Cotton · American Apparel 1301 Heavyweight. Full DTF print — vivid colors, soft hand feel, washes great.</p>
+      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;">Gildan 5000 · American Apparel 1301 · Bella+Canvas 3001. Full-color DTF print — vivid colors, soft hand feel, washes great. <strong>No minimums.</strong></p>
       <table class="pricing-table">
-        <thead>
-          <tr>
-            <th>Qty</th>
-            <th>Gildan 5000</th>
-            <th>AA 1301</th>
-          </tr>
-        </thead>
+        <thead><tr><th>Qty</th><th>Gildan 5000</th><th>AA 1301</th><th>Bella+Canvas 3001</th></tr></thead>
         <tbody>
-          <tr><td>1–4 pcs</td><td class="price-col">$27 ea</td><td class="price-col">$40 ea</td></tr>
-          <tr><td>5–11 pcs</td><td class="price-col">$24 ea</td><td class="price-col">$36 ea</td></tr>
-          <tr><td>12–23 pcs</td><td class="price-col">$22 ea</td><td class="price-col">$33 ea</td></tr>
-          <tr><td>24+ pcs</td><td class="price-col">$19 ea</td><td class="price-col">$29 ea</td></tr>
+          <tr><td>1 pc</td><td class="price-col">$20 ea</td><td class="price-col">$25 ea</td><td class="price-col">$25 ea</td></tr>
+          <tr><td>2–4 pcs</td><td class="price-col">$22 ea</td><td class="price-col">$28 ea</td><td class="price-col">$28 ea</td></tr>
+          <tr><td>5–11 pcs</td><td class="price-col">$20 ea</td><td class="price-col">$26 ea</td><td class="price-col">$26 ea</td></tr>
+          <tr><td>12–23 pcs</td><td class="price-col">$19 ea</td><td class="price-col">$24 ea</td><td class="price-col">$24 ea</td></tr>
+          <tr><td>24+ pcs</td><td class="price-col">$18 ea</td><td class="price-col">$22 ea</td><td class="price-col">$22 ea</td></tr>
         </tbody>
       </table>
-      <p class="policy-note">Includes front print. Back print +$5/shirt. Sleeve +$3/shirt. Pocket +$2/shirt. Prices include blank garment + DTF print + press. Customer-supplied blanks: subtract ~$3.50 (Gildan) / ~$9 (AA).</p>
+      <p class="policy-note">Includes front print. Back +$5/shirt · Sleeve +$3/shirt · Pocket +$2/shirt. Prices include blank + DTF print + press. Customer-supplied blanks: subtract garment cost.</p>
     </div>
 
     <!-- Specialty Vinyl / HTV -->
     <div class="pricing-block">
       <h3>Specialty <span>Vinyl & HTV</span></h3>
-      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;">Premium heat transfer vinyl for a bold, textured finish you can't get from regular printing. Priced per design.</p>
+      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;">Premium heat transfer vinyl — bold, textured finishes you can't get from ink alone. Priced per design/garment.</p>
       <table class="pricing-table">
-        <thead>
-          <tr><th>Service</th><th>Starting At</th></tr>
-        </thead>
+        <thead><tr><th>Service</th><th>Starting At</th></tr></thead>
         <tbody>
-          <tr><td>Standard HTV (1 color)</td><td class="price-col">$12</td></tr>
-          <tr><td>Multi-color HTV (2–4 colors)</td><td class="price-col">$18</td></tr>
-          <tr><td>Specialty HTV (see below)</td><td class="price-col">+$5–10 add-on</td></tr>
-          <tr><td>Customer-supplied garment</td><td class="price-col">Same price</td></tr>
+          <tr><td>Standard HTV (1 color)</td><td class="price-col">$8–$12</td></tr>
+          <tr><td>Multi-color HTV (2–4 colors)</td><td class="price-col">$12–$20</td></tr>
+          <tr><td>Specialty HTV (puff, glitter, metallic)</td><td class="price-col">$15–$25</td></tr>
+          <tr><td>Names / Numbers</td><td class="price-col">$5–$10 ea</td></tr>
         </tbody>
       </table>
       <div style="margin-top:1rem;">
         <div style="font-size:0.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:0.6rem;">Available Specialty Materials</div>
         <ul class="addons-list">
           <li>Flock (velvet texture)</li>
+          <li>Brick HTV (textured 3D)</li>
           <li>Chrome / Metallic</li>
           <li>Glitter</li>
           <li>Puff / 3D Raised</li>
@@ -1018,40 +341,38 @@
           <li>Neon Colors</li>
         </ul>
       </div>
-      <p class="policy-note">Final price depends on design complexity and number of colors. Send your design or idea for a free quote.</p>
+      <p class="policy-note">Final price depends on design complexity and colors. Send your design or idea for a free quote.</p>
     </div>
 
-    <!-- DTF Transfers -->
+    <!-- DTF Transfers / Gang Sheets -->
     <div class="pricing-block">
-      <h3>DTF <span>Transfers</span></h3>
-      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;">Gang-sheet or individual transfers — ready to press. No minimums. Perfect for testing designs or pressing at home.</p>
+      <h3>DTF <span>Transfers & Gang Sheets</span></h3>
+      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;">Printed at 12.5" width for maximum clarity and consistency. Available in lengths up to 35 inches. Longer sheets cured in sections for perfect results. <strong>No minimums.</strong></p>
       <table class="pricing-table">
-        <thead>
-          <tr><th>Size</th><th>Price Each</th><th>Qty Break</th></tr>
-        </thead>
+        <thead><tr><th>Gang Sheet Size</th><th>Price</th><th>Notes</th></tr></thead>
         <tbody>
-          <tr><td>Up to 4×4"</td><td class="price-col">$2.50</td><td>10+ @ $2 ea</td></tr>
-          <tr><td>Up to 8×8"</td><td class="price-col">$4.00</td><td>10+ @ $3.25 ea</td></tr>
-          <tr><td>Up to 10×12"</td><td class="price-col">$5.50</td><td>10+ @ $4.50 ea</td></tr>
-          <tr><td>Full Front (up to 12×14")</td><td class="price-col">$7.00</td><td>10+ @ $5.75 ea</td></tr>
-          <tr><td>Gang Sheet (22×60")</td><td class="price-col">$35</td><td>—</td></tr>
+          <tr><td>12.5" × 12"</td><td class="price-col">$10–$14</td><td>~2–3 designs</td></tr>
+          <tr><td>12.5" × 17.5"</td><td class="price-col">$14–$18</td><td>~3–5 designs</td></tr>
+          <tr><td>12.5" × 24"</td><td class="price-col">$18–$25</td><td>~5–8 designs</td></tr>
+          <tr><td>12.5" × 35"</td><td class="price-col">$25–$35</td><td>Max length</td></tr>
         </tbody>
       </table>
-      <p class="policy-note">Transfers only — pressing not included unless requested. Require 300 DPI artwork. We can clean up your file for $5–10 if needed.</p>
+      <div class="gang-info">
+        <strong>How gang sheets work:</strong> You fill the sheet with your designs — we print and ship ready-to-press transfers. Mix any designs on one sheet. Cut apart before pressing. Price range reflects design complexity and ink coverage.
+      </div>
+      <p class="policy-note">Transfers only — pressing not included unless requested. Requires 300 DPI artwork. File cleanup available for $5–$10.</p>
     </div>
 
     <!-- Team / Bulk Orders -->
     <div class="pricing-block">
       <h3>Team & <span>Bulk Orders</span></h3>
-      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;">Schools, sports teams, businesses, churches, military — we got you. Mix sizes, colors, and names at no extra hassle.</p>
+      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;">Schools, sports teams, businesses, churches, military — we got you. Minimum 12 pieces. Mix sizes, colors, and names.</p>
       <table class="pricing-table">
-        <thead>
-          <tr><th>Order Size</th><th>Per Shirt (Gildan)</th><th>Notes</th></tr>
-        </thead>
+        <thead><tr><th>Order Size</th><th>Per Shirt (Gildan)</th><th>Notes</th></tr></thead>
         <tbody>
-          <tr><td>12–23 pcs</td><td class="price-col">$22 ea</td><td>1 design</td></tr>
-          <tr><td>24–47 pcs</td><td class="price-col">$19 ea</td><td>Names/numbers +$3</td></tr>
-          <tr><td>48–99 pcs</td><td class="price-col">$17 ea</td><td>Names/numbers +$2.50</td></tr>
+          <tr><td>12–23 pcs</td><td class="price-col">$18 ea</td><td>1 design</td></tr>
+          <tr><td>24–47 pcs</td><td class="price-col">$17 ea</td><td>Names/numbers +$3</td></tr>
+          <tr><td>48–99 pcs</td><td class="price-col">$16 ea</td><td>Names/numbers +$2.50</td></tr>
           <tr><td>100+ pcs</td><td class="price-col">Call for quote</td><td>Best pricing</td></tr>
         </tbody>
       </table>
@@ -1061,17 +382,16 @@
           <li>Size breakdown form</li>
           <li>Mixed colors OK</li>
           <li>Individual names/numbers</li>
-          <li>Front + back print options</li>
+          <li>Front + back options</li>
           <li>Roster management</li>
           <li>50% deposit to start</li>
         </ul>
       </div>
-      <p class="policy-note">Minimum 12 pieces for team pricing. Turnaround: 5–7 business days for orders under 50 pcs. Larger orders may vary. DM or call for a custom quote.</p>
+      <p class="policy-note">Turnaround: 5–7 business days under 50 pcs. Larger orders may vary. DM or call for a custom quote.</p>
     </div>
-
   </div>
 
-  <!-- Quote Calculator -->
+  <!-- Calculator -->
   <section class="calc-section">
     <div class="calc-inner">
       <div style="text-align:center;margin-bottom:2rem;">
@@ -1085,9 +405,11 @@
             <select id="calcProduct" onchange="updateCalc()">
               <option value="dtf-tee-gildan">DTF Tee — Gildan 5000</option>
               <option value="dtf-tee-aa">DTF Tee — AA 1301</option>
-              <option value="dtf-transfer-sm">DTF Transfer — Small (4×4)</option>
-              <option value="dtf-transfer-md">DTF Transfer — Medium (8×8)</option>
-              <option value="dtf-transfer-lg">DTF Transfer — Full Front</option>
+              <option value="dtf-tee-bc">DTF Tee — Bella+Canvas 3001</option>
+              <option value="gang-sm">Gang Sheet 12.5"×12"</option>
+              <option value="gang-md">Gang Sheet 12.5"×17.5"</option>
+              <option value="gang-lg">Gang Sheet 12.5"×24"</option>
+              <option value="gang-xl">Gang Sheet 12.5"×35"</option>
               <option value="vinyl-std">Vinyl / HTV — Standard</option>
               <option value="vinyl-specialty">Vinyl / HTV — Specialty</option>
             </select>
@@ -1110,51 +432,29 @@
         </div>
         <div class="calc-result">
           <div class="est-label">Estimated Total</div>
-          <div class="est-price" id="calcPrice">$264</div>
-          <div class="est-note" id="calcNote">12 shirts × $22 ea · front only</div>
+          <div class="est-price" id="calcPrice">$228</div>
+          <div class="est-note" id="calcNote">12 shirts × $19 ea · Gildan · front only</div>
           <button class="order-from-calc" onclick="openOrderFromCalc()">Place This Order →</button>
         </div>
       </div>
     </div>
   </section>
-
 </div>
 
-<!-- ━━━━━━━━━━ CONTACT PAGE ━━━━━━━━━━ -->
+<!-- ━━━━━━━━━━ CONTACT ━━━━━━━━━━ -->
 <div class="page" id="page-contact">
   <div class="contact-page">
     <div class="section-label">Get In Touch</div>
     <div class="section-title">Contact Us</div>
     <div class="contact-grid">
-      <div class="contact-item">
-        <div class="ci-label">Phone / Text</div>
-        <div class="ci-val">(801) 410-0490</div>
-        <div class="ci-note">Text preferred for fastest reply</div>
-      </div>
-      <div class="contact-item">
-        <div class="ci-label">Email</div>
-        <div class="ci-val">midcitywrld@gmail.com</div>
-        <div class="ci-note">Orders & quotes</div>
-      </div>
-      <div class="contact-item">
-        <div class="ci-label">Instagram</div>
-        <div class="ci-val">@midcity.wrld</div>
-        <div class="ci-note">DMs open · see our work</div>
-      </div>
-      <div class="contact-item">
-        <div class="ci-label">Facebook</div>
-        <div class="ci-val">@MIDCITYWRLD</div>
-        <div class="ci-note">Updates & promos</div>
-      </div>
-      <div class="contact-item" style="grid-column:1/-1">
-        <div class="ci-label">Location</div>
-        <div class="ci-val">Ogden, Utah</div>
-        <div class="ci-note">Local pickup available · Serving all of Utah &amp; shipping nationwide</div>
-      </div>
+      <div class="contact-item"><div class="ci-label">Phone / Text</div><div class="ci-val">(801) 410-0490</div><div class="ci-note">Text preferred for fastest reply</div></div>
+      <div class="contact-item"><div class="ci-label">Email</div><div class="ci-val">midcitywrld@gmail.com</div><div class="ci-note">Orders & quotes</div></div>
+      <div class="contact-item"><div class="ci-label">Instagram</div><div class="ci-val">@midcity.wrld</div><div class="ci-note">DMs open · see our work</div></div>
+      <div class="contact-item"><div class="ci-label">Facebook</div><div class="ci-val">@MIDCITYWRLD</div><div class="ci-note">Updates & promos</div></div>
+      <div class="contact-item" style="grid-column:1/-1"><div class="ci-label">Location</div><div class="ci-val">Ogden, Utah</div><div class="ci-note">Local pickup available · Serving all of Utah & shipping nationwide</div></div>
     </div>
-
     <div style="text-align:center;margin-top:2rem;">
-      <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1.5rem;">Ready to order? Hit the button below and we'll get back to you same day.</p>
+      <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1.5rem;">Ready to order? Hit the button and we'll get back to you same day.</p>
       <button class="btn-primary" onclick="openOrderForm('dtf-tee')">Start an Order</button>
     </div>
   </div>
@@ -1162,13 +462,16 @@
 
 <!-- ━━━━━━━━━━ FOOTER ━━━━━━━━━━ -->
 <footer>
-  <div class="footer-logo">MID<span>CITY</span> WRLD</div>
+  <div class="footer-logo">
+    <img id="footerLogo" src="" alt="MCW" onerror="this.style.display='none'" />
+    <div class="footer-logo-text">MID<span>CITY</span> WRLD</div>
+  </div>
   <div class="footer-tagline">Custom Print Studio · Ogden, Utah · Est. 2018</div>
   <div class="footer-links">
-    <a href="#" onclick="showPage('home')">Home</a>
-    <a href="#" onclick="showPage('shop')">Shop</a>
-    <a href="#" onclick="showPage('services')">Pricing</a>
-    <a href="#" onclick="showPage('contact')">Contact</a>
+    <a href="#" onclick="showPage('home');return false;">Home</a>
+    <a href="#" onclick="showPage('shop');return false;">Shop</a>
+    <a href="#" onclick="showPage('services');return false;">Pricing</a>
+    <a href="#" onclick="showPage('contact');return false;">Contact</a>
   </div>
   <div class="footer-copy">&copy; 2025 Mid City Wrld. All rights reserved.</div>
 </footer>
@@ -1181,9 +484,21 @@
       <button class="modal-close" onclick="closeOrderForm()">×</button>
     </div>
     <div class="modal-body" id="modalBody">
-
       <div id="orderFormContent">
         <div class="modal-product-badge" id="modalProductBadge">DTF T-Shirt</div>
+
+        <!-- Product Selector -->
+        <div class="modal-row full" style="margin-bottom:0.9rem">
+          <div class="form-group">
+            <label>Product</label>
+            <select id="orderProduct" onchange="switchModalProduct()">
+              <option value="dtf-tee">DTF T-Shirt</option>
+              <option value="vinyl">Specialty Vinyl / HTV</option>
+              <option value="gang">DTF Gang Sheet / Transfer</option>
+              <option value="team">Team / Bulk Order</option>
+            </select>
+          </div>
+        </div>
 
         <!-- Customer Info -->
         <div class="modal-row">
@@ -1203,14 +518,15 @@
           </div>
         </div>
 
-        <!-- Product-specific fields -->
+        <!-- TEE FIELDS -->
         <div id="teeFields">
           <div class="modal-row">
             <div class="form-group">
               <label>Garment</label>
-              <select id="orderGarment" onchange="updateModalPrice()">
+              <select id="orderGarment" onchange="updateModalPrice(); renderGarmentSwatches();">
                 <option value="gildan">Gildan 5000 Heavy Cotton</option>
                 <option value="aa">American Apparel 1301</option>
+                <option value="bc">Bella+Canvas 3001</option>
                 <option value="customer">My Own Blank</option>
               </select>
             </div>
@@ -1223,6 +539,7 @@
             <div class="form-group">
               <label>Garment Color</label>
               <div class="swatch-grid" id="swatchGrid"></div>
+              <div class="swatch-name" id="swatchName">White</div>
             </div>
           </div>
           <div style="margin-bottom:0.9rem">
@@ -1238,32 +555,38 @@
           </div>
         </div>
 
-        <div id="transferFields" style="display:none">
+        <!-- GANG SHEET FIELDS -->
+        <div id="gangFields" style="display:none">
           <div class="modal-row">
             <div class="form-group">
-              <label>Transfer Size</label>
-              <select id="orderTransferSize" onchange="updateModalPrice()">
-                <option value="sm">Small — up to 4×4" ($2.50)</option>
-                <option value="md">Medium — up to 8×8" ($4.00)</option>
-                <option value="lg">Full Front — 12×14" ($7.00)</option>
-                <option value="gang">Gang Sheet 22×60" ($35)</option>
+              <label>Sheet Size</label>
+              <select id="orderGangSize" onchange="updateModalPrice()">
+                <option value="sm">12.5" × 12" ($10–$14)</option>
+                <option value="md">12.5" × 17.5" ($14–$18)</option>
+                <option value="lg">12.5" × 24" ($18–$25)</option>
+                <option value="xl">12.5" × 35" ($25–$35)</option>
               </select>
             </div>
             <div class="form-group">
-              <label>Quantity</label>
-              <input type="number" id="orderTransferQty" value="1" min="1" oninput="updateModalPrice()" />
+              <label>Quantity (sheets)</label>
+              <input type="number" id="orderGangQty" value="1" min="1" oninput="updateModalPrice()" />
             </div>
+          </div>
+          <div class="gang-info" style="margin-bottom:0.9rem">
+            <strong>Gang Sheet Tips:</strong> Fill the sheet with your designs — mix sizes. Transfers are ready to press. Requires 300 DPI artwork. File cleanup available for $5–$10 if needed.
           </div>
         </div>
 
+        <!-- VINYL FIELDS -->
         <div id="vinylFields" style="display:none">
           <div class="modal-row">
             <div class="form-group">
               <label>Vinyl Type</label>
               <select id="orderVinylType" onchange="updateModalPrice()">
-                <option value="std1">Standard — 1 color ($12)</option>
-                <option value="std2">Standard — 2–4 colors ($18)</option>
-                <option value="specialty">Specialty Material (+$5–10)</option>
+                <option value="std1">Standard — 1 color ($8–$12)</option>
+                <option value="std2">Multi-color — 2–4 colors ($12–$20)</option>
+                <option value="specialty">Specialty (puff/glitter/metallic) ($15–$25)</option>
+                <option value="names">Names / Numbers ($5–$10 ea)</option>
               </select>
             </div>
             <div class="form-group">
@@ -1271,8 +594,26 @@
               <input type="number" id="orderVinylQty" value="1" min="1" oninput="updateModalPrice()" />
             </div>
           </div>
+          <div class="modal-row full">
+            <div class="form-group">
+              <label>Specialty Material (if applicable)</label>
+              <select id="orderVinylMaterial">
+                <option value="">— Standard / Not applicable —</option>
+                <option value="flock">Flock (velvet texture)</option>
+                <option value="brick">Brick HTV (textured 3D)</option>
+                <option value="chrome">Chrome / Metallic</option>
+                <option value="glitter">Glitter</option>
+                <option value="puff">Puff / 3D Raised</option>
+                <option value="glow">Glow in the Dark</option>
+                <option value="reflective">Reflective / Hi-Vis</option>
+                <option value="holographic">Holographic</option>
+                <option value="neon">Neon Colors</option>
+              </select>
+            </div>
+          </div>
         </div>
 
+        <!-- TEAM FIELDS -->
         <div id="teamFields" style="display:none">
           <div class="modal-row">
             <div class="form-group">
@@ -1280,12 +621,13 @@
               <select id="orderTeamGarment" onchange="updateModalPrice()">
                 <option value="gildan">Gildan 5000</option>
                 <option value="aa">American Apparel 1301</option>
+                <option value="bc">Bella+Canvas 3001</option>
                 <option value="customer">Customer Supplied</option>
               </select>
             </div>
             <div class="form-group">
-              <label>Total Pieces *</label>
-              <input type="number" id="orderTeamQty" value="24" min="12" oninput="updateModalPrice()" />
+              <label>Total Pieces * (min 12)</label>
+              <input type="number" id="orderTeamQty" value="12" min="12" oninput="updateModalPrice()" />
             </div>
           </div>
           <div class="modal-row full">
@@ -1299,16 +641,21 @@
           </div>
         </div>
 
-        <!-- Product selector (top of modal) -->
-        <div class="modal-row full" style="margin-bottom:0.9rem">
+        <!-- DESIGN UPLOAD -->
+        <div class="modal-row full">
           <div class="form-group">
-            <label>Product</label>
-            <select id="orderProduct" onchange="switchModalProduct()">
-              <option value="dtf-tee">DTF T-Shirt</option>
-              <option value="vinyl">Specialty Vinyl / HTV</option>
-              <option value="transfer">DTF Transfer</option>
-              <option value="team">Team / Bulk Order</option>
-            </select>
+            <label>Upload Your Design (optional)</label>
+            <div class="upload-zone" id="uploadZone">
+              <input type="file" id="designFile" accept="image/*,.pdf,.ai,.eps,.svg,.psd" onchange="handleFileUpload(this)" />
+              <div class="upload-icon">🖼️</div>
+              <div class="upload-text">Drop your file here or <strong>click to browse</strong></div>
+              <div class="upload-text" style="font-size:0.7rem;margin-top:0.2rem;">PNG, JPG, PDF, AI, EPS, SVG · Max 10MB</div>
+            </div>
+            <div class="upload-preview" id="uploadPreview">
+              <img id="uploadPreviewImg" src="" alt="Design preview" />
+              <div class="upload-preview-name" id="uploadFileName"></div>
+              <span class="upload-clear" onclick="clearUpload()">✕ Remove file</span>
+            </div>
           </div>
         </div>
 
@@ -1316,14 +663,14 @@
         <div class="modal-row full">
           <div class="form-group">
             <label>Design Notes / Details *</label>
-            <textarea id="orderNotes" placeholder="Describe your design, colors, any file you have, or link to a reference image..."></textarea>
+            <textarea id="orderNotes" placeholder="Describe your design, colors, sizes needed, or any special requests..."></textarea>
           </div>
         </div>
 
         <!-- Live price -->
         <div class="live-price-row">
           <span class="live-price-label">Estimated Total</span>
-          <span class="live-price-val" id="modalPrice">$27</span>
+          <span class="live-price-val" id="modalPrice">$20</span>
         </div>
 
         <button class="submit-btn" id="submitBtn" onclick="submitOrder()">Send Order Request</button>
@@ -1335,12 +682,11 @@
         <h3>Order Request Sent!</h3>
         <p>We got your request and will reach out to confirm details and pricing. Usually within a few hours — check your text or IG DMs.</p>
       </div>
-
     </div>
   </div>
 </div>
 
-<!-- ━━━━━━━━━━ CART DRAWER ━━━━━━━━━━ -->
+<!-- CART DRAWER -->
 <div class="cart-overlay-bg" id="cartBg" onclick="toggleCart()"></div>
 <div class="cart-drawer" id="cartDrawer">
   <div class="cart-drawer-header">
@@ -1351,129 +697,107 @@
     <div class="cart-empty">Your cart is empty.<br><br>Add items from the shop.</div>
   </div>
   <div class="cart-footer">
-    <div class="cart-total">
-      <span>Estimated Total</span>
-      <span id="cartTotal">$0.00</span>
-    </div>
+    <div class="cart-total"><span>Estimated Total</span><span id="cartTotal">$0.00</span></div>
     <button class="cart-checkout-btn" onclick="checkoutCart()">Request Quote for Cart</button>
   </div>
 </div>
 
 <!-- ━━━━━━━━━━ SCRIPTS ━━━━━━━━━━ -->
 <script>
-  // ── EmailJS Init ──
-  emailjs.init('32vz0uBs4LB9hzJLd');
+  // ── EmailJS ──
+  (function() { emailjs.init('32vz0uBs4LB9hzJLd'); })();
 
-  // ── Products ──
+  // ── Logo (base64 embedded from your MCW logo) ──
+  // Replace the src below with your actual logo URL or base64 string
+  // Example: document.getElementById('heroLogo').src = 'data:image/png;base64,...';
+  // For now, pointing to a placeholder; update after uploading your logo to GitHub
+  const LOGO_URL = 'logo.png'; // place logo.png in same folder as index.html on GitHub
+  ['heroLogo','navLogoImg','footerLogo'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.src = LOGO_URL;
+  });
+
+  // ── PRODUCTS ──
   const PRODUCTS = [
     {
-      id: 'dtf-tee',
-      name: 'DTF Custom T-Shirt',
-      desc: 'Gildan 5000 or AA 1301. Full-color DTF print, soft hand feel. Starts at $27.',
-      price: 'From $27',
-      type: 'dtf-tee',
-      svg: `<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
-        <rect width="200" height="160" fill="#111"/>
-        <path d="M60 40 L30 65 L50 72 L50 130 L150 130 L150 72 L170 65 L140 40 Q120 30 100 30 Q80 30 60 40Z" fill="#1a3a6e" stroke="#0047AB" stroke-width="1.5"/>
-        <rect x="72" y="68" width="56" height="44" rx="3" fill="#0047AB" opacity="0.6"/>
-        <text x="100" y="95" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" font-family="sans-serif">MCW</text>
-      </svg>`
+      id: 'dtf-tee', name: 'DTF Custom T-Shirts',
+      desc: 'Gildan 5000 · AA 1301 · Bella+Canvas 3001. Full-color print, soft feel. No minimums. Starts at $20.',
+      price: 'From $20 · No Minimum', type: 'dtf-tee',
+      svg: `<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="160" fill="#111"/><path d="M60 40 L30 65 L50 72 L50 130 L150 130 L150 72 L170 65 L140 40 Q120 30 100 30 Q80 30 60 40Z" fill="#1a3a6e" stroke="#0047AB" stroke-width="1.5"/><rect x="72" y="68" width="56" height="44" rx="3" fill="#0047AB" opacity="0.6"/><text x="100" y="95" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" font-family="sans-serif">MCW</text></svg>`
     },
     {
-      id: 'vinyl',
-      name: 'Specialty Vinyl / HTV',
-      desc: 'Flock, chrome, glitter, puff, glow-in-dark, reflective & more. Starting at $12.',
-      price: 'From $12',
-      type: 'vinyl',
-      svg: `<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
-        <rect width="200" height="160" fill="#111"/>
-        <polygon points="100,30 160,80 140,130 60,130 40,80" fill="none" stroke="#0047AB" stroke-width="2"/>
-        <polygon points="100,42 148,82 132,122 68,122 52,82" fill="#0047AB" opacity="0.3"/>
-        <circle cx="100" cy="85" r="22" fill="#0047AB" opacity="0.7"/>
-        <text x="100" y="90" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">HTV</text>
-        <circle cx="65" cy="45" r="6" fill="#c8a94b" opacity="0.8"/>
-        <circle cx="135" cy="45" r="6" fill="#888" opacity="0.7"/>
-        <circle cx="50" cy="95" r="5" fill="#aaa" opacity="0.6"/>
-      </svg>`
+      id: 'vinyl', name: 'Specialty Vinyl & HTV',
+      desc: 'Flock, brick, chrome, glitter, puff, glow & more. Bold textured finishes. Starts at $8.',
+      price: 'From $8', type: 'vinyl',
+      svg: `<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="160" fill="#111"/><polygon points="100,30 160,80 140,130 60,130 40,80" fill="none" stroke="#0047AB" stroke-width="2"/><polygon points="100,42 148,82 132,122 68,122 52,82" fill="#0047AB" opacity="0.3"/><circle cx="100" cy="85" r="22" fill="#0047AB" opacity="0.7"/><text x="100" y="90" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">HTV</text><circle cx="65" cy="45" r="6" fill="#c8a94b" opacity="0.8"/><circle cx="135" cy="45" r="6" fill="#888" opacity="0.7"/><circle cx="50" cy="95" r="5" fill="#aaa" opacity="0.6"/></svg>`
     },
     {
-      id: 'transfer',
-      name: 'DTF Transfers',
-      desc: 'Ready-to-press transfers. No minimums. Gang sheets available. From $2.50.',
-      price: 'From $2.50',
-      type: 'transfer',
-      svg: `<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
-        <rect width="200" height="160" fill="#111"/>
-        <rect x="35" y="35" width="130" height="90" rx="5" fill="#161616" stroke="#2a2a2a" stroke-width="1.5"/>
-        <rect x="45" y="45" width="110" height="70" rx="3" fill="#0d2147"/>
-        <rect x="55" y="52" width="80" height="12" rx="2" fill="#0047AB" opacity="0.8"/>
-        <rect x="55" y="70" width="55" height="8" rx="2" fill="#0047AB" opacity="0.5"/>
-        <rect x="55" y="83" width="70" height="8" rx="2" fill="#0047AB" opacity="0.4"/>
-        <rect x="55" y="96" width="40" height="8" rx="2" fill="#0047AB" opacity="0.3"/>
-        <text x="100" y="143" text-anchor="middle" fill="#555" font-size="8" font-family="sans-serif">READY TO PRESS</text>
-      </svg>`
+      id: 'transfer', name: 'DTF Gang Sheets',
+      desc: 'Ready-to-press transfers printed at 12.5" wide. No minimums. From $10 per sheet.',
+      price: 'From $10 · No Minimum', type: 'gang',
+      svg: `<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="160" fill="#111"/><rect x="35" y="30" width="130" height="100" rx="5" fill="#161616" stroke="#2a2a2a" stroke-width="1.5"/><rect x="45" y="40" width="110" height="80" rx="3" fill="#0d2147"/><rect x="55" y="48" width="80" height="12" rx="2" fill="#0047AB" opacity="0.8"/><rect x="55" y="66" width="55" height="8" rx="2" fill="#0047AB" opacity="0.5"/><rect x="55" y="79" width="70" height="8" rx="2" fill="#0047AB" opacity="0.4"/><rect x="55" y="92" width="40" height="8" rx="2" fill="#0047AB" opacity="0.3"/><text x="100" y="146" text-anchor="middle" fill="#555" font-size="7" font-family="sans-serif">12.5" WIDE · READY TO PRESS</text></svg>`
     },
     {
-      id: 'team',
-      name: 'Team & Bulk Orders',
-      desc: 'Teams, schools, businesses. Mix sizes & colors. Names/numbers available. 12+ pcs.',
-      price: 'From $22/ea',
-      type: 'team',
-      svg: `<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
-        <rect width="200" height="160" fill="#111"/>
-        <!-- 3 stacked shirts -->
-        <g transform="translate(0, 15)">
-          <path d="M50 50 L30 65 L42 70 L42 110 L90 110 L90 70 L102 65 L82 50 Q70 43 61 43 Q52 43 50 50Z" fill="#1a3a6e" stroke="#0047AB" stroke-width="1" opacity="0.5"/>
-          <path d="M65 45 L45 60 L57 65 L57 105 L105 105 L105 65 L117 60 L97 45 Q85 38 76 38 Q67 38 65 45Z" fill="#1a3a6e" stroke="#0047AB" stroke-width="1" opacity="0.75"/>
-          <path d="M80 40 L60 55 L72 60 L72 100 L120 100 L120 60 L132 55 L112 40 Q100 33 91 33 Q82 33 80 40Z" fill="#1a3a6e" stroke="#0047AB" stroke-width="1.5"/>
-          <text x="96" y="76" text-anchor="middle" fill="#0047AB" font-size="9" font-weight="bold" font-family="sans-serif">TEAM</text>
-        </g>
-        <text x="155" y="85" text-anchor="middle" fill="#0047AB" font-size="28" font-weight="900" font-family="sans-serif">×</text>
-        <text x="155" y="110" text-anchor="middle" fill="#555" font-size="10" font-family="sans-serif">12+</text>
-      </svg>`
+      id: 'team', name: 'Team & Bulk Orders',
+      desc: 'Teams, schools, businesses, military. Mix sizes & colors. Names/numbers available. Min 12 pcs.',
+      price: 'From $18/ea · 12 pc min', type: 'team',
+      svg: `<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="160" fill="#111"/><g transform="translate(0,15)"><path d="M50 50 L30 65 L42 70 L42 110 L90 110 L90 70 L102 65 L82 50 Q70 43 61 43 Q52 43 50 50Z" fill="#1a3a6e" stroke="#0047AB" stroke-width="1" opacity="0.5"/><path d="M65 45 L45 60 L57 65 L57 105 L105 105 L105 65 L117 60 L97 45 Q85 38 76 38 Q67 38 65 45Z" fill="#1a3a6e" stroke="#0047AB" stroke-width="1" opacity="0.75"/><path d="M80 40 L60 55 L72 60 L72 100 L120 100 L120 60 L132 55 L112 40 Q100 33 91 33 Q82 33 80 40Z" fill="#1a3a6e" stroke="#0047AB" stroke-width="1.5"/><text x="96" y="76" text-anchor="middle" fill="#0047AB" font-size="9" font-weight="bold" font-family="sans-serif">TEAM</text></g><text x="155" y="85" text-anchor="middle" fill="#0047AB" font-size="28" font-weight="900" font-family="sans-serif">×</text><text x="155" y="108" text-anchor="middle" fill="#555" font-size="9" font-family="sans-serif">12+ pcs</text></svg>`
     }
   ];
 
-  // ── Gildan 5000 Color Swatches ──
+  // ── COLOR DATA ──
   const GILDAN_COLORS = [
-    { name: 'White', hex: '#FFFFFF' },
-    { name: 'Black', hex: '#0a0a0a' },
-    { name: 'Navy', hex: '#1B2A4A' },
-    { name: 'Royal', hex: '#1F4F9E' },
-    { name: 'Cardinal Red', hex: '#8B0000' },
-    { name: 'Red', hex: '#CC1122' },
-    { name: 'Forest Green', hex: '#1A4A1A' },
-    { name: 'Military Green', hex: '#4A5A30' },
-    { name: 'Charcoal', hex: '#3C3C3C' },
-    { name: 'Sport Grey', hex: '#9A9A9A' },
-    { name: 'Ash Grey', hex: '#C8C8C8' },
-    { name: 'Light Blue', hex: '#6EB0D4' },
-    { name: 'Carolina Blue', hex: '#4F8FC0' },
-    { name: 'Purple', hex: '#5B2D8E' },
-    { name: 'Maroon', hex: '#6B1020' },
-    { name: 'Orange', hex: '#D4611A' },
-    { name: 'Gold', hex: '#C8A030' },
-    { name: 'Safety Green', hex: '#88CC00' },
-    { name: 'Safety Orange', hex: '#FF6600' },
-    { name: 'Antique Cherry Red', hex: '#A03040' },
-    { name: 'Azalea', hex: '#D46080' },
-    { name: 'Cornsilk', hex: '#F0E8C0' },
-    { name: 'Daisy', hex: '#F0D030' },
-    { name: 'Mint Green', hex: '#80D0A0' },
+    { name: 'White', hex: '#FFFFFF' }, { name: 'Black', hex: '#0a0a0a' },
+    { name: 'Navy', hex: '#1B2A4A' }, { name: 'Royal', hex: '#1F4F9E' },
+    { name: 'Cardinal Red', hex: '#8B0000' }, { name: 'Red', hex: '#CC1122' },
+    { name: 'Forest Green', hex: '#1A4A1A' }, { name: 'Military Green', hex: '#4A5A30' },
+    { name: 'Charcoal', hex: '#3C3C3C' }, { name: 'Sport Grey', hex: '#9A9A9A' },
+    { name: 'Ash Grey', hex: '#C8C8C8' }, { name: 'Light Blue', hex: '#6EB0D4' },
+    { name: 'Carolina Blue', hex: '#4F8FC0' }, { name: 'Purple', hex: '#5B2D8E' },
+    { name: 'Maroon', hex: '#6B1020' }, { name: 'Orange', hex: '#D4611A' },
+    { name: 'Gold', hex: '#C8A030' }, { name: 'Safety Green', hex: '#88CC00' },
+    { name: 'Safety Orange', hex: '#FF6600' }, { name: 'Antique Cherry', hex: '#A03040' },
+    { name: 'Azalea', hex: '#D46080' }, { name: 'Cornsilk', hex: '#F0E8C0' },
+    { name: 'Daisy', hex: '#F0D030' }, { name: 'Mint Green', hex: '#80D0A0' },
+  ];
+  const AA_COLORS = [
+    { name: 'White', hex: '#FFFFFF' }, { name: 'Black', hex: '#0a0a0a' },
+    { name: 'Navy', hex: '#1C2B4A' }, { name: 'True Royal', hex: '#2050A0' },
+    { name: 'Red', hex: '#C41230' }, { name: 'Cranberry', hex: '#8C1A38' },
+    { name: 'Forest', hex: '#1F4A28' }, { name: 'Army', hex: '#4A5030' },
+    { name: 'Asphalt', hex: '#3C3C40' }, { name: 'Heather Grey', hex: '#A0A0A8' },
+    { name: 'Silver', hex: '#C0C0C0' }, { name: 'Sky', hex: '#70B8D8' },
+    { name: 'Athletic Grey', hex: '#888890' }, { name: 'Storm', hex: '#506070' },
+    { name: 'Purple', hex: '#5A2C8C' }, { name: 'Camo', hex: '#6A7050' },
+    { name: 'Brown', hex: '#5A3820' }, { name: 'Mauve', hex: '#C08090' },
+    { name: 'Natural', hex: '#E8DCC8' }, { name: 'Tan', hex: '#C8A870' },
+  ];
+  const BC_COLORS = [
+    { name: 'White', hex: '#FFFFFF' }, { name: 'Black', hex: '#0a0a0a' },
+    { name: 'Navy', hex: '#1A2848' }, { name: 'True Royal', hex: '#1E4C9A' },
+    { name: 'Red', hex: '#C01228' }, { name: 'Cardinal', hex: '#881020' },
+    { name: 'Forest', hex: '#1C4826' }, { name: 'Military Green', hex: '#485030' },
+    { name: 'Charcoal', hex: '#3A3A3A' }, { name: 'Dark Grey', hex: '#505050' },
+    { name: 'Athletic Heather', hex: '#A8A8B0' }, { name: 'Silver', hex: '#C4C4C4' },
+    { name: 'Baby Blue', hex: '#88C0DC' }, { name: 'Columbia Blue', hex: '#5898C0' },
+    { name: 'Purple', hex: '#5828A0' }, { name: 'Maroon', hex: '#6A1020' },
+    { name: 'Gold', hex: '#C4A030' }, { name: 'Orange', hex: '#D05820' },
+    { name: 'Soft Pink', hex: '#E8A8B8' }, { name: 'Natural', hex: '#E4D8C0' },
   ];
 
-  // ── Cart State ──
+  // ── State ──
   let cart = [];
   let selectedSwatchIdx = 0;
   let selectedLocs = { front: true, back: false, sleeve: false, pocket: false };
+  let uploadedFileBase64 = null;
+  let uploadedFileName = '';
 
   // ── Render Products ──
   function renderProducts() {
-    const grids = ['featuredGrid', 'shopGrid'];
-    grids.forEach(gridId => {
-      const grid = document.getElementById(gridId);
-      if (!grid) return;
-      grid.innerHTML = PRODUCTS.map(p => `
+    ['featuredGrid', 'shopGrid'].forEach(id => {
+      const g = document.getElementById(id);
+      if (!g) return;
+      g.innerHTML = PRODUCTS.map(p => `
         <div class="product-card" onclick="openOrderForm('${p.type}')">
           <div class="product-thumb">${p.svg}</div>
           <div class="product-info">
@@ -1482,177 +806,227 @@
             <div class="product-price">${p.price}</div>
             <div class="product-order-btn">Order Now</div>
           </div>
-        </div>
-      `).join('');
+        </div>`).join('');
     });
   }
 
-  // ── Page Navigation ──
+  // ── Pages ──
   function showPage(name) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
     document.getElementById('page-' + name).classList.add('active');
-    const navEl = document.getElementById('nav-' + name);
-    if (navEl) navEl.classList.add('active');
+    const nav = document.getElementById('nav-' + name);
+    if (nav) nav.classList.add('active');
     window.scrollTo(0, 0);
-    // close mobile menu
     document.getElementById('navLinks').classList.remove('open');
     return false;
   }
+  function toggleMobileMenu() { document.getElementById('navLinks').classList.toggle('open'); }
 
-  function toggleMobileMenu() {
-    document.getElementById('navLinks').classList.toggle('open');
-  }
-
-  // ── Swatches ──
-  function renderSwatches() {
+  // ── Color Swatches ──
+  function renderGarmentSwatches() {
+    const garment = document.getElementById('orderGarment')?.value || 'gildan';
+    const colors = garment === 'aa' ? AA_COLORS : garment === 'bc' ? BC_COLORS : GILDAN_COLORS;
     const grid = document.getElementById('swatchGrid');
-    grid.innerHTML = GILDAN_COLORS.map((c, i) => `
-      <div class="swatch ${i === 0 ? 'selected' : ''}"
-           style="background:${c.hex};${c.hex === '#FFFFFF' ? 'border:2px solid #333;' : ''}"
-           title="${c.name}"
-           onclick="selectSwatch(this, ${i})">
-      </div>
-    `).join('');
+    selectedSwatchIdx = 0;
+    grid.innerHTML = colors.map((c, i) => `
+      <div class="swatch ${i===0?'selected':''}"
+        style="background:${c.hex};${c.hex==='#FFFFFF'?'border-color:#444;':''}"
+        title="${c.name}" onclick="selectSwatch(this,${i},'${c.name}')">
+      </div>`).join('');
+    document.getElementById('swatchName').textContent = colors[0].name;
   }
-
-  function selectSwatch(el, idx) {
+  function selectSwatch(el, idx, name) {
     document.querySelectorAll('#swatchGrid .swatch').forEach(s => s.classList.remove('selected'));
     el.classList.add('selected');
     selectedSwatchIdx = idx;
+    document.getElementById('swatchName').textContent = name;
   }
 
-  // ── Print Location Toggles (Modal) ──
+  // ── Location Toggles ──
   function toggleLoc(el, loc) {
-    if (loc === 'front') return; // front always on
+    if (loc === 'front') return;
     el.classList.toggle('active');
     selectedLocs[loc] = el.classList.contains('active');
     updateModalPrice();
   }
-
-  // ── Calc Location Toggles ──
   function toggleCalcLoc(el) {
-    const text = el.textContent.trim();
-    if (text === 'Front') return;
+    if (el.textContent.trim() === 'Front') return;
     el.classList.toggle('active');
     updateCalc();
   }
 
+  // ── File Upload ──
+  function handleFileUpload(input) {
+    const file = input.files[0];
+    if (!file) return;
+    if (file.size > 10 * 1024 * 1024) { alert('File too large. Max 10MB.'); return; }
+    uploadedFileName = file.name;
+    document.getElementById('uploadZone').classList.add('has-file');
+    document.getElementById('uploadFileName').textContent = file.name;
+    // Show preview for images
+    if (file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        uploadedFileBase64 = e.target.result;
+        document.getElementById('uploadPreviewImg').src = e.target.result;
+        document.getElementById('uploadPreview').style.display = 'block';
+        document.querySelector('.upload-icon').textContent = '✅';
+        document.querySelector('.upload-text').innerHTML = '<strong>' + file.name + '</strong>';
+      };
+      reader.readAsDataURL(file);
+    } else {
+      // Non-image file — show name only
+      uploadedFileBase64 = null;
+      document.getElementById('uploadPreview').style.display = 'block';
+      document.getElementById('uploadPreviewImg').style.display = 'none';
+      document.getElementById('uploadFileName').textContent = '📄 ' + file.name + ' (attached)';
+      document.querySelector('.upload-icon').textContent = '✅';
+      document.querySelector('.upload-text').innerHTML = '<strong>' + file.name + '</strong>';
+    }
+  }
+  function clearUpload() {
+    uploadedFileBase64 = null;
+    uploadedFileName = '';
+    document.getElementById('designFile').value = '';
+    document.getElementById('uploadPreview').style.display = 'none';
+    document.getElementById('uploadPreviewImg').src = '';
+    document.getElementById('uploadPreviewImg').style.display = '';
+    document.getElementById('uploadZone').classList.remove('has-file');
+    document.querySelector('.upload-icon').textContent = '🖼️';
+    document.querySelector('.upload-text').innerHTML = 'Drop your file here or <strong>click to browse</strong>';
+  }
+
   // ── Order Form ──
   function openOrderForm(type) {
-    const modal = document.getElementById('orderModal');
     const productSelect = document.getElementById('orderProduct');
-    const map = { 'dtf-tee': 'dtf-tee', 'vinyl': 'vinyl', 'transfer': 'transfer', 'team': 'team' };
-    productSelect.value = map[type] || 'dtf-tee';
+    const typeMap = { 'dtf-tee': 'dtf-tee', 'vinyl': 'vinyl', 'gang': 'gang', 'transfer': 'gang', 'team': 'team' };
+    productSelect.value = typeMap[type] || 'dtf-tee';
     switchModalProduct();
     document.getElementById('orderFormContent').style.display = '';
     document.getElementById('orderSuccess').style.display = 'none';
     document.getElementById('submitBtn').disabled = false;
     document.getElementById('submitBtn').textContent = 'Send Order Request';
-    modal.classList.add('open');
+    clearUpload();
+    document.getElementById('orderModal').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
-
   function closeOrderForm() {
     document.getElementById('orderModal').classList.remove('open');
     document.body.style.overflow = '';
   }
-
   function switchModalProduct() {
     const val = document.getElementById('orderProduct').value;
-    document.getElementById('teeFields').style.display = val === 'dtf-tee' ? '' : 'none';
-    document.getElementById('transferFields').style.display = val === 'transfer' ? '' : 'none';
+    document.getElementById('teeFields').style.display  = val === 'dtf-tee' ? '' : 'none';
+    document.getElementById('gangFields').style.display = val === 'gang' ? '' : 'none';
     document.getElementById('vinylFields').style.display = val === 'vinyl' ? '' : 'none';
     document.getElementById('teamFields').style.display = val === 'team' ? '' : 'none';
-    const badge = document.getElementById('modalProductBadge');
-    const labels = { 'dtf-tee': 'DTF T-Shirt', 'vinyl': 'Specialty Vinyl / HTV', 'transfer': 'DTF Transfer', 'team': 'Team / Bulk Order' };
-    badge.textContent = labels[val] || 'Order';
+    const labels = { 'dtf-tee': 'DTF T-Shirt', 'vinyl': 'Specialty Vinyl / HTV', 'gang': 'DTF Gang Sheet / Transfer', 'team': 'Team / Bulk Order' };
+    document.getElementById('modalProductBadge').textContent = labels[val] || 'Order';
     selectedLocs = { front: true, back: false, sleeve: false, pocket: false };
-    document.querySelectorAll('#modalLocations .loc-toggle').forEach((el, i) => {
-      el.classList.toggle('active', i === 0);
-    });
+    document.querySelectorAll('#modalLocations .loc-toggle').forEach((el, i) => el.classList.toggle('active', i === 0));
+    if (val === 'dtf-tee') renderGarmentSwatches();
     updateModalPrice();
+  }
+
+  // ── Pricing Logic ──
+  function getTeePrice(garment, qty) {
+    // Gildan: 1=$20, 2-4=$22, 5-11=$20, 12-23=$19, 24+=$18
+    // AA/BC:  1=$25, 2-4=$28, 5-11=$26, 12-23=$24, 24+=$22
+    const g = { 1: 20, 4: 22, 11: 20, 23: 19, 99999: 18 };
+    const p = { 1: 25, 4: 28, 11: 26, 23: 24, 99999: 22 };
+    const tiers = garment === 'gildan' || garment === 'customer' ? g : p;
+    if (qty >= 24) return tiers[99999];
+    if (qty >= 12) return tiers[23];
+    if (qty >= 5)  return tiers[11];
+    if (qty >= 2)  return tiers[4];
+    return tiers[1];
   }
 
   function updateModalPrice() {
     const product = document.getElementById('orderProduct').value;
     let total = 0;
-
     if (product === 'dtf-tee') {
       const garment = document.getElementById('orderGarment').value;
       const qty = parseInt(document.getElementById('orderQty').value) || 1;
-      const basePrices = { gildan: [27, 24, 22, 19], aa: [40, 36, 33, 29], customer: [12, 10, 9, 8] };
-      const prices = basePrices[garment];
-      let base = qty >= 24 ? prices[3] : qty >= 12 ? prices[2] : qty >= 5 ? prices[1] : prices[0];
+      let base = getTeePrice(garment, qty);
       let addons = 0;
       if (selectedLocs.back)   addons += 5;
       if (selectedLocs.sleeve) addons += 3;
       if (selectedLocs.pocket) addons += 2;
       total = (base + addons) * qty;
-    } else if (product === 'transfer') {
-      const size = document.getElementById('orderTransferSize').value;
-      const qty = parseInt(document.getElementById('orderTransferQty').value) || 1;
-      const sizePrices = { sm: [2.50, 2.00], md: [4.00, 3.25], lg: [7.00, 5.75], gang: [35, 35] };
-      const p = sizePrices[size];
-      const unitPrice = qty >= 10 ? p[1] : p[0];
-      total = unitPrice * qty;
+    } else if (product === 'gang') {
+      const size = document.getElementById('orderGangSize').value;
+      const qty = parseInt(document.getElementById('orderGangQty').value) || 1;
+      const midPrices = { sm: 12, md: 16, lg: 21.5, xl: 30 };
+      total = (midPrices[size] || 12) * qty;
     } else if (product === 'vinyl') {
       const vtype = document.getElementById('orderVinylType').value;
       const qty = parseInt(document.getElementById('orderVinylQty').value) || 1;
-      const vPrices = { std1: 12, std2: 18, specialty: 23 };
-      total = vPrices[vtype] * qty;
+      const vp = { std1: 10, std2: 16, specialty: 20, names: 7.5 };
+      total = (vp[vtype] || 10) * qty;
     } else if (product === 'team') {
       const garment = document.getElementById('orderTeamGarment').value;
       const qty = parseInt(document.getElementById('orderTeamQty').value) || 12;
       const hasNames = document.getElementById('orderTeamNames').value === 'yes';
-      const basePrices = { gildan: qty >= 100 ? 0 : qty >= 48 ? 17 : qty >= 24 ? 19 : 22, aa: qty >= 48 ? 25 : qty >= 24 ? 29 : 33, customer: qty >= 48 ? 8 : 10 };
-      if (garment === 'gildan' && qty >= 100) {
+      if (qty >= 100 && garment === 'gildan') {
         document.getElementById('modalPrice').textContent = 'Call for quote';
         return;
       }
-      const base = basePrices[garment] + (hasNames ? (qty >= 48 ? 2.5 : 3) : 0);
-      total = base * qty;
+      let base;
+      if (garment === 'gildan' || garment === 'customer') {
+        base = qty >= 48 ? 16 : qty >= 24 ? 17 : 18;
+      } else {
+        base = qty >= 48 ? 22 : qty >= 24 ? 24 : 26;
+      }
+      const nameAddon = hasNames ? (qty >= 48 ? 2.5 : 3) : 0;
+      total = (base + nameAddon) * qty;
     }
-
     document.getElementById('modalPrice').textContent = '$' + total.toFixed(2);
   }
 
-  // ── Submit Order ──
+  // ── Submit Order via EmailJS ──
   function submitOrder() {
-    const name = document.getElementById('orderName').value.trim();
+    const name    = document.getElementById('orderName').value.trim();
     const contact = document.getElementById('orderContact').value.trim();
-    const notes = document.getElementById('orderNotes').value.trim();
-
+    const notes   = document.getElementById('orderNotes').value.trim();
     if (!name || !contact || !notes) {
       alert('Please fill in your name, contact info, and design details.');
       return;
     }
-
     const product = document.getElementById('orderProduct').value;
-    const productLabels = { 'dtf-tee': 'DTF T-Shirt', 'vinyl': 'Specialty Vinyl / HTV', 'transfer': 'DTF Transfer', 'team': 'Team / Bulk Order' };
+    const productLabels = { 'dtf-tee': 'DTF T-Shirt', 'vinyl': 'Specialty Vinyl / HTV', 'gang': 'DTF Gang Sheet / Transfer', 'team': 'Team / Bulk Order' };
     const estimatedPrice = document.getElementById('modalPrice').textContent;
     const email = document.getElementById('orderEmail').value.trim();
 
+    // Build order detail string
     let details = '';
+    const garmentNames = { gildan: 'Gildan 5000', aa: 'American Apparel 1301', bc: 'Bella+Canvas 3001', customer: 'Customer Supplied' };
     if (product === 'dtf-tee') {
       const garment = document.getElementById('orderGarment').value;
       const qty = document.getElementById('orderQty').value;
-      const color = GILDAN_COLORS[selectedSwatchIdx]?.name || 'Not selected';
-      const locs = Object.entries(selectedLocs).filter(([k,v]) => v).map(([k]) => k).join(', ');
-      details = `Garment: ${garment} | Qty: ${qty} | Color: ${color} | Locations: ${locs}`;
-    } else if (product === 'transfer') {
-      const size = document.getElementById('orderTransferSize').options[document.getElementById('orderTransferSize').selectedIndex].text;
-      const qty = document.getElementById('orderTransferQty').value;
-      details = `Size: ${size} | Qty: ${qty}`;
+      const garmentColors = garment === 'aa' ? AA_COLORS : garment === 'bc' ? BC_COLORS : GILDAN_COLORS;
+      const color = garmentColors[selectedSwatchIdx]?.name || 'Not selected';
+      const locs = Object.entries(selectedLocs).filter(([,v])=>v).map(([k])=>k).join(', ');
+      details = `Garment: ${garmentNames[garment] || garment} | Qty: ${qty} | Color: ${color} | Print Locations: ${locs}`;
+    } else if (product === 'gang') {
+      const sizeEl = document.getElementById('orderGangSize');
+      const size = sizeEl.options[sizeEl.selectedIndex].text;
+      const qty = document.getElementById('orderGangQty').value;
+      details = `Sheet Size: ${size} | Qty: ${qty} sheets`;
     } else if (product === 'vinyl') {
-      const vtype = document.getElementById('orderVinylType').options[document.getElementById('orderVinylType').selectedIndex].text;
+      const vtEl = document.getElementById('orderVinylType');
+      const matEl = document.getElementById('orderVinylMaterial');
+      const vtype = vtEl.options[vtEl.selectedIndex].text;
+      const material = matEl.value ? matEl.options[matEl.selectedIndex].text : 'N/A';
       const qty = document.getElementById('orderVinylQty').value;
-      details = `Type: ${vtype} | Qty: ${qty} garments`;
+      details = `Type: ${vtype} | Material: ${material} | Qty: ${qty} garments`;
     } else if (product === 'team') {
       const garment = document.getElementById('orderTeamGarment').value;
       const qty = document.getElementById('orderTeamQty').value;
-      const names = document.getElementById('orderTeamNames').options[document.getElementById('orderTeamNames').selectedIndex].text;
-      details = `Garment: ${garment} | Qty: ${qty} | Names: ${names}`;
+      const namesEl = document.getElementById('orderTeamNames');
+      const names = namesEl.options[namesEl.selectedIndex].text;
+      details = `Garment: ${garmentNames[garment] || garment} | Qty: ${qty} | Names/Numbers: ${names}`;
     }
 
     const btn = document.getElementById('submitBtn');
@@ -1663,10 +1037,11 @@
       customer_name:    name,
       customer_contact: contact,
       customer_email:   email || 'Not provided',
-      product_type:     productLabels[product],
+      product_type:     productLabels[product] || product,
       order_details:    details,
       design_notes:     notes,
       estimated_price:  estimatedPrice,
+      file_attached:    uploadedFileName ? 'Yes — ' + uploadedFileName : 'No file uploaded',
     };
 
     emailjs.send('service_c2s99tf', 'template_afxz4is', templateParams)
@@ -1678,85 +1053,79 @@
         console.error('EmailJS error:', err);
         btn.textContent = 'Send Order Request';
         btn.disabled = false;
-        alert('Something went wrong sending your request. Please DM us on Instagram @midcity.wrld or text (801) 410-0490.');
+        alert('Something went wrong. Please DM us @midcity.wrld or text (801) 410-0490.');
       });
   }
 
-  // ── Quote Calculator ──
+  // ── Quick Quote Calculator ──
   function updateCalc() {
     const product = document.getElementById('calcProduct').value;
     const qty = parseInt(document.getElementById('calcQty').value) || 1;
     const locRow = document.getElementById('calcLocRow');
-    let total = 0;
-    let note = '';
+    let total = 0, note = '';
 
     if (product.startsWith('dtf-tee')) {
       locRow.style.display = '';
-      const isAA = product === 'dtf-tee-aa';
-      const prices = isAA ? [40, 36, 33, 29] : [27, 24, 22, 19];
-      const unitPrice = qty >= 24 ? prices[3] : qty >= 12 ? prices[2] : qty >= 5 ? prices[1] : prices[0];
+      const garment = product === 'dtf-tee-aa' ? 'aa' : product === 'dtf-tee-bc' ? 'bc' : 'gildan';
+      const garmentLabel = product === 'dtf-tee-aa' ? 'AA 1301' : product === 'dtf-tee-bc' ? 'Bella+Canvas' : 'Gildan 5000';
+      const base = getTeePrice(garment, qty);
       let addons = 0;
       document.querySelectorAll('#calcLocations .loc-toggle.active').forEach(el => {
-        if (el.textContent.includes('Back')) addons += 5;
+        if (el.textContent.includes('Back'))   addons += 5;
         if (el.textContent.includes('Sleeve')) addons += 3;
         if (el.textContent.includes('Pocket')) addons += 2;
       });
-      total = (unitPrice + addons) * qty;
-      note = `${qty} shirt${qty>1?'s':''} × $${(unitPrice+addons)} ea · ${isAA ? 'AA 1301' : 'Gildan 5000'}`;
-    } else if (product.startsWith('dtf-transfer')) {
+      total = (base + addons) * qty;
+      note = `${qty} shirt${qty>1?'s':''} × $${base+addons} ea · ${garmentLabel}`;
+    } else if (product.startsWith('gang')) {
       locRow.style.display = 'none';
-      const pMap = { 'dtf-transfer-sm': [2.5,2], 'dtf-transfer-md': [4,3.25], 'dtf-transfer-lg': [7,5.75] };
-      const p = pMap[product] || [2.5,2];
-      const unit = qty >= 10 ? p[1] : p[0];
-      total = unit * qty;
-      note = `${qty} transfer${qty>1?'s':''} × $${unit} ea`;
+      const midPrices = { 'gang-sm': 12, 'gang-md': 16, 'gang-lg': 21.5, 'gang-xl': 30 };
+      const labels = { 'gang-sm': '12.5"×12"', 'gang-md': '12.5"×17.5"', 'gang-lg': '12.5"×24"', 'gang-xl': '12.5"×35"' };
+      const mid = midPrices[product] || 12;
+      total = mid * qty;
+      note = `${qty} sheet${qty>1?'s':''} · ${labels[product]} · est. midpoint`;
     } else if (product === 'vinyl-std') {
       locRow.style.display = 'none';
-      total = 12 * qty;
-      note = `${qty} garment${qty>1?'s':''} × $12 ea — standard`;
+      total = 10 * qty;
+      note = `${qty} garment${qty>1?'s':''} × ~$10 ea — standard HTV`;
     } else if (product === 'vinyl-specialty') {
       locRow.style.display = 'none';
       total = 20 * qty;
-      note = `${qty} garment${qty>1?'s':''} × $20 ea — specialty`;
+      note = `${qty} garment${qty>1?'s':''} × ~$20 ea — specialty HTV`;
     }
-
-    document.getElementById('calcPrice').textContent = '$' + total.toFixed(2);
+    document.getElementById('calcPrice').textContent = total % 1 === 0 ? '$' + total : '~$' + total.toFixed(0);
     document.getElementById('calcNote').textContent = note;
   }
-
   function openOrderFromCalc() {
     const product = document.getElementById('calcProduct').value;
     let type = 'dtf-tee';
-    if (product.startsWith('dtf-tee')) type = 'dtf-tee';
-    else if (product.startsWith('dtf-transfer')) type = 'transfer';
+    if (product.startsWith('dtf-tee'))  type = 'dtf-tee';
+    else if (product.startsWith('gang')) type = 'gang';
     else if (product.startsWith('vinyl')) type = 'vinyl';
     openOrderForm(type);
   }
 
   // ── Cart ──
   function toggleCart() {
-    document.getElementById('cartDrawer').classList.toggle('open');
+    const d = document.getElementById('cartDrawer');
+    d.classList.toggle('open');
     document.getElementById('cartBg').classList.toggle('open');
-    document.body.style.overflow = document.getElementById('cartDrawer').classList.contains('open') ? 'hidden' : '';
+    document.body.style.overflow = d.classList.contains('open') ? 'hidden' : '';
   }
-
   function renderCart() {
     const container = document.getElementById('cartItems');
     const count = document.getElementById('cartCount');
     const total = document.getElementById('cartTotal');
-
     if (cart.length === 0) {
       container.innerHTML = '<div class="cart-empty">Your cart is empty.<br><br>Add items from the shop.</div>';
       count.style.display = 'none';
       total.textContent = '$0.00';
       return;
     }
-
     count.textContent = cart.length;
     count.style.display = 'flex';
-    const sum = cart.reduce((acc, item) => acc + (item.price || 0), 0);
+    const sum = cart.reduce((a, i) => a + (i.price||0), 0);
     total.textContent = '$' + sum.toFixed(2);
-
     container.innerHTML = cart.map((item, i) => `
       <div class="cart-item">
         <div class="cart-item-info">
@@ -1767,17 +1136,11 @@
           <span class="cart-item-price">$${(item.price||0).toFixed(2)}</span>
           <span class="cart-item-remove" onclick="removeFromCart(${i})">×</span>
         </div>
-      </div>
-    `).join('');
+      </div>`).join('');
   }
-
-  function removeFromCart(idx) {
-    cart.splice(idx, 1);
-    renderCart();
-  }
-
+  function removeFromCart(idx) { cart.splice(idx,1); renderCart(); }
   function checkoutCart() {
-    if (cart.length === 0) return;
+    if (!cart.length) return;
     const summary = cart.map(i => `${i.name}: ${i.detail}`).join('\n');
     openOrderForm('dtf-tee');
     document.getElementById('orderNotes').value = 'Cart items:\n' + summary;
@@ -1786,18 +1149,14 @@
 
   // ── Init ──
   document.addEventListener('DOMContentLoaded', () => {
-    emailjs.init('32vz0uBs4LB9hzJLd');
     renderProducts();
-    renderSwatches();
+    renderGarmentSwatches();
     updateCalc();
     updateModalPrice();
-
-    // Close modal on overlay click
     document.getElementById('orderModal').addEventListener('click', function(e) {
       if (e.target === this) closeOrderForm();
     });
   });
 </script>
-
 </body>
 </html>
