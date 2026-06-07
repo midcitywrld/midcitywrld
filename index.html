@@ -223,6 +223,36 @@
     .gang-info { background: rgba(0,71,171,0.07); border: 1px solid rgba(0,71,171,0.25); border-radius: 6px; padding: 0.8rem 1rem; margin-top: 0.8rem; font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
     .gang-info strong { color: var(--white); }
 
+    /* ── SHIRT MOCKUP ── */
+    .mockup-section { margin-bottom: 1rem; }
+    .mockup-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: space-between; }
+    .mockup-label .mockup-hint { font-size: 0.68rem; color: #555; font-weight: 400; letter-spacing: 0; text-transform: none; }
+    .mockup-wrap { position: relative; background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .mockup-tabs { display: flex; border-bottom: 1px solid var(--border); }
+    .mockup-tab { flex: 1; padding: 0.45rem 0.5rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--muted); text-align: center; cursor: pointer; transition: all 0.15s; border-bottom: 2px solid transparent; background: none; }
+    .mockup-tab.active { color: var(--white); border-bottom-color: var(--cobalt); }
+    .mockup-canvas-wrap { position: relative; display: flex; align-items: center; justify-content: center; padding: 1rem; min-height: 240px; }
+    #mockupCanvas { display: block; max-width: 100%; max-height: 240px; border-radius: 4px; }
+    .mockup-no-design { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #444; font-size: 0.78rem; gap: 0.4rem; pointer-events: none; }
+    .mockup-no-design span { font-size: 1.8rem; }
+
+    /* placement + size selectors inline */
+    .placement-size-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-bottom: 0.9rem; }
+
+    /* transfer size chips */
+    .size-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.4rem; }
+    .size-chip { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0.35rem 0.65rem; font-size: 0.72rem; font-weight: 600; color: var(--muted); cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+    .size-chip:hover { border-color: var(--cobalt); color: var(--white); }
+    .size-chip.active { border-color: var(--cobalt); color: var(--white); background: rgba(0,71,171,0.15); }
+    .size-chip .chip-price { color: var(--cobalt); margin-left: 0.3rem; }
+
+    /* placement chip grid */
+    .placement-chips { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.4rem; margin-top: 0.4rem; }
+    .placement-chip { background: var(--card); border: 1px solid var(--border); border-radius: 5px; padding: 0.5rem 0.6rem; font-size: 0.74rem; font-weight: 600; color: var(--muted); cursor: pointer; transition: all 0.15s; text-align: center; line-height: 1.3; }
+    .placement-chip:hover { border-color: var(--cobalt); }
+    .placement-chip.active { border-color: var(--cobalt); color: var(--white); background: rgba(0,71,171,0.12); }
+    .placement-chip .chip-price { display: block; font-size: 0.65rem; color: var(--cobalt); margin-top: 0.1rem; font-weight: 700; }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 640px) {
       .nav-links { display: none; }
@@ -523,7 +553,7 @@
           <div class="modal-row">
             <div class="form-group">
               <label>Garment</label>
-              <select id="orderGarment" onchange="updateModalPrice(); renderGarmentSwatches();">
+              <select id="orderGarment" onchange="updateModalPrice(); renderGarmentSwatches(); renderMockup();">
                 <option value="gildan">Gildan 5000 Heavy Cotton</option>
                 <option value="aa">American Apparel 1301</option>
                 <option value="bc">Bella+Canvas 3001</option>
@@ -542,15 +572,65 @@
               <div class="swatch-name" id="swatchName">White</div>
             </div>
           </div>
-          <div style="margin-bottom:0.9rem">
-            <div class="form-group">
-              <label>Print Locations</label>
-              <div class="location-grid" id="modalLocations">
-                <div class="loc-toggle active" onclick="toggleLoc(this,'front')">Front</div>
-                <div class="loc-toggle" onclick="toggleLoc(this,'back')">Back (+$5)</div>
-                <div class="loc-toggle" onclick="toggleLoc(this,'sleeve')">Sleeve (+$3)</div>
-                <div class="loc-toggle" onclick="toggleLoc(this,'pocket')">Pocket (+$2)</div>
+
+          <!-- Placement + Print Size -->
+          <div class="form-group" style="margin-bottom:0.9rem">
+            <label>Placement <span style="color:#555;font-weight:400;text-transform:none;letter-spacing:0">— click to select, affects mockup</span></label>
+            <div class="placement-chips" id="placementChips">
+              <div class="placement-chip active" data-loc="front-full" onclick="selectPlacement(this)">
+                Full Front<span class="chip-price">Included</span>
               </div>
+              <div class="placement-chip" data-loc="front-chest" onclick="selectPlacement(this)">
+                Left Chest<span class="chip-price">Included</span>
+              </div>
+              <div class="placement-chip" data-loc="back-full" onclick="selectPlacement(this)">
+                Full Back<span class="chip-price">+$5</span>
+              </div>
+              <div class="placement-chip" data-loc="sleeve" onclick="selectPlacement(this)">
+                Sleeve<span class="chip-price">+$3</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Transfer / Print Size -->
+          <div class="form-group" style="margin-bottom:0.9rem">
+            <label>Print Size</label>
+            <div class="size-chips" id="printSizeChips">
+              <div class="size-chip active" data-size="sm" data-w="3" data-h="3" onclick="selectPrintSize(this)">3×3" <span class="chip-price">Sm</span></div>
+              <div class="size-chip" data-size="md" data-w="4" data-h="4" onclick="selectPrintSize(this)">4×4" <span class="chip-price">Med</span></div>
+              <div class="size-chip" data-size="lg" data-w="6" data-h="6" onclick="selectPrintSize(this)">6×6" <span class="chip-price">Lg</span></div>
+              <div class="size-chip" data-size="xl" data-w="10" data-h="12" onclick="selectPrintSize(this)">10×12" <span class="chip-price">Full Front</span></div>
+              <div class="size-chip" data-size="xxl" data-w="12" data-h="14" onclick="selectPrintSize(this)">12×14" <span class="chip-price">Oversized</span></div>
+            </div>
+          </div>
+
+          <!-- SHIRT MOCKUP -->
+          <div class="mockup-section">
+            <div class="mockup-label">
+              Live Preview
+              <span class="mockup-hint">Upload your design below to see it on the shirt</span>
+            </div>
+            <div class="mockup-wrap">
+              <div class="mockup-tabs">
+                <button class="mockup-tab active" onclick="setMockupView('front',this)">Front</button>
+                <button class="mockup-tab" onclick="setMockupView('back',this)">Back</button>
+              </div>
+              <div class="mockup-canvas-wrap">
+                <canvas id="mockupCanvas" width="300" height="340"></canvas>
+                <div class="mockup-no-design" id="mockupNoDesign">
+                  <span>👕</span>Upload your design to preview it here
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- additional locations -->
+          <div class="form-group" style="margin-bottom:0.9rem">
+            <label>Additional Locations</label>
+            <div class="location-grid" id="modalLocations">
+              <div class="loc-toggle" onclick="toggleLoc(this,'back')">+ Back ($5)</div>
+              <div class="loc-toggle" onclick="toggleLoc(this,'sleeve')">+ Sleeve ($3)</div>
+              <div class="loc-toggle" onclick="toggleLoc(this,'pocket')">+ Pocket ($2)</div>
             </div>
           </div>
         </div>
@@ -573,7 +653,7 @@
             </div>
           </div>
           <div class="gang-info" style="margin-bottom:0.9rem">
-            <strong>Gang Sheet Tips:</strong> Fill the sheet with your designs — mix sizes. Transfers are ready to press. Requires 300 DPI artwork. File cleanup available for $5–$10 if needed.
+            <strong>Gang Sheet Tips:</strong> Fill the sheet with your designs — mix sizes. Transfers are ready to press. Requires 300 DPI artwork. File cleanup $5–$10 if needed.
           </div>
         </div>
 
@@ -596,7 +676,7 @@
           </div>
           <div class="modal-row full">
             <div class="form-group">
-              <label>Specialty Material (if applicable)</label>
+              <label>Specialty Material</label>
               <select id="orderVinylMaterial">
                 <option value="">— Standard / Not applicable —</option>
                 <option value="flock">Flock (velvet texture)</option>
@@ -651,8 +731,7 @@
               <div class="upload-text">Drop your file here or <strong>click to browse</strong></div>
               <div class="upload-text" style="font-size:0.7rem;margin-top:0.2rem;">PNG, JPG, PDF, AI, EPS, SVG · Max 10MB</div>
             </div>
-            <div class="upload-preview" id="uploadPreview">
-              <img id="uploadPreviewImg" src="" alt="Design preview" />
+            <div class="upload-preview" id="uploadPreview" style="display:none">
               <div class="upload-preview-name" id="uploadFileName"></div>
               <span class="upload-clear" onclick="clearUpload()">✕ Remove file</span>
             </div>
@@ -704,14 +783,9 @@
 
 <!-- ━━━━━━━━━━ SCRIPTS ━━━━━━━━━━ -->
 <script>
-  // ── EmailJS ──
   (function() { emailjs.init('32vz0uBs4LB9hzJLd'); })();
 
-  // ── Logo (base64 embedded from your MCW logo) ──
-  // Replace the src below with your actual logo URL or base64 string
-  // Example: document.getElementById('heroLogo').src = 'data:image/png;base64,...';
-  // For now, pointing to a placeholder; update after uploading your logo to GitHub
-  const LOGO_URL = 'logo.png'; // place logo.png in same folder as index.html on GitHub
+  const LOGO_URL = 'logo.png';
   ['heroLogo','navLogoImg','footerLogo'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.src = LOGO_URL;
@@ -719,84 +793,57 @@
 
   // ── PRODUCTS ──
   const PRODUCTS = [
-    {
-      id: 'dtf-tee', name: 'DTF Custom T-Shirts',
-      desc: 'Gildan 5000 · AA 1301 · Bella+Canvas 3001. Full-color print, soft feel. No minimums. Starts at $20.',
-      price: 'From $20 · No Minimum', type: 'dtf-tee',
-      svg: `<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="160" fill="#111"/><path d="M60 40 L30 65 L50 72 L50 130 L150 130 L150 72 L170 65 L140 40 Q120 30 100 30 Q80 30 60 40Z" fill="#1a3a6e" stroke="#0047AB" stroke-width="1.5"/><rect x="72" y="68" width="56" height="44" rx="3" fill="#0047AB" opacity="0.6"/><text x="100" y="95" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" font-family="sans-serif">MCW</text></svg>`
-    },
-    {
-      id: 'vinyl', name: 'Specialty Vinyl & HTV',
-      desc: 'Flock, brick, chrome, glitter, puff, glow & more. Bold textured finishes. Starts at $8.',
-      price: 'From $8', type: 'vinyl',
-      svg: `<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="160" fill="#111"/><polygon points="100,30 160,80 140,130 60,130 40,80" fill="none" stroke="#0047AB" stroke-width="2"/><polygon points="100,42 148,82 132,122 68,122 52,82" fill="#0047AB" opacity="0.3"/><circle cx="100" cy="85" r="22" fill="#0047AB" opacity="0.7"/><text x="100" y="90" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">HTV</text><circle cx="65" cy="45" r="6" fill="#c8a94b" opacity="0.8"/><circle cx="135" cy="45" r="6" fill="#888" opacity="0.7"/><circle cx="50" cy="95" r="5" fill="#aaa" opacity="0.6"/></svg>`
-    },
-    {
-      id: 'transfer', name: 'DTF Gang Sheets',
-      desc: 'Ready-to-press transfers printed at 12.5" wide. No minimums. From $10 per sheet.',
-      price: 'From $10 · No Minimum', type: 'gang',
-      svg: `<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="160" fill="#111"/><rect x="35" y="30" width="130" height="100" rx="5" fill="#161616" stroke="#2a2a2a" stroke-width="1.5"/><rect x="45" y="40" width="110" height="80" rx="3" fill="#0d2147"/><rect x="55" y="48" width="80" height="12" rx="2" fill="#0047AB" opacity="0.8"/><rect x="55" y="66" width="55" height="8" rx="2" fill="#0047AB" opacity="0.5"/><rect x="55" y="79" width="70" height="8" rx="2" fill="#0047AB" opacity="0.4"/><rect x="55" y="92" width="40" height="8" rx="2" fill="#0047AB" opacity="0.3"/><text x="100" y="146" text-anchor="middle" fill="#555" font-size="7" font-family="sans-serif">12.5" WIDE · READY TO PRESS</text></svg>`
-    },
-    {
-      id: 'team', name: 'Team & Bulk Orders',
-      desc: 'Teams, schools, businesses, military. Mix sizes & colors. Names/numbers available. Min 12 pcs.',
-      price: 'From $18/ea · 12 pc min', type: 'team',
-      svg: `<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="160" fill="#111"/><g transform="translate(0,15)"><path d="M50 50 L30 65 L42 70 L42 110 L90 110 L90 70 L102 65 L82 50 Q70 43 61 43 Q52 43 50 50Z" fill="#1a3a6e" stroke="#0047AB" stroke-width="1" opacity="0.5"/><path d="M65 45 L45 60 L57 65 L57 105 L105 105 L105 65 L117 60 L97 45 Q85 38 76 38 Q67 38 65 45Z" fill="#1a3a6e" stroke="#0047AB" stroke-width="1" opacity="0.75"/><path d="M80 40 L60 55 L72 60 L72 100 L120 100 L120 60 L132 55 L112 40 Q100 33 91 33 Q82 33 80 40Z" fill="#1a3a6e" stroke="#0047AB" stroke-width="1.5"/><text x="96" y="76" text-anchor="middle" fill="#0047AB" font-size="9" font-weight="bold" font-family="sans-serif">TEAM</text></g><text x="155" y="85" text-anchor="middle" fill="#0047AB" font-size="28" font-weight="900" font-family="sans-serif">×</text><text x="155" y="108" text-anchor="middle" fill="#555" font-size="9" font-family="sans-serif">12+ pcs</text></svg>`
-    }
+    { id:'dtf-tee', name:'DTF Custom T-Shirts', desc:'Gildan 5000 · AA 1301 · Bella+Canvas 3001. Full-color print, soft feel. No minimums. Starts at $20.', price:'From $20 · No Minimum', type:'dtf-tee',
+      svg:`<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="160" fill="#111"/><path d="M60 40 L30 65 L50 72 L50 130 L150 130 L150 72 L170 65 L140 40 Q120 30 100 30 Q80 30 60 40Z" fill="#1a3a6e" stroke="#0047AB" stroke-width="1.5"/><rect x="72" y="68" width="56" height="44" rx="3" fill="#0047AB" opacity="0.6"/><text x="100" y="95" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" font-family="sans-serif">MCW</text></svg>` },
+    { id:'vinyl', name:'Specialty Vinyl & HTV', desc:'Flock, brick, chrome, glitter, puff, glow & more. Bold textured finishes. Starts at $8.', price:'From $8', type:'vinyl',
+      svg:`<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="160" fill="#111"/><polygon points="100,30 160,80 140,130 60,130 40,80" fill="none" stroke="#0047AB" stroke-width="2"/><polygon points="100,42 148,82 132,122 68,122 52,82" fill="#0047AB" opacity="0.3"/><circle cx="100" cy="85" r="22" fill="#0047AB" opacity="0.7"/><text x="100" y="90" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">HTV</text></svg>` },
+    { id:'transfer', name:'DTF Gang Sheets', desc:'Ready-to-press transfers printed at 12.5" wide. No minimums. From $10 per sheet.', price:'From $10 · No Minimum', type:'gang',
+      svg:`<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="160" fill="#111"/><rect x="35" y="30" width="130" height="100" rx="5" fill="#161616" stroke="#2a2a2a" stroke-width="1.5"/><rect x="45" y="40" width="110" height="80" rx="3" fill="#0d2147"/><rect x="55" y="48" width="80" height="12" rx="2" fill="#0047AB" opacity="0.8"/><rect x="55" y="66" width="55" height="8" rx="2" fill="#0047AB" opacity="0.5"/><rect x="55" y="79" width="70" height="8" rx="2" fill="#0047AB" opacity="0.4"/><text x="100" y="146" text-anchor="middle" fill="#555" font-size="7" font-family="sans-serif">12.5" WIDE · READY TO PRESS</text></svg>` },
+    { id:'team', name:'Team & Bulk Orders', desc:'Teams, schools, businesses, military. Mix sizes & colors. Names/numbers. Min 12 pcs.', price:'From $18/ea · 12 pc min', type:'team',
+      svg:`<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="160" fill="#111"/><g transform="translate(0,15)"><path d="M50 50 L30 65 L42 70 L42 110 L90 110 L90 70 L102 65 L82 50 Q70 43 61 43 Q52 43 50 50Z" fill="#1a3a6e" stroke="#0047AB" stroke-width="1" opacity="0.5"/><path d="M65 45 L45 60 L57 65 L57 105 L105 105 L105 65 L117 60 L97 45 Q85 38 76 38 Q67 38 65 45Z" fill="#1a3a6e" stroke="#0047AB" stroke-width="1" opacity="0.75"/><path d="M80 40 L60 55 L72 60 L72 100 L120 100 L120 60 L132 55 L112 40 Q100 33 91 33 Q82 33 80 40Z" fill="#1a3a6e" stroke="#0047AB" stroke-width="1.5"/><text x="96" y="76" text-anchor="middle" fill="#0047AB" font-size="9" font-weight="bold" font-family="sans-serif">TEAM</text></g><text x="155" y="85" text-anchor="middle" fill="#0047AB" font-size="28" font-weight="900" font-family="sans-serif">×</text><text x="155" y="108" text-anchor="middle" fill="#555" font-size="9" font-family="sans-serif">12+ pcs</text></svg>` }
   ];
 
-  // ── COLOR DATA ──
+  // ── COLORS ──
   const GILDAN_COLORS = [
-    { name: 'White', hex: '#FFFFFF' }, { name: 'Black', hex: '#0a0a0a' },
-    { name: 'Navy', hex: '#1B2A4A' }, { name: 'Royal', hex: '#1F4F9E' },
-    { name: 'Cardinal Red', hex: '#8B0000' }, { name: 'Red', hex: '#CC1122' },
-    { name: 'Forest Green', hex: '#1A4A1A' }, { name: 'Military Green', hex: '#4A5A30' },
-    { name: 'Charcoal', hex: '#3C3C3C' }, { name: 'Sport Grey', hex: '#9A9A9A' },
-    { name: 'Ash Grey', hex: '#C8C8C8' }, { name: 'Light Blue', hex: '#6EB0D4' },
-    { name: 'Carolina Blue', hex: '#4F8FC0' }, { name: 'Purple', hex: '#5B2D8E' },
-    { name: 'Maroon', hex: '#6B1020' }, { name: 'Orange', hex: '#D4611A' },
-    { name: 'Gold', hex: '#C8A030' }, { name: 'Safety Green', hex: '#88CC00' },
-    { name: 'Safety Orange', hex: '#FF6600' }, { name: 'Antique Cherry', hex: '#A03040' },
-    { name: 'Azalea', hex: '#D46080' }, { name: 'Cornsilk', hex: '#F0E8C0' },
-    { name: 'Daisy', hex: '#F0D030' }, { name: 'Mint Green', hex: '#80D0A0' },
+    {name:'White',hex:'#FFFFFF'},{name:'Black',hex:'#0a0a0a'},{name:'Navy',hex:'#1B2A4A'},{name:'Royal',hex:'#1F4F9E'},
+    {name:'Cardinal Red',hex:'#8B0000'},{name:'Red',hex:'#CC1122'},{name:'Forest Green',hex:'#1A4A1A'},{name:'Military Green',hex:'#4A5A30'},
+    {name:'Charcoal',hex:'#3C3C3C'},{name:'Sport Grey',hex:'#9A9A9A'},{name:'Ash Grey',hex:'#C8C8C8'},{name:'Light Blue',hex:'#6EB0D4'},
+    {name:'Carolina Blue',hex:'#4F8FC0'},{name:'Purple',hex:'#5B2D8E'},{name:'Maroon',hex:'#6B1020'},{name:'Orange',hex:'#D4611A'},
+    {name:'Gold',hex:'#C8A030'},{name:'Safety Green',hex:'#88CC00'},{name:'Safety Orange',hex:'#FF6600'},{name:'Antique Cherry',hex:'#A03040'},
+    {name:'Azalea',hex:'#D46080'},{name:'Cornsilk',hex:'#F0E8C0'},{name:'Daisy',hex:'#F0D030'},{name:'Mint Green',hex:'#80D0A0'},
   ];
   const AA_COLORS = [
-    { name: 'White', hex: '#FFFFFF' }, { name: 'Black', hex: '#0a0a0a' },
-    { name: 'Navy', hex: '#1C2B4A' }, { name: 'True Royal', hex: '#2050A0' },
-    { name: 'Red', hex: '#C41230' }, { name: 'Cranberry', hex: '#8C1A38' },
-    { name: 'Forest', hex: '#1F4A28' }, { name: 'Army', hex: '#4A5030' },
-    { name: 'Asphalt', hex: '#3C3C40' }, { name: 'Heather Grey', hex: '#A0A0A8' },
-    { name: 'Silver', hex: '#C0C0C0' }, { name: 'Sky', hex: '#70B8D8' },
-    { name: 'Athletic Grey', hex: '#888890' }, { name: 'Storm', hex: '#506070' },
-    { name: 'Purple', hex: '#5A2C8C' }, { name: 'Camo', hex: '#6A7050' },
-    { name: 'Brown', hex: '#5A3820' }, { name: 'Mauve', hex: '#C08090' },
-    { name: 'Natural', hex: '#E8DCC8' }, { name: 'Tan', hex: '#C8A870' },
+    {name:'White',hex:'#FFFFFF'},{name:'Black',hex:'#0a0a0a'},{name:'Navy',hex:'#1C2B4A'},{name:'True Royal',hex:'#2050A0'},
+    {name:'Red',hex:'#C41230'},{name:'Cranberry',hex:'#8C1A38'},{name:'Forest',hex:'#1F4A28'},{name:'Army',hex:'#4A5030'},
+    {name:'Asphalt',hex:'#3C3C40'},{name:'Heather Grey',hex:'#A0A0A8'},{name:'Silver',hex:'#C0C0C0'},{name:'Sky',hex:'#70B8D8'},
+    {name:'Athletic Grey',hex:'#888890'},{name:'Storm',hex:'#506070'},{name:'Purple',hex:'#5A2C8C'},{name:'Camo',hex:'#6A7050'},
+    {name:'Brown',hex:'#5A3820'},{name:'Mauve',hex:'#C08090'},{name:'Natural',hex:'#E8DCC8'},{name:'Tan',hex:'#C8A870'},
   ];
   const BC_COLORS = [
-    { name: 'White', hex: '#FFFFFF' }, { name: 'Black', hex: '#0a0a0a' },
-    { name: 'Navy', hex: '#1A2848' }, { name: 'True Royal', hex: '#1E4C9A' },
-    { name: 'Red', hex: '#C01228' }, { name: 'Cardinal', hex: '#881020' },
-    { name: 'Forest', hex: '#1C4826' }, { name: 'Military Green', hex: '#485030' },
-    { name: 'Charcoal', hex: '#3A3A3A' }, { name: 'Dark Grey', hex: '#505050' },
-    { name: 'Athletic Heather', hex: '#A8A8B0' }, { name: 'Silver', hex: '#C4C4C4' },
-    { name: 'Baby Blue', hex: '#88C0DC' }, { name: 'Columbia Blue', hex: '#5898C0' },
-    { name: 'Purple', hex: '#5828A0' }, { name: 'Maroon', hex: '#6A1020' },
-    { name: 'Gold', hex: '#C4A030' }, { name: 'Orange', hex: '#D05820' },
-    { name: 'Soft Pink', hex: '#E8A8B8' }, { name: 'Natural', hex: '#E4D8C0' },
+    {name:'White',hex:'#FFFFFF'},{name:'Black',hex:'#0a0a0a'},{name:'Navy',hex:'#1A2848'},{name:'True Royal',hex:'#1E4C9A'},
+    {name:'Red',hex:'#C01228'},{name:'Cardinal',hex:'#881020'},{name:'Forest',hex:'#1C4826'},{name:'Military Green',hex:'#485030'},
+    {name:'Charcoal',hex:'#3A3A3A'},{name:'Dark Grey',hex:'#505050'},{name:'Athletic Heather',hex:'#A8A8B0'},{name:'Silver',hex:'#C4C4C4'},
+    {name:'Baby Blue',hex:'#88C0DC'},{name:'Columbia Blue',hex:'#5898C0'},{name:'Purple',hex:'#5828A0'},{name:'Maroon',hex:'#6A1020'},
+    {name:'Gold',hex:'#C4A030'},{name:'Orange',hex:'#D05820'},{name:'Soft Pink',hex:'#E8A8B8'},{name:'Natural',hex:'#E4D8C0'},
   ];
 
-  // ── State ──
+  // ── STATE ──
   let cart = [];
   let selectedSwatchIdx = 0;
-  let selectedLocs = { front: true, back: false, sleeve: false, pocket: false };
+  let selectedSwatchHex = '#f5f5f5';
+  let selectedLocs = {back:false, sleeve:false, pocket:false};
+  let selectedPlacementKey = 'front-full';
+  let selectedPrintSizeW = 10;
+  let selectedPrintSizeH = 12;
   let uploadedFileBase64 = null;
   let uploadedFileName = '';
+  let mockupView = 'front';
+  let designImg = null;
 
-  // ── Render Products ──
+  // ── RENDER PRODUCTS ──
   function renderProducts() {
-    ['featuredGrid', 'shopGrid'].forEach(id => {
-      const g = document.getElementById(id);
-      if (!g) return;
+    ['featuredGrid','shopGrid'].forEach(id => {
+      const g = document.getElementById(id); if (!g) return;
       g.innerHTML = PRODUCTS.map(p => `
         <div class="product-card" onclick="openOrderForm('${p.type}')">
           <div class="product-thumb">${p.svg}</div>
@@ -810,352 +857,445 @@
     });
   }
 
-  // ── Pages ──
+  // ── PAGES ──
   function showPage(name) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-    document.getElementById('page-' + name).classList.add('active');
-    const nav = document.getElementById('nav-' + name);
-    if (nav) nav.classList.add('active');
-    window.scrollTo(0, 0);
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+    document.getElementById('page-'+name).classList.add('active');
+    const nav=document.getElementById('nav-'+name); if(nav) nav.classList.add('active');
+    window.scrollTo(0,0);
     document.getElementById('navLinks').classList.remove('open');
     return false;
   }
-  function toggleMobileMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+  function toggleMobileMenu(){document.getElementById('navLinks').classList.toggle('open');}
 
-  // ── Color Swatches ──
+  // ── SWATCHES ──
   function renderGarmentSwatches() {
     const garment = document.getElementById('orderGarment')?.value || 'gildan';
-    const colors = garment === 'aa' ? AA_COLORS : garment === 'bc' ? BC_COLORS : GILDAN_COLORS;
+    const colors = garment==='aa'?AA_COLORS:garment==='bc'?BC_COLORS:GILDAN_COLORS;
     const grid = document.getElementById('swatchGrid');
     selectedSwatchIdx = 0;
-    grid.innerHTML = colors.map((c, i) => `
+    selectedSwatchHex = colors[0].hex === '#FFFFFF' ? '#f5f5f5' : colors[0].hex;
+    grid.innerHTML = colors.map((c,i)=>`
       <div class="swatch ${i===0?'selected':''}"
-        style="background:${c.hex};${c.hex==='#FFFFFF'?'border-color:#444;':''}"
-        title="${c.name}" onclick="selectSwatch(this,${i},'${c.name}')">
+        style="background:${c.hex};${c.hex==='#FFFFFF'?'border-color:#555;':''}"
+        title="${c.name}" onclick="selectSwatch(this,${i},'${c.hex}','${c.name.replace(/'/g,'`')}')">
       </div>`).join('');
     document.getElementById('swatchName').textContent = colors[0].name;
+    renderMockup();
   }
-  function selectSwatch(el, idx, name) {
-    document.querySelectorAll('#swatchGrid .swatch').forEach(s => s.classList.remove('selected'));
+  function selectSwatch(el, idx, hex, name) {
+    document.querySelectorAll('#swatchGrid .swatch').forEach(s=>s.classList.remove('selected'));
     el.classList.add('selected');
     selectedSwatchIdx = idx;
+    selectedSwatchHex = hex === '#FFFFFF' ? '#f5f5f5' : hex;
     document.getElementById('swatchName').textContent = name;
+    renderMockup();
   }
 
-  // ── Location Toggles ──
+  // ── PLACEMENT ──
+  function selectPlacement(el) {
+    document.querySelectorAll('#placementChips .placement-chip').forEach(c=>c.classList.remove('active'));
+    el.classList.add('active');
+    selectedPlacementKey = el.dataset.loc;
+    if (selectedPlacementKey==='back-full') setMockupViewSilent('back');
+    else setMockupViewSilent('front');
+    renderMockup();
+    updateModalPrice();
+  }
+
+  // ── PRINT SIZE ──
+  function selectPrintSize(el) {
+    document.querySelectorAll('#printSizeChips .size-chip').forEach(c=>c.classList.remove('active'));
+    el.classList.add('active');
+    selectedPrintSizeW = parseFloat(el.dataset.w);
+    selectedPrintSizeH = parseFloat(el.dataset.h);
+    renderMockup();
+  }
+
+  // ── LOCATION TOGGLES ──
   function toggleLoc(el, loc) {
-    if (loc === 'front') return;
     el.classList.toggle('active');
     selectedLocs[loc] = el.classList.contains('active');
     updateModalPrice();
   }
   function toggleCalcLoc(el) {
-    if (el.textContent.trim() === 'Front') return;
-    el.classList.toggle('active');
-    updateCalc();
+    if (el.textContent.trim()==='Front') return;
+    el.classList.toggle('active'); updateCalc();
   }
 
-  // ── File Upload ──
+  // ── MOCKUP VIEW TABS ──
+  function setMockupView(side, tabEl) {
+    document.querySelectorAll('.mockup-tab').forEach(t=>t.classList.remove('active'));
+    tabEl.classList.add('active');
+    mockupView = side; renderMockup();
+  }
+  function setMockupViewSilent(side) {
+    mockupView = side;
+    document.querySelectorAll('.mockup-tab').forEach(t=>{
+      t.classList.toggle('active', t.textContent.trim().toLowerCase()===side);
+    });
+  }
+
+  // ── SHIRT DRAWING ENGINE ──
+  function drawShirt(ctx, color, view, W, H) {
+    ctx.clearRect(0,0,W,H);
+    // dark bg
+    ctx.fillStyle='#111'; ctx.fillRect(0,0,W,H);
+
+    const c = (color==='#FFFFFF'||color==='#ffffff') ? '#f0f0f0' : color;
+    // shadow
+    ctx.save();
+    ctx.shadowColor='rgba(0,0,0,0.4)'; ctx.shadowBlur=18; ctx.shadowOffsetY=6;
+    ctx.fillStyle=c; ctx.strokeStyle='rgba(0,0,0,0.22)'; ctx.lineWidth=1.5;
+
+    if (view==='front') {
+      // Body
+      ctx.beginPath();
+      ctx.moveTo(W*.22,H*.17); ctx.lineTo(W*.04,H*.33); ctx.lineTo(W*.17,H*.39);
+      ctx.lineTo(W*.17,H*.93); ctx.lineTo(W*.83,H*.93); ctx.lineTo(W*.83,H*.39);
+      ctx.lineTo(W*.96,H*.33); ctx.lineTo(W*.78,H*.17);
+      ctx.bezierCurveTo(W*.68,H*.11,W*.32,H*.11,W*.22,H*.17);
+      ctx.closePath(); ctx.fill(); ctx.shadowBlur=0; ctx.stroke();
+
+      // Sleeves
+      ctx.beginPath(); ctx.moveTo(W*.22,H*.17); ctx.lineTo(W*.04,H*.33); ctx.lineTo(W*.17,H*.39); ctx.lineTo(W*.28,H*.22); ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(W*.78,H*.17); ctx.lineTo(W*.96,H*.33); ctx.lineTo(W*.83,H*.39); ctx.lineTo(W*.72,H*.22); ctx.closePath(); ctx.fill(); ctx.stroke();
+
+      // Subtle shirt shading
+      ctx.save();
+      const grad = ctx.createLinearGradient(W*.17,0,W*.83,0);
+      grad.addColorStop(0,'rgba(0,0,0,0.12)'); grad.addColorStop(0.35,'rgba(0,0,0,0)');
+      grad.addColorStop(0.65,'rgba(0,0,0,0)'); grad.addColorStop(1,'rgba(0,0,0,0.12)');
+      ctx.fillStyle=grad;
+      ctx.beginPath(); ctx.moveTo(W*.17,H*.39); ctx.lineTo(W*.17,H*.93); ctx.lineTo(W*.83,H*.93); ctx.lineTo(W*.83,H*.39); ctx.closePath(); ctx.fill();
+      ctx.restore();
+
+      // Collar
+      ctx.beginPath(); ctx.arc(W*.5,H*.185,W*.095,Math.PI*0.05,Math.PI*0.95); ctx.strokeStyle='rgba(0,0,0,0.18)'; ctx.lineWidth=2; ctx.stroke();
+      // Seams
+      ctx.setLineDash([2,4]); ctx.strokeStyle='rgba(0,0,0,0.1)'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(W*.5,H*.2); ctx.lineTo(W*.5,H*.93); ctx.stroke();
+      ctx.setLineDash([]);
+    } else {
+      ctx.beginPath();
+      ctx.moveTo(W*.22,H*.13); ctx.lineTo(W*.04,H*.29); ctx.lineTo(W*.17,H*.35);
+      ctx.lineTo(W*.17,H*.93); ctx.lineTo(W*.83,H*.93); ctx.lineTo(W*.83,H*.35);
+      ctx.lineTo(W*.96,H*.29); ctx.lineTo(W*.78,H*.13);
+      ctx.bezierCurveTo(W*.68,H*.08,W*.32,H*.08,W*.22,H*.13);
+      ctx.closePath(); ctx.fill(); ctx.shadowBlur=0; ctx.stroke();
+
+      ctx.beginPath(); ctx.moveTo(W*.22,H*.13); ctx.lineTo(W*.04,H*.29); ctx.lineTo(W*.17,H*.35); ctx.lineTo(W*.28,H*.19); ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(W*.78,H*.13); ctx.lineTo(W*.96,H*.29); ctx.lineTo(W*.83,H*.35); ctx.lineTo(W*.72,H*.19); ctx.closePath(); ctx.fill(); ctx.stroke();
+
+      ctx.save();
+      const grad2 = ctx.createLinearGradient(W*.17,0,W*.83,0);
+      grad2.addColorStop(0,'rgba(0,0,0,0.1)'); grad2.addColorStop(0.5,'rgba(0,0,0,0)'); grad2.addColorStop(1,'rgba(0,0,0,0.1)');
+      ctx.fillStyle=grad2;
+      ctx.beginPath(); ctx.moveTo(W*.17,H*.35); ctx.lineTo(W*.17,H*.93); ctx.lineTo(W*.83,H*.93); ctx.lineTo(W*.83,H*.35); ctx.closePath(); ctx.fill();
+      ctx.restore();
+
+      // Back neck tag area
+      ctx.beginPath(); ctx.arc(W*.5,H*.145,W*.09,Math.PI*0.05,Math.PI*0.95); ctx.strokeStyle='rgba(0,0,0,0.15)'; ctx.lineWidth=2; ctx.stroke();
+      ctx.setLineDash([2,4]); ctx.strokeStyle='rgba(0,0,0,0.1)'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(W*.5,H*.16); ctx.lineTo(W*.5,H*.93); ctx.stroke();
+      ctx.setLineDash([]);
+    }
+    ctx.restore();
+  }
+
+  // Returns pixel rect {x,y,w,h} for design placement
+  function getPlacementZone(placementKey, printW, printH, CW, CH) {
+    const view = mockupView;
+    const shirtL=CW*.18, shirtR=CW*.82, shirtT=CH*.19, shirtB=CH*.92;
+    const shirtW=shirtR-shirtL, shirtH=shirtB-shirtT;
+    const pxPerInch = shirtW / 20; // ~20" shirt width
+    const pw = Math.min(printW*pxPerInch, shirtW*0.88);
+    const ph = Math.min(printH*pxPerInch, shirtH*0.78);
+    let cx, cy;
+    switch(placementKey) {
+      case 'front-full':  cx=CW*.5;  cy=shirtT+shirtH*.44; break;
+      case 'front-chest': cx=CW*.375; cy=shirtT+shirtH*.21; break;
+      case 'back-full':   cx=CW*.5;  cy=shirtT+shirtH*.40; break;
+      case 'sleeve':      cx=CW*.135; cy=CH*.30; break;
+      default:            cx=CW*.5;  cy=shirtT+shirtH*.44;
+    }
+    return {x:cx-pw/2, y:cy-ph/2, w:pw, h:ph};
+  }
+
+  function renderMockup() {
+    const canvas = document.getElementById('mockupCanvas'); if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const W=canvas.width, H=canvas.height;
+    drawShirt(ctx, selectedSwatchHex, mockupView, W, H);
+    const noDesignEl = document.getElementById('mockupNoDesign');
+
+    if (!designImg) {
+      if (noDesignEl) noDesignEl.style.display='flex';
+      // Draw dashed placement hint
+      const zone = getPlacementZone(selectedPlacementKey, selectedPrintSizeW, selectedPrintSizeH, W, H);
+      ctx.save();
+      ctx.setLineDash([4,4]);
+      ctx.strokeStyle='rgba(0,71,171,0.55)';
+      ctx.lineWidth=1.5;
+      ctx.strokeRect(zone.x,zone.y,zone.w,zone.h);
+      ctx.setLineDash([]);
+      ctx.fillStyle='rgba(0,71,171,0.06)';
+      ctx.fillRect(zone.x,zone.y,zone.w,zone.h);
+      // Label inside zone
+      ctx.fillStyle='rgba(0,71,171,0.5)';
+      ctx.font=`${Math.max(9,zone.w/12)}px sans-serif`;
+      ctx.textAlign='center';
+      ctx.fillText('Design area', zone.x+zone.w/2, zone.y+zone.h/2);
+      ctx.restore();
+      return;
+    }
+    if (noDesignEl) noDesignEl.style.display='none';
+
+    const onFront = mockupView==='front' && (selectedPlacementKey==='front-full'||selectedPlacementKey==='front-chest'||selectedPlacementKey==='sleeve');
+    const onBack  = mockupView==='back'  && selectedPlacementKey==='back-full';
+    if (onFront||onBack) {
+      const zone = getPlacementZone(selectedPlacementKey, selectedPrintSizeW, selectedPrintSizeH, W, H);
+      ctx.save();
+      // Slight multiply blend for realism
+      ctx.globalAlpha=0.93;
+      ctx.drawImage(designImg, zone.x, zone.y, zone.w, zone.h);
+      ctx.restore();
+      // Selection border
+      ctx.save();
+      ctx.setLineDash([3,3]);
+      ctx.strokeStyle='rgba(0,71,171,0.7)';
+      ctx.lineWidth=1.2;
+      ctx.strokeRect(zone.x,zone.y,zone.w,zone.h);
+      ctx.setLineDash([]);
+      ctx.restore();
+    } else {
+      // Design is on other side
+      ctx.save();
+      ctx.fillStyle='rgba(200,200,200,0.18)';
+      ctx.font='11px sans-serif'; ctx.textAlign='center';
+      ctx.fillText('Design on '+(mockupView==='front'?'back':'front')+' view', W/2, H*.55);
+      ctx.restore();
+    }
+  }
+
+  // ── FILE UPLOAD ──
   function handleFileUpload(input) {
-    const file = input.files[0];
-    if (!file) return;
-    if (file.size > 10 * 1024 * 1024) { alert('File too large. Max 10MB.'); return; }
+    const file = input.files[0]; if (!file) return;
+    if (file.size>10*1024*1024){alert('File too large. Max 10MB.');return;}
     uploadedFileName = file.name;
     document.getElementById('uploadZone').classList.add('has-file');
-    document.getElementById('uploadFileName').textContent = file.name;
-    // Show preview for images
     if (file.type.startsWith('image/')) {
       const reader = new FileReader();
       reader.onload = e => {
         uploadedFileBase64 = e.target.result;
-        document.getElementById('uploadPreviewImg').src = e.target.result;
-        document.getElementById('uploadPreview').style.display = 'block';
-        document.querySelector('.upload-icon').textContent = '✅';
-        document.querySelector('.upload-text').innerHTML = '<strong>' + file.name + '</strong>';
+        designImg = new Image();
+        designImg.onload = () => renderMockup();
+        designImg.src = e.target.result;
+        document.getElementById('uploadPreview').style.display='block';
+        document.getElementById('uploadFileName').textContent='✅ '+file.name;
+        document.querySelector('.upload-icon').textContent='✅';
+        document.querySelector('.upload-text').innerHTML='<strong>'+file.name+'</strong>';
       };
       reader.readAsDataURL(file);
     } else {
-      // Non-image file — show name only
-      uploadedFileBase64 = null;
-      document.getElementById('uploadPreview').style.display = 'block';
-      document.getElementById('uploadPreviewImg').style.display = 'none';
-      document.getElementById('uploadFileName').textContent = '📄 ' + file.name + ' (attached)';
-      document.querySelector('.upload-icon').textContent = '✅';
-      document.querySelector('.upload-text').innerHTML = '<strong>' + file.name + '</strong>';
+      uploadedFileBase64=null;
+      document.getElementById('uploadPreview').style.display='block';
+      document.getElementById('uploadFileName').textContent='📄 '+file.name+' (attached)';
+      document.querySelector('.upload-icon').textContent='✅';
+      document.querySelector('.upload-text').innerHTML='<strong>'+file.name+'</strong>';
     }
   }
   function clearUpload() {
-    uploadedFileBase64 = null;
-    uploadedFileName = '';
-    document.getElementById('designFile').value = '';
-    document.getElementById('uploadPreview').style.display = 'none';
-    document.getElementById('uploadPreviewImg').src = '';
-    document.getElementById('uploadPreviewImg').style.display = '';
+    uploadedFileBase64=null; uploadedFileName=''; designImg=null;
+    document.getElementById('designFile').value='';
+    document.getElementById('uploadPreview').style.display='none';
     document.getElementById('uploadZone').classList.remove('has-file');
-    document.querySelector('.upload-icon').textContent = '🖼️';
-    document.querySelector('.upload-text').innerHTML = 'Drop your file here or <strong>click to browse</strong>';
+    document.querySelector('.upload-icon').textContent='🖼️';
+    document.querySelector('.upload-text').innerHTML='Drop your file here or <strong>click to browse</strong>';
+    renderMockup();
   }
 
-  // ── Order Form ──
+  // ── ORDER FORM ──
   function openOrderForm(type) {
-    const productSelect = document.getElementById('orderProduct');
-    const typeMap = { 'dtf-tee': 'dtf-tee', 'vinyl': 'vinyl', 'gang': 'gang', 'transfer': 'gang', 'team': 'team' };
-    productSelect.value = typeMap[type] || 'dtf-tee';
+    const ps=document.getElementById('orderProduct');
+    ps.value={'dtf-tee':'dtf-tee','vinyl':'vinyl','gang':'gang','transfer':'gang','team':'team'}[type]||'dtf-tee';
     switchModalProduct();
-    document.getElementById('orderFormContent').style.display = '';
-    document.getElementById('orderSuccess').style.display = 'none';
-    document.getElementById('submitBtn').disabled = false;
-    document.getElementById('submitBtn').textContent = 'Send Order Request';
+    document.getElementById('orderFormContent').style.display='';
+    document.getElementById('orderSuccess').style.display='none';
+    document.getElementById('submitBtn').disabled=false;
+    document.getElementById('submitBtn').textContent='Send Order Request';
     clearUpload();
     document.getElementById('orderModal').classList.add('open');
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow='hidden';
   }
   function closeOrderForm() {
     document.getElementById('orderModal').classList.remove('open');
-    document.body.style.overflow = '';
+    document.body.style.overflow='';
   }
   function switchModalProduct() {
-    const val = document.getElementById('orderProduct').value;
-    document.getElementById('teeFields').style.display  = val === 'dtf-tee' ? '' : 'none';
-    document.getElementById('gangFields').style.display = val === 'gang' ? '' : 'none';
-    document.getElementById('vinylFields').style.display = val === 'vinyl' ? '' : 'none';
-    document.getElementById('teamFields').style.display = val === 'team' ? '' : 'none';
-    const labels = { 'dtf-tee': 'DTF T-Shirt', 'vinyl': 'Specialty Vinyl / HTV', 'gang': 'DTF Gang Sheet / Transfer', 'team': 'Team / Bulk Order' };
-    document.getElementById('modalProductBadge').textContent = labels[val] || 'Order';
-    selectedLocs = { front: true, back: false, sleeve: false, pocket: false };
-    document.querySelectorAll('#modalLocations .loc-toggle').forEach((el, i) => el.classList.toggle('active', i === 0));
-    if (val === 'dtf-tee') renderGarmentSwatches();
+    const val=document.getElementById('orderProduct').value;
+    document.getElementById('teeFields').style.display  =val==='dtf-tee'?'':'none';
+    document.getElementById('gangFields').style.display =val==='gang'?'':'none';
+    document.getElementById('vinylFields').style.display=val==='vinyl'?'':'none';
+    document.getElementById('teamFields').style.display =val==='team'?'':'none';
+    const labels={'dtf-tee':'DTF T-Shirt','vinyl':'Specialty Vinyl / HTV','gang':'DTF Gang Sheet / Transfer','team':'Team / Bulk Order'};
+    document.getElementById('modalProductBadge').textContent=labels[val]||'Order';
+    selectedLocs={back:false,sleeve:false,pocket:false};
+    document.querySelectorAll('#modalLocations .loc-toggle').forEach(el=>el.classList.remove('active'));
+    if (val==='dtf-tee'){renderGarmentSwatches();renderMockup();}
     updateModalPrice();
   }
 
-  // ── Pricing Logic ──
+  // ── PRICING: $20/$25 flat for 1–11, then breaks at 12+ and 24+ ──
   function getTeePrice(garment, qty) {
-    // Gildan: 1=$20, 2-4=$22, 5-11=$20, 12-23=$19, 24+=$18
-    // AA/BC:  1=$25, 2-4=$28, 5-11=$26, 12-23=$24, 24+=$22
-    const g = { 1: 20, 4: 22, 11: 20, 23: 19, 99999: 18 };
-    const p = { 1: 25, 4: 28, 11: 26, 23: 24, 99999: 22 };
-    const tiers = garment === 'gildan' || garment === 'customer' ? g : p;
-    if (qty >= 24) return tiers[99999];
-    if (qty >= 12) return tiers[23];
-    if (qty >= 5)  return tiers[11];
-    if (qty >= 2)  return tiers[4];
-    return tiers[1];
+    const g = garment==='gildan'||garment==='customer';
+    if (qty>=24) return g?18:22;
+    if (qty>=12) return g?19:24;
+    return g?20:25;
   }
+  function getPlacementAddon(k) { return k==='back-full'?5:0; }
 
   function updateModalPrice() {
-    const product = document.getElementById('orderProduct').value;
-    let total = 0;
-    if (product === 'dtf-tee') {
-      const garment = document.getElementById('orderGarment').value;
-      const qty = parseInt(document.getElementById('orderQty').value) || 1;
-      let base = getTeePrice(garment, qty);
-      let addons = 0;
-      if (selectedLocs.back)   addons += 5;
-      if (selectedLocs.sleeve) addons += 3;
-      if (selectedLocs.pocket) addons += 2;
-      total = (base + addons) * qty;
-    } else if (product === 'gang') {
-      const size = document.getElementById('orderGangSize').value;
-      const qty = parseInt(document.getElementById('orderGangQty').value) || 1;
-      const midPrices = { sm: 12, md: 16, lg: 21.5, xl: 30 };
-      total = (midPrices[size] || 12) * qty;
-    } else if (product === 'vinyl') {
-      const vtype = document.getElementById('orderVinylType').value;
-      const qty = parseInt(document.getElementById('orderVinylQty').value) || 1;
-      const vp = { std1: 10, std2: 16, specialty: 20, names: 7.5 };
-      total = (vp[vtype] || 10) * qty;
-    } else if (product === 'team') {
-      const garment = document.getElementById('orderTeamGarment').value;
-      const qty = parseInt(document.getElementById('orderTeamQty').value) || 12;
-      const hasNames = document.getElementById('orderTeamNames').value === 'yes';
-      if (qty >= 100 && garment === 'gildan') {
-        document.getElementById('modalPrice').textContent = 'Call for quote';
-        return;
-      }
-      let base;
-      if (garment === 'gildan' || garment === 'customer') {
-        base = qty >= 48 ? 16 : qty >= 24 ? 17 : 18;
-      } else {
-        base = qty >= 48 ? 22 : qty >= 24 ? 24 : 26;
-      }
-      const nameAddon = hasNames ? (qty >= 48 ? 2.5 : 3) : 0;
-      total = (base + nameAddon) * qty;
+    const product=document.getElementById('orderProduct').value;
+    let total=0;
+    if (product==='dtf-tee') {
+      const garment=document.getElementById('orderGarment').value;
+      const qty=parseInt(document.getElementById('orderQty').value)||1;
+      const base=getTeePrice(garment,qty);
+      let addons=getPlacementAddon(selectedPlacementKey);
+      if(selectedLocs.back)   addons+=5;
+      if(selectedLocs.sleeve) addons+=3;
+      if(selectedLocs.pocket) addons+=2;
+      total=(base+addons)*qty;
+    } else if (product==='gang') {
+      const size=document.getElementById('orderGangSize').value;
+      const qty=parseInt(document.getElementById('orderGangQty').value)||1;
+      total=({sm:12,md:16,lg:21.5,xl:30}[size]||12)*qty;
+    } else if (product==='vinyl') {
+      const vtype=document.getElementById('orderVinylType').value;
+      const qty=parseInt(document.getElementById('orderVinylQty').value)||1;
+      total=({std1:10,std2:16,specialty:20,names:7.5}[vtype]||10)*qty;
+    } else if (product==='team') {
+      const garment=document.getElementById('orderTeamGarment').value;
+      const qty=parseInt(document.getElementById('orderTeamQty').value)||12;
+      const hasNames=document.getElementById('orderTeamNames').value==='yes';
+      if(qty>=100&&garment==='gildan'){document.getElementById('modalPrice').textContent='Call for quote';return;}
+      const g=garment==='gildan'||garment==='customer';
+      const base=g?(qty>=48?16:qty>=24?17:18):(qty>=48?22:qty>=24?24:26);
+      total=(base+(hasNames?(qty>=48?2.5:3):0))*qty;
     }
-    document.getElementById('modalPrice').textContent = '$' + total.toFixed(2);
+    document.getElementById('modalPrice').textContent='$'+total.toFixed(2);
   }
 
-  // ── Submit Order via EmailJS ──
+  // ── SUBMIT ──
   function submitOrder() {
-    const name    = document.getElementById('orderName').value.trim();
-    const contact = document.getElementById('orderContact').value.trim();
-    const notes   = document.getElementById('orderNotes').value.trim();
-    if (!name || !contact || !notes) {
-      alert('Please fill in your name, contact info, and design details.');
-      return;
+    const name=document.getElementById('orderName').value.trim();
+    const contact=document.getElementById('orderContact').value.trim();
+    const notes=document.getElementById('orderNotes').value.trim();
+    if(!name||!contact||!notes){alert('Please fill in your name, contact info, and design details.');return;}
+    const product=document.getElementById('orderProduct').value;
+    const productLabels={'dtf-tee':'DTF T-Shirt','vinyl':'Specialty Vinyl / HTV','gang':'DTF Gang Sheet','team':'Team / Bulk Order'};
+    const email=document.getElementById('orderEmail').value.trim();
+    const gNames={gildan:'Gildan 5000',aa:'American Apparel 1301',bc:'Bella+Canvas 3001',customer:'Customer Supplied'};
+    let details='';
+    if (product==='dtf-tee') {
+      const garment=document.getElementById('orderGarment').value;
+      const qty=document.getElementById('orderQty').value;
+      const colors=garment==='aa'?AA_COLORS:garment==='bc'?BC_COLORS:GILDAN_COLORS;
+      const color=colors[selectedSwatchIdx]?.name||'Not selected';
+      const pLabels={'front-full':'Full Front','front-chest':'Left Chest','back-full':'Full Back','sleeve':'Sleeve'};
+      const chip=document.querySelector('#printSizeChips .size-chip.active');
+      const sz=chip?chip.textContent.trim():'';
+      const addl=Object.entries(selectedLocs).filter(([,v])=>v).map(([k])=>k).join(', ')||'none';
+      details=`Garment: ${gNames[garment]} | Qty: ${qty} | Color: ${color} | Placement: ${pLabels[selectedPlacementKey]} | Size: ${sz} | Additional: ${addl}`;
+    } else if (product==='gang') {
+      const se=document.getElementById('orderGangSize');
+      details=`Sheet: ${se.options[se.selectedIndex].text} | Qty: ${document.getElementById('orderGangQty').value}`;
+    } else if (product==='vinyl') {
+      const ve=document.getElementById('orderVinylType'); const me=document.getElementById('orderVinylMaterial');
+      details=`Type: ${ve.options[ve.selectedIndex].text} | Material: ${me.value?me.options[me.selectedIndex].text:'N/A'} | Qty: ${document.getElementById('orderVinylQty').value}`;
+    } else if (product==='team') {
+      const g=document.getElementById('orderTeamGarment').value; const ne=document.getElementById('orderTeamNames');
+      details=`Garment: ${gNames[g]} | Qty: ${document.getElementById('orderTeamQty').value} | ${ne.options[ne.selectedIndex].text}`;
     }
-    const product = document.getElementById('orderProduct').value;
-    const productLabels = { 'dtf-tee': 'DTF T-Shirt', 'vinyl': 'Specialty Vinyl / HTV', 'gang': 'DTF Gang Sheet / Transfer', 'team': 'Team / Bulk Order' };
-    const estimatedPrice = document.getElementById('modalPrice').textContent;
-    const email = document.getElementById('orderEmail').value.trim();
-
-    // Build order detail string
-    let details = '';
-    const garmentNames = { gildan: 'Gildan 5000', aa: 'American Apparel 1301', bc: 'Bella+Canvas 3001', customer: 'Customer Supplied' };
-    if (product === 'dtf-tee') {
-      const garment = document.getElementById('orderGarment').value;
-      const qty = document.getElementById('orderQty').value;
-      const garmentColors = garment === 'aa' ? AA_COLORS : garment === 'bc' ? BC_COLORS : GILDAN_COLORS;
-      const color = garmentColors[selectedSwatchIdx]?.name || 'Not selected';
-      const locs = Object.entries(selectedLocs).filter(([,v])=>v).map(([k])=>k).join(', ');
-      details = `Garment: ${garmentNames[garment] || garment} | Qty: ${qty} | Color: ${color} | Print Locations: ${locs}`;
-    } else if (product === 'gang') {
-      const sizeEl = document.getElementById('orderGangSize');
-      const size = sizeEl.options[sizeEl.selectedIndex].text;
-      const qty = document.getElementById('orderGangQty').value;
-      details = `Sheet Size: ${size} | Qty: ${qty} sheets`;
-    } else if (product === 'vinyl') {
-      const vtEl = document.getElementById('orderVinylType');
-      const matEl = document.getElementById('orderVinylMaterial');
-      const vtype = vtEl.options[vtEl.selectedIndex].text;
-      const material = matEl.value ? matEl.options[matEl.selectedIndex].text : 'N/A';
-      const qty = document.getElementById('orderVinylQty').value;
-      details = `Type: ${vtype} | Material: ${material} | Qty: ${qty} garments`;
-    } else if (product === 'team') {
-      const garment = document.getElementById('orderTeamGarment').value;
-      const qty = document.getElementById('orderTeamQty').value;
-      const namesEl = document.getElementById('orderTeamNames');
-      const names = namesEl.options[namesEl.selectedIndex].text;
-      details = `Garment: ${garmentNames[garment] || garment} | Qty: ${qty} | Names/Numbers: ${names}`;
-    }
-
-    const btn = document.getElementById('submitBtn');
-    btn.textContent = 'SENDING...';
-    btn.disabled = true;
-
-    const templateParams = {
-      customer_name:    name,
-      customer_contact: contact,
-      customer_email:   email || 'Not provided',
-      product_type:     productLabels[product] || product,
-      order_details:    details,
-      design_notes:     notes,
-      estimated_price:  estimatedPrice,
-      file_attached:    uploadedFileName ? 'Yes — ' + uploadedFileName : 'No file uploaded',
-    };
-
-    emailjs.send('service_c2s99tf', 'template_afxz4is', templateParams)
-      .then(() => {
-        document.getElementById('orderFormContent').style.display = 'none';
-        document.getElementById('orderSuccess').style.display = 'block';
-      })
-      .catch(err => {
-        console.error('EmailJS error:', err);
-        btn.textContent = 'Send Order Request';
-        btn.disabled = false;
-        alert('Something went wrong. Please DM us @midcity.wrld or text (801) 410-0490.');
-      });
+    const btn=document.getElementById('submitBtn');
+    btn.textContent='SENDING...'; btn.disabled=true;
+    emailjs.send('service_c2s99tf','template_afxz4is',{
+      customer_name:name, customer_contact:contact, customer_email:email||'Not provided',
+      product_type:productLabels[product]||product, order_details:details, design_notes:notes,
+      estimated_price:document.getElementById('modalPrice').textContent,
+      file_attached:uploadedFileName?'Yes — '+uploadedFileName:'No file uploaded',
+    }).then(()=>{
+      document.getElementById('orderFormContent').style.display='none';
+      document.getElementById('orderSuccess').style.display='block';
+    }).catch(err=>{
+      console.error('EmailJS:',err); btn.textContent='Send Order Request'; btn.disabled=false;
+      alert('Something went wrong. Please DM us @midcity.wrld or text (801) 410-0490.');
+    });
   }
 
-  // ── Quick Quote Calculator ──
+  // ── QUICK QUOTE ──
   function updateCalc() {
-    const product = document.getElementById('calcProduct').value;
-    const qty = parseInt(document.getElementById('calcQty').value) || 1;
-    const locRow = document.getElementById('calcLocRow');
-    let total = 0, note = '';
-
+    const product=document.getElementById('calcProduct').value;
+    const qty=parseInt(document.getElementById('calcQty').value)||1;
+    const locRow=document.getElementById('calcLocRow');
+    let total=0,note='';
     if (product.startsWith('dtf-tee')) {
-      locRow.style.display = '';
-      const garment = product === 'dtf-tee-aa' ? 'aa' : product === 'dtf-tee-bc' ? 'bc' : 'gildan';
-      const garmentLabel = product === 'dtf-tee-aa' ? 'AA 1301' : product === 'dtf-tee-bc' ? 'Bella+Canvas' : 'Gildan 5000';
-      const base = getTeePrice(garment, qty);
-      let addons = 0;
-      document.querySelectorAll('#calcLocations .loc-toggle.active').forEach(el => {
-        if (el.textContent.includes('Back'))   addons += 5;
-        if (el.textContent.includes('Sleeve')) addons += 3;
-        if (el.textContent.includes('Pocket')) addons += 2;
+      locRow.style.display='';
+      const garment=product==='dtf-tee-aa'?'aa':product==='dtf-tee-bc'?'bc':'gildan';
+      const label=product==='dtf-tee-aa'?'AA 1301':product==='dtf-tee-bc'?'Bella+Canvas':'Gildan 5000';
+      const base=getTeePrice(garment,qty);
+      let addons=0;
+      document.querySelectorAll('#calcLocations .loc-toggle.active').forEach(el=>{
+        if(el.textContent.includes('Back'))   addons+=5;
+        if(el.textContent.includes('Sleeve')) addons+=3;
+        if(el.textContent.includes('Pocket')) addons+=2;
       });
-      total = (base + addons) * qty;
-      note = `${qty} shirt${qty>1?'s':''} × $${base+addons} ea · ${garmentLabel}`;
+      total=(base+addons)*qty;
+      note=`${qty} shirt${qty>1?'s':''} × $${base+addons} ea · ${label}`;
     } else if (product.startsWith('gang')) {
-      locRow.style.display = 'none';
-      const midPrices = { 'gang-sm': 12, 'gang-md': 16, 'gang-lg': 21.5, 'gang-xl': 30 };
-      const labels = { 'gang-sm': '12.5"×12"', 'gang-md': '12.5"×17.5"', 'gang-lg': '12.5"×24"', 'gang-xl': '12.5"×35"' };
-      const mid = midPrices[product] || 12;
-      total = mid * qty;
-      note = `${qty} sheet${qty>1?'s':''} · ${labels[product]} · est. midpoint`;
-    } else if (product === 'vinyl-std') {
-      locRow.style.display = 'none';
-      total = 10 * qty;
-      note = `${qty} garment${qty>1?'s':''} × ~$10 ea — standard HTV`;
-    } else if (product === 'vinyl-specialty') {
-      locRow.style.display = 'none';
-      total = 20 * qty;
-      note = `${qty} garment${qty>1?'s':''} × ~$20 ea — specialty HTV`;
+      locRow.style.display='none';
+      const mid={'gang-sm':12,'gang-md':16,'gang-lg':21.5,'gang-xl':30}[product]||12;
+      const lbl={'gang-sm':'12.5"×12"','gang-md':'12.5"×17.5"','gang-lg':'12.5"×24"','gang-xl':'12.5"×35"'}[product];
+      total=mid*qty; note=`${qty} sheet${qty>1?'s':''} · ${lbl}`;
+    } else if (product==='vinyl-std') {
+      locRow.style.display='none'; total=10*qty; note=`${qty} garment${qty>1?'s':''} × ~$10 ea`;
+    } else if (product==='vinyl-specialty') {
+      locRow.style.display='none'; total=20*qty; note=`${qty} garment${qty>1?'s':''} × ~$20 ea specialty`;
     }
-    document.getElementById('calcPrice').textContent = total % 1 === 0 ? '$' + total : '~$' + total.toFixed(0);
-    document.getElementById('calcNote').textContent = note;
+    document.getElementById('calcPrice').textContent='$'+(Number.isInteger(total)?total:total.toFixed(0));
+    document.getElementById('calcNote').textContent=note;
   }
-  function openOrderFromCalc() {
-    const product = document.getElementById('calcProduct').value;
-    let type = 'dtf-tee';
-    if (product.startsWith('dtf-tee'))  type = 'dtf-tee';
-    else if (product.startsWith('gang')) type = 'gang';
-    else if (product.startsWith('vinyl')) type = 'vinyl';
-    openOrderForm(type);
+  function openOrderFromCalc(){
+    const p=document.getElementById('calcProduct').value;
+    openOrderForm(p.startsWith('dtf-tee')?'dtf-tee':p.startsWith('gang')?'gang':p.startsWith('vinyl')?'vinyl':'dtf-tee');
   }
 
-  // ── Cart ──
-  function toggleCart() {
-    const d = document.getElementById('cartDrawer');
-    d.classList.toggle('open');
-    document.getElementById('cartBg').classList.toggle('open');
-    document.body.style.overflow = d.classList.contains('open') ? 'hidden' : '';
+  // ── CART ──
+  function toggleCart(){
+    const d=document.getElementById('cartDrawer');
+    d.classList.toggle('open'); document.getElementById('cartBg').classList.toggle('open');
+    document.body.style.overflow=d.classList.contains('open')?'hidden':'';
   }
-  function renderCart() {
-    const container = document.getElementById('cartItems');
-    const count = document.getElementById('cartCount');
-    const total = document.getElementById('cartTotal');
-    if (cart.length === 0) {
-      container.innerHTML = '<div class="cart-empty">Your cart is empty.<br><br>Add items from the shop.</div>';
-      count.style.display = 'none';
-      total.textContent = '$0.00';
-      return;
-    }
-    count.textContent = cart.length;
-    count.style.display = 'flex';
-    const sum = cart.reduce((a, i) => a + (i.price||0), 0);
-    total.textContent = '$' + sum.toFixed(2);
-    container.innerHTML = cart.map((item, i) => `
-      <div class="cart-item">
-        <div class="cart-item-info">
-          <div class="cart-item-name">${item.name}</div>
-          <div class="cart-item-detail">${item.detail}</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:0.5rem;">
-          <span class="cart-item-price">$${(item.price||0).toFixed(2)}</span>
-          <span class="cart-item-remove" onclick="removeFromCart(${i})">×</span>
-        </div>
-      </div>`).join('');
+  function renderCart(){
+    const container=document.getElementById('cartItems'),count=document.getElementById('cartCount'),total=document.getElementById('cartTotal');
+    if(!cart.length){container.innerHTML='<div class="cart-empty">Your cart is empty.<br><br>Add items from the shop.</div>';count.style.display='none';total.textContent='$0.00';return;}
+    count.textContent=cart.length; count.style.display='flex';
+    const sum=cart.reduce((a,i)=>a+(i.price||0),0); total.textContent='$'+sum.toFixed(2);
+    container.innerHTML=cart.map((item,i)=>`<div class="cart-item"><div class="cart-item-info"><div class="cart-item-name">${item.name}</div><div class="cart-item-detail">${item.detail}</div></div><div style="display:flex;align-items:center;gap:0.5rem;"><span class="cart-item-price">$${(item.price||0).toFixed(2)}</span><span class="cart-item-remove" onclick="removeFromCart(${i})">×</span></div></div>`).join('');
   }
-  function removeFromCart(idx) { cart.splice(idx,1); renderCart(); }
-  function checkoutCart() {
-    if (!cart.length) return;
-    const summary = cart.map(i => `${i.name}: ${i.detail}`).join('\n');
-    openOrderForm('dtf-tee');
-    document.getElementById('orderNotes').value = 'Cart items:\n' + summary;
-    toggleCart();
-  }
+  function removeFromCart(idx){cart.splice(idx,1);renderCart();}
+  function checkoutCart(){if(!cart.length)return;const s=cart.map(i=>`${i.name}: ${i.detail}`).join('\n');openOrderForm('dtf-tee');document.getElementById('orderNotes').value='Cart items:\n'+s;toggleCart();}
 
-  // ── Init ──
+  // ── INIT ──
   document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
     renderGarmentSwatches();
     updateCalc();
     updateModalPrice();
-    document.getElementById('orderModal').addEventListener('click', function(e) {
-      if (e.target === this) closeOrderForm();
-    });
+    renderMockup();
+    document.getElementById('orderModal').addEventListener('click', function(e){if(e.target===this)closeOrderForm();});
   });
 </script>
 </body>
